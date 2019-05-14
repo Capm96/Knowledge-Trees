@@ -41,11 +41,11 @@
             // 
             this.welcomeLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.welcomeLabel.AutoSize = true;
-            this.welcomeLabel.Font = new System.Drawing.Font("Segoe UI Light", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.welcomeLabel.Font = new System.Drawing.Font("Segoe UI Light", 28F, System.Drawing.FontStyle.Bold);
             this.welcomeLabel.ForeColor = System.Drawing.Color.Gray;
-            this.welcomeLabel.Location = new System.Drawing.Point(268, 28);
+            this.welcomeLabel.Location = new System.Drawing.Point(12, 19);
             this.welcomeLabel.Name = "welcomeLabel";
-            this.welcomeLabel.Size = new System.Drawing.Size(298, 50);
+            this.welcomeLabel.Size = new System.Drawing.Size(375, 62);
             this.welcomeLabel.TabIndex = 0;
             this.welcomeLabel.Text = "<Welcome Text>";
             this.welcomeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -54,11 +54,11 @@
             // 
             this.leafCountText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.leafCountText.AutoSize = true;
-            this.leafCountText.Font = new System.Drawing.Font("Segoe UI Light", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.leafCountText.Font = new System.Drawing.Font("Segoe UI Light", 18F);
             this.leafCountText.ForeColor = System.Drawing.Color.Gray;
-            this.leafCountText.Location = new System.Drawing.Point(652, 279);
+            this.leafCountText.Location = new System.Drawing.Point(12, 151);
             this.leafCountText.Name = "leafCountText";
-            this.leafCountText.Size = new System.Drawing.Size(181, 38);
+            this.leafCountText.Size = new System.Drawing.Size(193, 41);
             this.leafCountText.TabIndex = 2;
             this.leafCountText.Text = "<Leaf Count>";
             // 
@@ -66,12 +66,12 @@
             // 
             this.niceMessageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.niceMessageLabel.AutoSize = true;
-            this.niceMessageLabel.Font = new System.Drawing.Font("Segoe UI Light", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.niceMessageLabel.Font = new System.Drawing.Font("Segoe UI Light", 18F);
             this.niceMessageLabel.ForeColor = System.Drawing.Color.Gray;
-            this.niceMessageLabel.Location = new System.Drawing.Point(652, 362);
+            this.niceMessageLabel.Location = new System.Drawing.Point(12, 271);
             this.niceMessageLabel.MaximumSize = new System.Drawing.Size(300, 0);
             this.niceMessageLabel.Name = "niceMessageLabel";
-            this.niceMessageLabel.Size = new System.Drawing.Size(211, 38);
+            this.niceMessageLabel.Size = new System.Drawing.Size(225, 41);
             this.niceMessageLabel.TabIndex = 5;
             this.niceMessageLabel.Text = "<nice message>";
             // 
@@ -80,7 +80,7 @@
             this.treePicture.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.treePicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.treePicture.Image = ((System.Drawing.Image)(resources.GetObject("treePicture.Image")));
-            this.treePicture.Location = new System.Drawing.Point(12, 100);
+            this.treePicture.Location = new System.Drawing.Point(394, 99);
             this.treePicture.Name = "treePicture";
             this.treePicture.Size = new System.Drawing.Size(600, 600);
             this.treePicture.TabIndex = 10;
@@ -89,15 +89,15 @@
             // returnToDashboardButton
             // 
             this.returnToDashboardButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.returnToDashboardButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.returnToDashboardButton.FlatAppearance.BorderColor = System.Drawing.Color.Green;
+            this.returnToDashboardButton.BackColor = System.Drawing.Color.ForestGreen;
+            this.returnToDashboardButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
             this.returnToDashboardButton.FlatAppearance.BorderSize = 2;
             this.returnToDashboardButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.returnToDashboardButton.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.returnToDashboardButton.ForeColor = System.Drawing.Color.Black;
-            this.returnToDashboardButton.Location = new System.Drawing.Point(659, 636);
+            this.returnToDashboardButton.Font = new System.Drawing.Font("Segoe UI", 18F);
+            this.returnToDashboardButton.ForeColor = System.Drawing.Color.White;
+            this.returnToDashboardButton.Location = new System.Drawing.Point(12, 625);
             this.returnToDashboardButton.Name = "returnToDashboardButton";
-            this.returnToDashboardButton.Size = new System.Drawing.Size(307, 64);
+            this.returnToDashboardButton.Size = new System.Drawing.Size(357, 64);
             this.returnToDashboardButton.TabIndex = 11;
             this.returnToDashboardButton.Text = "Return to Dashboard";
             this.returnToDashboardButton.UseVisualStyleBackColor = false;

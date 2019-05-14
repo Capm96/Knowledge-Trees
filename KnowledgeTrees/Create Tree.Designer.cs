@@ -55,12 +55,12 @@
             // 
             // createNewTreeButton
             // 
-            this.createNewTreeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.createNewTreeButton.FlatAppearance.BorderColor = System.Drawing.Color.Green;
+            this.createNewTreeButton.BackColor = System.Drawing.Color.ForestGreen;
+            this.createNewTreeButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
             this.createNewTreeButton.FlatAppearance.BorderSize = 2;
             this.createNewTreeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.createNewTreeButton.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.createNewTreeButton.ForeColor = System.Drawing.Color.Black;
+            this.createNewTreeButton.Font = new System.Drawing.Font("Segoe UI", 18F);
+            this.createNewTreeButton.ForeColor = System.Drawing.Color.White;
             this.createNewTreeButton.Location = new System.Drawing.Point(21, 95);
             this.createNewTreeButton.Name = "createNewTreeButton";
             this.createNewTreeButton.Size = new System.Drawing.Size(559, 64);

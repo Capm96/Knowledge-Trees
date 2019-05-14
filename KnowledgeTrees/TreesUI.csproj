@@ -257,5 +257,8 @@
     <EmbeddedResource Include="Tree Images\98.jpg" />
     <EmbeddedResource Include="Tree Images\99.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tree Images\icon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

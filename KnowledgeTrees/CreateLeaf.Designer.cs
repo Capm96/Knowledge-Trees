@@ -36,12 +36,12 @@
             // 
             // createNewLeafButton
             // 
-            this.createNewLeafButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.createNewLeafButton.FlatAppearance.BorderColor = System.Drawing.Color.Green;
+            this.createNewLeafButton.BackColor = System.Drawing.Color.ForestGreen;
+            this.createNewLeafButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
             this.createNewLeafButton.FlatAppearance.BorderSize = 2;
             this.createNewLeafButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.createNewLeafButton.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.createNewLeafButton.ForeColor = System.Drawing.Color.Black;
+            this.createNewLeafButton.Font = new System.Drawing.Font("Segoe UI", 18F);
+            this.createNewLeafButton.ForeColor = System.Drawing.Color.White;
             this.createNewLeafButton.Location = new System.Drawing.Point(21, 94);
             this.createNewLeafButton.Name = "createNewLeafButton";
             this.createNewLeafButton.Size = new System.Drawing.Size(559, 64);

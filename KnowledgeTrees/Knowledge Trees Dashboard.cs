@@ -34,6 +34,7 @@ namespace KnowledgeTrees
             }
 
             treesListBox.DataSource = allTreeNames;
+            treesListBox.HorizontalScrollbar = true;
         }
 
         public void WireUpLeavesList()
