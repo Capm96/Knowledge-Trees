@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,8 +58,12 @@ namespace KnowledgeTrees
         }
 
         private void DisplayTreePicture()
-        {   
-            Image i = Image.FromFile(GlobalConfig.imagesFolderPath + $@"\{leavesCount}.jpg");
+        {
+            Assembly myAssembly = Assembly.GetExecutingAssembly();
+            Stream myStream = myAssembly.GetManifestResourceStream($@"KnowledgeTrees.Tree_Images.{leavesCount}.jpg");
+            var bmp = new Bitmap(myStream);
+
+            Image i = bmp;
             treePicture.Image = i;
         }
 
