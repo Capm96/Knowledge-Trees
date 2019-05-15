@@ -8,7 +8,7 @@ namespace KnowledgeTrees
 {
     public static class Validator
     {
-        public static bool IsLowerCaseVersionEquals(string a, string b)
+        public static bool IsLowerCaseVersionEquals(string a, string b) // We want our names to be case-insensitive.
         {
             return a.ToUpper().Equals(b.ToUpper());
         }
