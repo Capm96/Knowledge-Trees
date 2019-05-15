@@ -14,7 +14,7 @@ namespace TreesLibrary
             return $@"{ baseDirectory }\{ treeName }";
         }
 
-        public static string GetFullLeafName(string currentLeafName)
+        public static string GetFullLeafName(string currentLeafName) // Adds in .rtf extension.
         {
             string output = String.Concat(currentLeafName, ".rtf");
             return output;
