@@ -14,20 +14,18 @@ namespace KnowledgeTrees
     public partial class leafEditor : Form
     {
         knowledgeTreesDashboard callingDashboard;
-
-        string fullLeafName; // including .rtf extension.
-        string leafName;
+        string fullLeafName; // Including .rtf extension.
+        string leafName; // Not including .rtf extension.
         string treeName;
 
         public leafEditor(knowledgeTreesDashboard dashboard, string nameOfLeaf, string nameOfTree)
         {
             InitializeComponent();
 
-            treeName = nameOfTree;
-            leafName = nameOfLeaf;
-            fullLeafName = FolderLogic.GetFullLeafName(nameOfLeaf);
-
             callingDashboard = dashboard;
+            fullLeafName = FolderLogic.GetFullLeafName(nameOfLeaf);
+            leafName = nameOfLeaf;
+            treeName = nameOfTree;
 
             DisplayWelcomeTextMessage();
             DisplayLeafAndTreeNamesInTitle();
@@ -40,7 +38,8 @@ namespace KnowledgeTrees
 
         private void saveLeafButton_Click(object sender, EventArgs e)
         {
-            textControl1.Save(GlobalConfig.currentPath + $@"\{treeName}\{fullLeafName}", TXTextControl.StreamType.RichTextFormat);
+            textControl1.Save(GlobalConfig.currentWorkingPath + $@"\{treeName}\{fullLeafName}", TXTextControl.StreamType.RichTextFormat);
+
             MessageBox.Show($"The {leafName} Leaf has been saved. You may exit if you wish.", "Save Successful");
 
             callingDashboard.WireUpLeavesList();
@@ -48,7 +47,8 @@ namespace KnowledgeTrees
 
         public void LoadExistingLeaf(string treePath, string leafName)
         {
-            textControl1.Load(GlobalConfig.currentPath + $@"\{treeName}\{fullLeafName}", TXTextControl.StreamType.RichTextFormat);
+            textControl1.Load(GlobalConfig.currentWorkingPath + $@"\{treeName}\{fullLeafName}", TXTextControl.StreamType.RichTextFormat);
+
             this.Show();
         }
 

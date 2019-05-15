@@ -14,7 +14,7 @@ namespace TreesLibrary.Tests
         [InlineData('a', true)]
         [InlineData('z', true)]
         [InlineData('f', true)]
-        [InlineData(' ', true)] // We accept spaces as true values because trees/leave names might be larger than one word.
+        [InlineData(' ', true)] 
         [InlineData('!', false)]
         [InlineData('-', false)]
         [InlineData('.', false)]

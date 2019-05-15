@@ -28,7 +28,6 @@ namespace TreesLibrary.Tests
             string leafName = $@"leaf";
             string expected = $@"leaf.rtf";
 
-
             string actual = FolderLogic.GetFullLeafName(leafName);
 
             Assert.Equal(expected, actual);

@@ -16,8 +16,8 @@ namespace KnowledgeTrees
     public partial class treeView : Form
     {
         knowledgeTreesDashboard callingDashboard;
-        string treeName;
         int leavesCount;
+        string treeName;
 
         public treeView(knowledgeTreesDashboard dashboard, string NameOfTree)
         {
@@ -25,6 +25,7 @@ namespace KnowledgeTrees
 
             callingDashboard = dashboard;
             treeName = NameOfTree;
+
             leavesCount = GetLeafCount();
             niceMessageLabel.Text = DisplayNiceMessage();
 
@@ -35,7 +36,7 @@ namespace KnowledgeTrees
 
         private int GetLeafCount()
         {
-            string[] output = FolderLogic.GetAllLeafNames(FolderLogic.GetFullTreePath(GlobalConfig.currentPath, treeName));
+            string[] output = FolderLogic.GetAllLeafNames(FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treeName));
 
             return output.Length;
         }
@@ -44,27 +45,29 @@ namespace KnowledgeTrees
         {
             if (leavesCount == 1)
             {
-                leafCountText.Text = $"So far, your tree has {leavesCount} leaf in it.";
+                // Returns singular "Leaf" in our text because we only have one.
+                leafCountText.Text = $"So far, your tree has {leavesCount} leaf in it."; 
             }
             else
             {
-                leafCountText.Text = $"So far, your tree has {leavesCount} leaves in it.";
+                // Else it returns "Leaves" in our text since they are plural (more than one or zero).
+                leafCountText.Text = $"So far, your tree has {leavesCount} leaves in it."; 
             }
         }
 
         private void DisplayWelcomeMessage()
         {
-            welcomeLabel.Text = $"Welcome! This is your {treeName} tree. ";
+            welcomeLabel.Text = $"Welcome! This is your {treeName} tree.";
         }
 
         private void DisplayTreePicture()
         {
             Assembly myAssembly = Assembly.GetExecutingAssembly();
-            Stream myStream = myAssembly.GetManifestResourceStream($@"KnowledgeTrees.Tree_Images.{leavesCount}.jpg");
+            Stream myStream = myAssembly.GetManifestResourceStream($@"KnowledgeTrees.Tree_Images.{leavesCount}.jpg"); // Path of where our embedded resources (images) are.
             var bmp = new Bitmap(myStream);
 
-            Image i = bmp;
-            treePicture.Image = i;
+            Image treeImage = bmp;
+            treePicture.Image = treeImage;
         }
 
         private string DisplayNiceMessage()
@@ -86,12 +89,12 @@ namespace KnowledgeTrees
                 output = " 'The important thing is to not stop questioning. Curiosity has its own reason for existing. - Albert Einstein' ";
             }
 
-            else if (leavesCount < 50 && leavesCount > 20)
+            else if (leavesCount <= 50 && leavesCount > 20)
             {
                 output = $"You are doing great! {treeName} must be second nature to you by now. Good work!";
             }
 
-            else if (leavesCount < 100 && leavesCount > 50)
+            else if (leavesCount <= 100 && leavesCount > 50)
             {
                 output = $"Have you really written over fifty leaves in your {treeName} tree? That is incredible! Excellent work. ";
             }

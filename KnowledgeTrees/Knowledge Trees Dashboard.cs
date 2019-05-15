@@ -23,14 +23,15 @@ namespace KnowledgeTrees
 
         public void WireUpTreesList()
         {
-            string[] allTreePaths = FolderLogic.GetAllTreePaths(GlobalConfig.currentPath);
-            string[] allTreeNames = FolderLogic.GetAllTreeNames(GlobalConfig.currentPath);
+            string[] allTreePaths = FolderLogic.GetAllTreePaths(GlobalConfig.currentWorkingPath);
+            string[] allTreeNames = FolderLogic.GetAllTreeNames(GlobalConfig.currentWorkingPath);
 
             GlobalConfig.trees.Clear();
 
             for (int i = 0; i < allTreePaths.Length; i++)
             {
-                GlobalConfig.trees.Add(allTreeNames[i], allTreePaths[i]); // Adds to a dictionary type the key (tree name) and value (tree path).
+                // Add to our Tree Dictionary the key (Tree name) and value (Tree path).
+                GlobalConfig.trees.Add(allTreeNames[i], allTreePaths[i]); 
             }
 
             treesListBox.DataSource = allTreeNames;
@@ -42,7 +43,7 @@ namespace KnowledgeTrees
             if (treesListBox.SelectedItem != null)
             {
                 string parentTreeName = treesListBox.SelectedItem.ToString();
-                leavesListBox.DataSource = FolderLogic.GetAllLeafNamesWithNoExtension(FolderLogic.GetFullTreePath(GlobalConfig.currentPath, parentTreeName));
+                leavesListBox.DataSource = FolderLogic.GetAllLeafNamesWithNoExtension(FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, parentTreeName));
             }
         }
 
@@ -78,7 +79,7 @@ namespace KnowledgeTrees
             {
                 leafEditor form = new leafEditor(this, leavesListBox.SelectedItem.ToString(), treesListBox.SelectedItem.ToString());
                 form.Show();
-                form.LoadExistingLeaf(GlobalConfig.currentPath + $@"\{treesListBox.SelectedItem.ToString()}", $"{leavesListBox.SelectedItem.ToString()}");
+                form.LoadExistingLeaf(GlobalConfig.currentWorkingPath + $@"\{treesListBox.SelectedItem.ToString()}", $"{leavesListBox.SelectedItem.ToString()}");
             }
         }
 
@@ -91,7 +92,7 @@ namespace KnowledgeTrees
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    FolderLogic.DeleteTree(FolderLogic.GetFullTreePath(GlobalConfig.currentPath, treesListBox.SelectedItem.ToString()));
+                    FolderLogic.DeleteTree(FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treesListBox.SelectedItem.ToString()));
 
                     WireUpTreesList();
                     WireUpLeavesList();
@@ -112,7 +113,9 @@ namespace KnowledgeTrees
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    string fullTreePath = FolderLogic.GetFullTreePath(GlobalConfig.currentPath, treesListBox.SelectedItem.ToString());
+                    // Get full path of selected Tree, the name of current selected Leaf, and create the full Leaf path
+                    // Which we will use to delete it.
+                    string fullTreePath = FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treesListBox.SelectedItem.ToString());
                     string fullLeafName = String.Concat(@"\", FolderLogic.GetFullLeafName(leavesListBox.SelectedItem.ToString()));
                     string fullLeafPath = String.Concat(fullTreePath, fullLeafName);
 
@@ -130,7 +133,8 @@ namespace KnowledgeTrees
 
         private void treesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            WireUpLeavesList(); // Updates leaves list when we move between items in tree list.
+            // Update Leaves list when we move between items in Tree list.
+            WireUpLeavesList(); 
         }
     }
 }

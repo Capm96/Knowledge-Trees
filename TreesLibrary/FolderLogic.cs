@@ -17,6 +17,7 @@ namespace TreesLibrary
         public static string GetFullLeafName(string currentLeafName) // Adds in .rtf extension.
         {
             string output = String.Concat(currentLeafName, ".rtf");
+
             return output;
         }
 
@@ -35,7 +36,7 @@ namespace TreesLibrary
             return Directory.GetFiles(treePath).Select(Path.GetFileName).ToArray();
         }
 
-        public static string[] GetAllLeafNamesWithNoExtension(string treePath)
+        public static string[] GetAllLeafNamesWithNoExtension(string treePath) // Takes out .RTF extension so we can display the names in the dashboard.
         {
             string[] output = Directory.GetFiles(treePath).Select(Path.GetFileName).ToArray();
 

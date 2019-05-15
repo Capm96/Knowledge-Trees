@@ -32,7 +32,7 @@ namespace KnowledgeTrees
             {
                 treeName = treeNameValue.Text;
 
-                FolderLogic.CreateNewTreeFolder(FolderLogic.GetFullTreePath(GlobalConfig.currentPath, treeName));
+                FolderLogic.CreateNewTreeFolder(FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treeName));
 
                 callingDashboard.WireUpTreesList();
 
@@ -50,20 +50,23 @@ namespace KnowledgeTrees
             string output = "";
             string nameToBeChecked = treeNameValue.Text.ToString();
 
-            if (treeNameValue.Text.Length == 0) // Checks if there is a name without any characters.
+            // Checks if there is a name without any characters.
+            if (treeNameValue.Text.Length == 0) 
             {
                 output = "Please enter a valid Tree name.";
             }
 
-            for (int i = 0; i < GlobalConfig.trees.Count; i++) // Checks for equal names, regardless of casing.
+            for (int i = 0; i < GlobalConfig.trees.Count; i++) 
             {
-                if (Validator.IsLowerCaseVersionEquals(treeNameValue.Text, GlobalConfig.trees.ElementAt(i).Key.ToString()))
+                // Checks for equal names, regardless of casing.
+                if (Validator.IsLowerCaseVersionEquals(treeNameValue.Text, GlobalConfig.trees.ElementAt(i).Key.ToString())) 
                 {
                     output = "This name already exists, please enter another name.";
                 }
             }
 
-            foreach (char character in nameToBeChecked) // Checks for any non-alphabetic characters.
+            // Checks for any non-alphabetic characters.
+            foreach (char character in nameToBeChecked) 
             {
                 if (Validator.IsEnglishLetter(character) == false)
                 {

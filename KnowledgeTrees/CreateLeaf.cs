@@ -16,12 +16,12 @@ namespace KnowledgeTrees
         knowledgeTreesDashboard callingDashboard;
         string parentTreeName;
 
-        public createLeafForm(knowledgeTreesDashboard dashboard, string nameOfTree)
+        public createLeafForm(knowledgeTreesDashboard dashboard, string nameOfCallingTree)
         {
             InitializeComponent();
 
             callingDashboard = dashboard;
-            parentTreeName = nameOfTree;
+            parentTreeName = nameOfCallingTree;
         }
 
         private void createNewLeafButton_Click(object sender, EventArgs e)
@@ -34,8 +34,7 @@ namespace KnowledgeTrees
                 leafName = leafNameValue.Text;
 
                 leafEditor form = new leafEditor(callingDashboard, leafName, parentTreeName);
-                form.Show();
-
+                form.Show(); // We call our Leaf Editor form immediately after creating a new Leaf.
                 this.Close();
             }
             else
@@ -49,15 +48,17 @@ namespace KnowledgeTrees
         {
             string output = "";
 
-            if (leafNameValue.Text.Length == 0) // Checks if there is a name without any characters.
+            // Checks if there is a name without any characters.
+            if (leafNameValue.Text.Length == 0) 
             {
                 output = "Please enter a valid Leaf name.";
             }
 
-            string[] currentLeafNames = FolderLogic.GetAllLeafNamesWithNoExtension(FolderLogic.GetFullTreePath(GlobalConfig.currentPath, parentTreeName));
+            string[] currentLeafNames = FolderLogic.GetAllLeafNamesWithNoExtension(FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, parentTreeName));
 
-            for (int i = 0; i < currentLeafNames.Length; i++) // Checks for equal names, regardless of casing.
+            for (int i = 0; i < currentLeafNames.Length; i++) 
             {
+                // Checks for equal names, regardless of casing.
                 if (Validator.IsLowerCaseVersionEquals(leafNameValue.Text, currentLeafNames[i].ToString()))
                 {
                     output = "This name already exists, please enter another name.";
@@ -66,7 +67,8 @@ namespace KnowledgeTrees
 
             string nameToBeChecked = leafNameValue.Text.ToString();
 
-            foreach (char character in nameToBeChecked) // Checks for any non-alphabetic characters.
+            // Checks for any non-alphabetic characters.
+            foreach (char character in nameToBeChecked) 
             {
                 if (Validator.IsEnglishLetter(character) == false)
                 {

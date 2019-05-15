@@ -19,8 +19,7 @@ namespace KnowledgeTrees
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Directory.CreateDirectory(GlobalConfig.currentPath);
-            Directory.CreateDirectory(GlobalConfig.imagesFolderPath);
+            Directory.CreateDirectory(GlobalConfig.currentWorkingPath);
 
             Application.Run(new knowledgeTreesDashboard());
         }

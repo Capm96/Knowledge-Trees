@@ -12,9 +12,7 @@ namespace TreesLibrary
     {
         public static string currentDirectory = Directory.GetCurrentDirectory();
 
-        public static string imagesFolderPath = currentDirectory + $@"\Images";
-
-        public static string currentPath = currentDirectory + $@"\Trees";
+        public static string currentWorkingPath = currentDirectory + $@"\Trees"; // Creates a path for our base folder, which will hold all of our Trees. 
 
         public static Dictionary<string, string> trees = new Dictionary<string, string>();
     }
