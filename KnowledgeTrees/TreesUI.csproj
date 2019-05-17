@@ -79,6 +79,12 @@
     <Compile Include="CreateLeaf.Designer.cs">
       <DependentUpon>CreateLeaf.cs</DependentUpon>
     </Compile>
+    <Compile Include="Credits.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Credits.Designer.cs">
+      <DependentUpon>Credits.cs</DependentUpon>
+    </Compile>
     <Compile Include="Knowledge Trees Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateLeaf.resx">
       <DependentUpon>CreateLeaf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Credits.resx">
+      <DependentUpon>Credits.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Knowledge Trees Dashboard.resx">
       <DependentUpon>Knowledge Trees Dashboard.cs</DependentUpon>

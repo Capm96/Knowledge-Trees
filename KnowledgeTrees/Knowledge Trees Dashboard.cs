@@ -178,5 +178,11 @@ namespace KnowledgeTrees
             e.Graphics.DrawString(leavesListBox.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds, StringFormat.GenericDefault);
             e.DrawFocusRectangle();
         }
+
+        private void creditsButton_Click(object sender, EventArgs e)
+        {
+            Credits form = new Credits();
+            form.Show();
+        }
     }
 }

@@ -255,6 +255,7 @@
             this.creditsButton.Text = "    Credits";
             this.creditsButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.creditsButton.UseVisualStyleBackColor = false;
+            this.creditsButton.Click += new System.EventHandler(this.creditsButton_Click);
             // 
             // knowledgeTreesDashboard
             // 
