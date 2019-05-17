@@ -93,6 +93,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Tree View.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,12 +121,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Tree View.resx">
       <DependentUpon>Tree View.cs</DependentUpon>
     </EmbeddedResource>
@@ -280,6 +280,14 @@
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tree Images\Dashboard Icons\Hose.png" />
+    <EmbeddedResource Include="Tree Images\Dashboard Icons\Leaf.png" />
+    <EmbeddedResource Include="Tree Images\Dashboard Icons\Scissors.png" />
+    <EmbeddedResource Include="Tree Images\Dashboard Icons\Sprout.png" />
+    <EmbeddedResource Include="Tree Images\Dashboard Icons\Chopping.png" />
+    <EmbeddedResource Include="Tree Images\Dashboard Icons\FullTree.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

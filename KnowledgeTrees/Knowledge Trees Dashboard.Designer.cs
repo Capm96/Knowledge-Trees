@@ -39,19 +39,25 @@
             this.leavesListBox = new System.Windows.Forms.ListBox();
             this.treesLabel = new System.Windows.Forms.Label();
             this.leavesLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.creditsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // treesListBox
             // 
+            this.treesListBox.BackColor = System.Drawing.Color.White;
+            this.treesListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.treesListBox.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treesListBox.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.treesListBox.ForeColor = System.Drawing.Color.DarkGreen;
             this.treesListBox.FormattingEnabled = true;
             this.treesListBox.HorizontalScrollbar = true;
             this.treesListBox.ItemHeight = 37;
-            this.treesListBox.Location = new System.Drawing.Point(22, 306);
+            this.treesListBox.Location = new System.Drawing.Point(196, 224);
             this.treesListBox.Name = "treesListBox";
-            this.treesListBox.Size = new System.Drawing.Size(246, 374);
+            this.treesListBox.Size = new System.Drawing.Size(320, 485);
+            this.treesListBox.Sorted = true;
             this.treesListBox.TabIndex = 0;
+            this.treesListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.treesListBox_DrawItem);
             this.treesListBox.SelectedIndexChanged += new System.EventHandler(this.treesListBox_SelectedIndexChanged);
             // 
             // viewTreeButton
@@ -60,13 +66,16 @@
             this.viewTreeButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
             this.viewTreeButton.FlatAppearance.BorderSize = 2;
             this.viewTreeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.viewTreeButton.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.viewTreeButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.viewTreeButton.ForeColor = System.Drawing.Color.Black;
-            this.viewTreeButton.Location = new System.Drawing.Point(22, 244);
+            this.viewTreeButton.Image = ((System.Drawing.Image)(resources.GetObject("viewTreeButton.Image")));
+            this.viewTreeButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.viewTreeButton.Location = new System.Drawing.Point(22, 568);
             this.viewTreeButton.Name = "viewTreeButton";
-            this.viewTreeButton.Size = new System.Drawing.Size(246, 42);
+            this.viewTreeButton.Size = new System.Drawing.Size(140, 140);
             this.viewTreeButton.TabIndex = 1;
             this.viewTreeButton.Text = "View";
+            this.viewTreeButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.viewTreeButton.UseVisualStyleBackColor = false;
             this.viewTreeButton.Click += new System.EventHandler(this.viewTreeButton_Click);
             // 
@@ -76,13 +85,16 @@
             this.removeTreeButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
             this.removeTreeButton.FlatAppearance.BorderSize = 2;
             this.removeTreeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.removeTreeButton.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.removeTreeButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.removeTreeButton.ForeColor = System.Drawing.Color.Black;
-            this.removeTreeButton.Location = new System.Drawing.Point(22, 180);
+            this.removeTreeButton.Image = ((System.Drawing.Image)(resources.GetObject("removeTreeButton.Image")));
+            this.removeTreeButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.removeTreeButton.Location = new System.Drawing.Point(22, 396);
             this.removeTreeButton.Name = "removeTreeButton";
-            this.removeTreeButton.Size = new System.Drawing.Size(246, 42);
+            this.removeTreeButton.Size = new System.Drawing.Size(140, 140);
             this.removeTreeButton.TabIndex = 2;
             this.removeTreeButton.Text = "Delete";
+            this.removeTreeButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.removeTreeButton.UseVisualStyleBackColor = false;
             this.removeTreeButton.Click += new System.EventHandler(this.removeTreeButton_Click);
             // 
@@ -92,13 +104,17 @@
             this.createTreeButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
             this.createTreeButton.FlatAppearance.BorderSize = 2;
             this.createTreeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.createTreeButton.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.createTreeButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.createTreeButton.ForeColor = System.Drawing.Color.Black;
-            this.createTreeButton.Location = new System.Drawing.Point(22, 116);
+            this.createTreeButton.Image = ((System.Drawing.Image)(resources.GetObject("createTreeButton.Image")));
+            this.createTreeButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.createTreeButton.Location = new System.Drawing.Point(22, 224);
             this.createTreeButton.Name = "createTreeButton";
-            this.createTreeButton.Size = new System.Drawing.Size(246, 42);
+            this.createTreeButton.Size = new System.Drawing.Size(140, 140);
             this.createTreeButton.TabIndex = 3;
             this.createTreeButton.Text = "Create";
+            this.createTreeButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.createTreeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.createTreeButton.UseVisualStyleBackColor = false;
             this.createTreeButton.Click += new System.EventHandler(this.createTreeButton_Click);
             // 
@@ -109,13 +125,16 @@
             this.createLeafButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
             this.createLeafButton.FlatAppearance.BorderSize = 2;
             this.createLeafButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.createLeafButton.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.createLeafButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.createLeafButton.ForeColor = System.Drawing.Color.Black;
-            this.createLeafButton.Location = new System.Drawing.Point(733, 116);
+            this.createLeafButton.Image = ((System.Drawing.Image)(resources.GetObject("createLeafButton.Image")));
+            this.createLeafButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.createLeafButton.Location = new System.Drawing.Point(737, 224);
             this.createLeafButton.Name = "createLeafButton";
-            this.createLeafButton.Size = new System.Drawing.Size(246, 42);
+            this.createLeafButton.Size = new System.Drawing.Size(140, 140);
             this.createLeafButton.TabIndex = 7;
             this.createLeafButton.Text = "Create";
+            this.createLeafButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.createLeafButton.UseVisualStyleBackColor = false;
             this.createLeafButton.Click += new System.EventHandler(this.createLeafButton_Click);
             // 
@@ -126,58 +145,68 @@
             this.removeLeafButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
             this.removeLeafButton.FlatAppearance.BorderSize = 2;
             this.removeLeafButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.removeLeafButton.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.removeLeafButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.removeLeafButton.ForeColor = System.Drawing.Color.Black;
-            this.removeLeafButton.Location = new System.Drawing.Point(733, 180);
+            this.removeLeafButton.Image = ((System.Drawing.Image)(resources.GetObject("removeLeafButton.Image")));
+            this.removeLeafButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.removeLeafButton.Location = new System.Drawing.Point(737, 396);
             this.removeLeafButton.Name = "removeLeafButton";
-            this.removeLeafButton.Size = new System.Drawing.Size(246, 42);
+            this.removeLeafButton.Size = new System.Drawing.Size(140, 140);
             this.removeLeafButton.TabIndex = 6;
             this.removeLeafButton.Text = "Delete";
+            this.removeLeafButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.removeLeafButton.UseVisualStyleBackColor = false;
             this.removeLeafButton.Click += new System.EventHandler(this.removeLeafButton_Click);
             // 
             // viewLeafButton
             // 
             this.viewLeafButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.viewLeafButton.AutoSize = true;
             this.viewLeafButton.BackColor = System.Drawing.Color.LightGreen;
             this.viewLeafButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
             this.viewLeafButton.FlatAppearance.BorderSize = 2;
             this.viewLeafButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.viewLeafButton.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.viewLeafButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.viewLeafButton.ForeColor = System.Drawing.Color.Black;
-            this.viewLeafButton.Location = new System.Drawing.Point(733, 244);
+            this.viewLeafButton.Image = ((System.Drawing.Image)(resources.GetObject("viewLeafButton.Image")));
+            this.viewLeafButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.viewLeafButton.Location = new System.Drawing.Point(737, 568);
             this.viewLeafButton.Name = "viewLeafButton";
-            this.viewLeafButton.Size = new System.Drawing.Size(246, 42);
+            this.viewLeafButton.Size = new System.Drawing.Size(140, 140);
             this.viewLeafButton.TabIndex = 5;
-            this.viewLeafButton.Text = "View";
+            this.viewLeafButton.Text = "Edit/View";
+            this.viewLeafButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.viewLeafButton.UseVisualStyleBackColor = false;
             this.viewLeafButton.Click += new System.EventHandler(this.viewLeafButton_Click);
             // 
             // leavesListBox
             // 
             this.leavesListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.leavesListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.leavesListBox.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.leavesListBox.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.leavesListBox.FormattingEnabled = true;
             this.leavesListBox.HorizontalScrollbar = true;
             this.leavesListBox.ItemHeight = 37;
-            this.leavesListBox.Location = new System.Drawing.Point(733, 306);
+            this.leavesListBox.Location = new System.Drawing.Point(910, 224);
             this.leavesListBox.Name = "leavesListBox";
-            this.leavesListBox.Size = new System.Drawing.Size(246, 374);
+            this.leavesListBox.Size = new System.Drawing.Size(320, 485);
+            this.leavesListBox.Sorted = true;
             this.leavesListBox.TabIndex = 8;
+            this.leavesListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.leavesListBox_DrawItem);
             // 
             // treesLabel
             // 
             this.treesLabel.BackColor = System.Drawing.Color.ForestGreen;
             this.treesLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.treesLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.treesLabel.Font = new System.Drawing.Font("Segoe UI", 22F);
+            this.treesLabel.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treesLabel.ForeColor = System.Drawing.Color.White;
-            this.treesLabel.Location = new System.Drawing.Point(22, 40);
+            this.treesLabel.Location = new System.Drawing.Point(22, 124);
             this.treesLabel.Name = "treesLabel";
-            this.treesLabel.Size = new System.Drawing.Size(246, 52);
+            this.treesLabel.Size = new System.Drawing.Size(493, 64);
             this.treesLabel.TabIndex = 9;
-            this.treesLabel.Text = "Trees";
+            this.treesLabel.Text = "Trees List";
             this.treesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // leavesLabel
@@ -186,14 +215,46 @@
             this.leavesLabel.BackColor = System.Drawing.Color.ForestGreen;
             this.leavesLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.leavesLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.leavesLabel.Font = new System.Drawing.Font("Segoe UI", 22F);
+            this.leavesLabel.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.leavesLabel.ForeColor = System.Drawing.Color.White;
-            this.leavesLabel.Location = new System.Drawing.Point(733, 40);
+            this.leavesLabel.Location = new System.Drawing.Point(737, 124);
             this.leavesLabel.Name = "leavesLabel";
-            this.leavesLabel.Size = new System.Drawing.Size(246, 52);
+            this.leavesLabel.Size = new System.Drawing.Size(493, 64);
             this.leavesLabel.TabIndex = 10;
-            this.leavesLabel.Text = "Leaves";
+            this.leavesLabel.Text = "Leaves List";
             this.leavesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.ForestGreen;
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 22F);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(1260, 78);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "     Knowledge Trees Dashboard";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // creditsButton
+            // 
+            this.creditsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.creditsButton.BackColor = System.Drawing.Color.DarkGray;
+            this.creditsButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.creditsButton.FlatAppearance.BorderSize = 0;
+            this.creditsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.creditsButton.Font = new System.Drawing.Font("Segoe UI", 22F);
+            this.creditsButton.ForeColor = System.Drawing.Color.White;
+            this.creditsButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.creditsButton.Location = new System.Drawing.Point(980, 0);
+            this.creditsButton.Name = "creditsButton";
+            this.creditsButton.Size = new System.Drawing.Size(280, 78);
+            this.creditsButton.TabIndex = 13;
+            this.creditsButton.Text = "    Credits";
+            this.creditsButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.creditsButton.UseVisualStyleBackColor = false;
             // 
             // knowledgeTreesDashboard
             // 
@@ -201,9 +262,10 @@
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(1, 1);
             this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1006, 721);
+            this.ClientSize = new System.Drawing.Size(1262, 753);
+            this.Controls.Add(this.creditsButton);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.leavesLabel);
             this.Controls.Add(this.treesLabel);
             this.Controls.Add(this.leavesListBox);
@@ -221,6 +283,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Knowledge Trees Dashboard";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -236,6 +299,8 @@
         private System.Windows.Forms.ListBox leavesListBox;
         public System.Windows.Forms.Label treesLabel;
         public System.Windows.Forms.Label leavesLabel;
+        public System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button creditsButton;
     }
 }
 

@@ -134,7 +134,49 @@ namespace KnowledgeTrees
         private void treesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Update Leaves list when we move between items in Tree list.
-            WireUpLeavesList(); 
+            WireUpLeavesList();
+            leavesLabel.Text = $"{treesListBox.SelectedItem.ToString()} Leaves";
+        }
+
+        private void treesListBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+            // If the item state is selected them change the back color.
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                e = new DrawItemEventArgs(e.Graphics,
+                                          new Font("Segoe UI", 16.2f, FontStyle.Bold),
+                                          e.Bounds,
+                                          e.Index,
+                                          e.State ^ DrawItemState.Selected,
+                                          e.ForeColor,
+                                          Color.LightGray); //Choose the color
+            }
+
+            // Draw the background of the ListBox control for each item.
+            e.DrawBackground();
+            // Draw the current item text.
+            e.Graphics.DrawString(treesListBox.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds, StringFormat.GenericDefault);
+            // If the ListBox has focus, draw a focus rectangle around the selected item.
+            e.DrawFocusRectangle();
+        }
+
+        private void leavesListBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+                e = new DrawItemEventArgs(e.Graphics,
+                                          new Font("Segoe UI", 16.2f, FontStyle.Bold),
+                                          e.Bounds,
+                                          e.Index,
+                                          e.State ^ DrawItemState.Selected,
+                                          e.ForeColor,
+                                          Color.LightGray); //Choose the color
+
+            e.DrawBackground();
+            e.Graphics.DrawString(leavesListBox.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds, StringFormat.GenericDefault);
+            e.DrawFocusRectangle();
         }
     }
 }
