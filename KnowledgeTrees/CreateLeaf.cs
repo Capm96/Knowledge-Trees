@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Office.Interop.Word;
+using System;
+using Word = Microsoft.Office.Interop.Word;
 using System.Windows.Forms;
 using TreesLibrary;
 
@@ -33,8 +28,29 @@ namespace KnowledgeTrees
             {
                 leafName = leafNameValue.Text;
 
-                leafEditor form = new leafEditor(callingDashboard, leafName, parentTreeName);
-                form.Show(); // We call our Leaf Editor form immediately after creating a new Leaf.
+                // Gets full leaf path.
+                string treePath = GlobalConfig.currentWorkingPath + $@"\{parentTreeName}\";
+                string leafPath = FolderLogic.GetFullLeafName(leafName);
+                string fullPath = treePath + leafPath;
+
+                // Instantiates new word document on full leaf path, and inserts default text.
+                Word.Application application = new Word.Application();
+
+                Document newLeaf = application.Documents.Add();
+
+                Range range = newLeaf.Range(0, 0);
+                range.Text = $"Welcome to your {leafName} Leaf in the {parentTreeName} Tree! Delete this message and write anything you'd like. " +
+                $"Do not forget to always hit the Save button when you are done writing. " +
+                $"One last thing: try to always use the 'Save' button instead of 'Save As'. Just to make sure your leaf is in its proper tree.";
+
+                // Saves newly created document.
+                newLeaf.SaveAs2(fullPath);
+
+                // Opens document.
+                Document wordDocument = application.Documents.Open(fullPath);
+
+                // Wires up dashboard with new leaf.
+                callingDashboard.WireUpLeavesList();
                 this.Close();
             }
             else

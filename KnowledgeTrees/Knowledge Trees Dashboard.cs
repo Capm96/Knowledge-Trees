@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Office.Interop.Word;
 using System.Windows.Forms;
 using TreesLibrary;
 
@@ -77,9 +72,15 @@ namespace KnowledgeTrees
         {
             if (leavesListBox.SelectedItem != null)
             {
-                leafEditor form = new leafEditor(this, leavesListBox.SelectedItem.ToString(), treesListBox.SelectedItem.ToString());
-                form.Show();
-                form.LoadExistingLeaf(GlobalConfig.currentWorkingPath + $@"\{treesListBox.SelectedItem.ToString()}", $"{leavesListBox.SelectedItem.ToString()}");
+                string treePath = GlobalConfig.currentWorkingPath + $@"\{treesListBox.SelectedItem.ToString()}\";
+                string leafPath = FolderLogic.GetFullLeafName(leavesListBox.SelectedItem.ToString());
+
+                string path = treePath + leafPath;
+
+                Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
+                wordApp.Visible = true;
+
+                Document wordDocument = wordApp.Documents.Open(path);
             }
         }
 
@@ -145,7 +146,7 @@ namespace KnowledgeTrees
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
             {
                 e = new DrawItemEventArgs(e.Graphics,
-                                          new Font("Segoe UI", 16.2f, FontStyle.Bold),
+                                          new System.Drawing.Font("Segoe UI", 16.2f, FontStyle.Bold),
                                           e.Bounds,
                                           e.Index,
                                           e.State ^ DrawItemState.Selected,
@@ -167,7 +168,7 @@ namespace KnowledgeTrees
 
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
                 e = new DrawItemEventArgs(e.Graphics,
-                                          new Font("Segoe UI", 16.2f, FontStyle.Bold),
+                                          new System.Drawing.Font("Segoe UI", 16.2f, FontStyle.Bold),
                                           e.Bounds,
                                           e.Index,
                                           e.State ^ DrawItemState.Selected,

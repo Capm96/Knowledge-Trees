@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TreesLibrary
 {
@@ -14,9 +12,9 @@ namespace TreesLibrary
             return $@"{ baseDirectory }\{ treeName }";
         }
 
-        public static string GetFullLeafName(string currentLeafName) // Adds in .rtf extension.
+        public static string GetFullLeafName(string currentLeafName) // Adds in .docx extension.
         {
-            string output = String.Concat(currentLeafName, ".rtf");
+            string output = String.Concat(currentLeafName, ".docx");
 
             return output;
         }
@@ -36,16 +34,21 @@ namespace TreesLibrary
             return Directory.GetFiles(treePath).Select(Path.GetFileName).ToArray();
         }
 
-        public static string[] GetAllLeafNamesWithNoExtension(string treePath) // Takes out .RTF extension so we can display the names in the dashboard.
+        public static string[] GetAllLeafNamesWithNoExtension(string treePath) // Takes out .docx extension so we can display the names in the dashboard.
         {
-            string[] output = Directory.GetFiles(treePath).Select(Path.GetFileName).ToArray();
+            string[] current = Directory.GetFiles(treePath).Select(Path.GetFileName).ToArray();
+            List<string> output = new List<string>();
 
-            for (int i = 0; i < output.Length; i++)
+            for (int i = 0; i < current.Length; i++)
             {
-                output[i] = output[i].Substring(0, output[i].Length - 4);
+                // Word documents create metafiles when they are running -- this method excludes these files from our leaves list.
+                if (current[i].Contains("~"))
+                    continue;
+
+                output.Add(current[i].Substring(0, current[i].Length - 5));
             }
 
-            return output;
+            return output.ToArray();
         }
 
         public static void CreateNewTreeFolder(string fullTreePath)

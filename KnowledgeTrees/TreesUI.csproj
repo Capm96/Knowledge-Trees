@@ -91,12 +91,6 @@
     <Compile Include="Knowledge Trees Dashboard.Designer.cs">
       <DependentUpon>Knowledge Trees Dashboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="LeafEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LeafEditor.Designer.cs">
-      <DependentUpon>LeafEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -122,9 +116,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Knowledge Trees Dashboard.resx">
       <DependentUpon>Knowledge Trees Dashboard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LeafEditor.resx">
-      <DependentUpon>LeafEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -155,7 +146,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Tree Images\0.jpg" />
+    <EmbeddedResource Include="Tree Images\Dashboard Icons\0.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Tree Images\1.jpg" />
@@ -297,6 +288,35 @@
     <EmbeddedResource Include="Tree Images\Dashboard Icons\Sprout.png" />
     <EmbeddedResource Include="Tree Images\Dashboard Icons\Chopping.png" />
     <EmbeddedResource Include="Tree Images\Dashboard Icons\FullTree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

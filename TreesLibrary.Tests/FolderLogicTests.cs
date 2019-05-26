@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TreesLibrary;
-using Xunit;
+﻿using Xunit;
 
 namespace TreesLibrary.Tests
 {
@@ -26,7 +20,7 @@ namespace TreesLibrary.Tests
         public void GetFullLeafName_ShouldWork()
         {
             string leafName = $@"leaf";
-            string expected = $@"leaf.rtf";
+            string expected = $@"leaf.docx";
 
             string actual = FolderLogic.GetFullLeafName(leafName);
 

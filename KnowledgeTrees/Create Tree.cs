@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TreesLibrary;
-using System.Configuration;
 
 namespace KnowledgeTrees
 {
@@ -20,6 +12,8 @@ namespace KnowledgeTrees
         public createTreeForm(knowledgeTreesDashboard dashboard)
         {
             InitializeComponent();
+
+            // We need to keep track of the caller dashboard so that we can update the list.
             callingDashboard = dashboard;
         }
 
