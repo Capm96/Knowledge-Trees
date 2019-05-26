@@ -41,6 +41,10 @@ namespace KnowledgeTrees
                 string parentTreeName = treesListBox.SelectedItem.ToString();
                 leavesListBox.DataSource = FolderLogic.GetAllLeafNamesWithNoExtension(FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, parentTreeName));
             }
+            if (treesListBox.SelectedItem == null)
+            {
+                leavesListBox.DataSource = null;
+            }
         }
 
         private void createTreeButton_Click(object sender, EventArgs e)
@@ -95,11 +99,18 @@ namespace KnowledgeTrees
 
                 if (confirmResult == DialogResult.Yes) // Delete tree.
                 {
-                    FolderLogic.DeleteTree(FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treesListBox.SelectedItem.ToString()));
+                    try
+                    {
+                        FolderLogic.DeleteTree(FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treesListBox.SelectedItem.ToString()));
 
-                    // Update lists.
-                    WireUpTreesList();
-                    WireUpLeavesList();
+                        // Update lists.
+                        WireUpTreesList();
+                        WireUpLeavesList();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Please close all word documents before deleting tree.", "Word Documents Open");
+                    }
                 }
                 else
                 {
