@@ -1,22 +1,17 @@
 # Knowledge-Trees
 
-I try to write most of the things I learn down. I used to do this by creating an empty folder in my desktop, and populating it with word documents. Each word document would be related to a broad topic, such as C#, and within that word document I would separate the things I wrote about through formatting.
+I try to write about the important things I learn. I used to do this by creating an empty folder in my desktop and populating it with word documents. Each word document would be related to a broad topic, such as History, and within that word document I would write everything I learned about the subject.
 
-This works well, but it can get unnecessarily burdensome to continually format & search through the documents.
+This works alright, but it can get unnecessarily burdensome to continually format, organize, and search through the documents.
 
-To that extent, I wanted to create a simple Windows desktop application that would help me better better organize my entries. The goal of this application is to just help the user quickly create and navigate through his folders (the Knowledge Trees, each representing a distinct subject) and within those folders all of the user's entries (Leaves).
+To that extent, I created a simple Windows desktop application that would help me better better organize my writings. 
 
-The current end result would look like this:
+The goal of this application is to help the user create and navigate through his Trees (each representing a distinct subject) and within those Trees, all of the user's entries on the subject (Leaves).
 
-![](Images/Screenshots/appdemo.png)
+## Download and Installation
+Please note that this is a Winforms application, and it only works on Windows desktop. You also need to have Microsoft Office installed.
 
+[Here is the link](https://github.com/Capm96/Knowledge-Trees/releases) to download it!
 
-(TODO) Here is the link to download the application: 
-
-
-
-
-
-
-
-
+## Demo
+![demo](https://user-images.githubusercontent.com/49093606/58386752-ae935500-7fda-11e9-86f1-cc2d88a74158.gif)
