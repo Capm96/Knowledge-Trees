@@ -13,18 +13,17 @@ namespace KnowledgeTrees
         {
             InitializeComponent();
 
-            // We need to keep track of the caller dashboard so that we can update the list.
+            // We need to keep track of the caller dashboard so that we can update the trees list.
             callingDashboard = dashboard;
         }
 
         private void createNewTreeButton_Click(object sender, EventArgs e)
         {
-            string treeName = "";
             string errorMessage = TreeNameValidator();
 
-            if (errorMessage.Length == 0)
+            if (errorMessage.Length == 0) // Create new tree.
             {
-                treeName = treeNameValue.Text;
+                string treeName = treeNameValue.Text;
 
                 FolderLogic.CreateNewTreeFolder(FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treeName));
 
@@ -41,7 +40,9 @@ namespace KnowledgeTrees
 
         private string TreeNameValidator()
         {
+            // Default size. If there is anything written on this string, something is wrong with the name.
             string output = "";
+
             string nameToBeChecked = treeNameValue.Text.ToString();
 
             // Checks if there is a name without any characters.

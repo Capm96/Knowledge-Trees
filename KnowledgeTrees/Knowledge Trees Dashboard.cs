@@ -12,6 +12,7 @@ namespace KnowledgeTrees
         {
             InitializeComponent();
 
+            // Populates our lists.
             WireUpTreesList();
             WireUpLeavesList();
         }
@@ -72,14 +73,14 @@ namespace KnowledgeTrees
         {
             if (leavesListBox.SelectedItem != null)
             {
+                // Gets full leaf path.
                 string treePath = GlobalConfig.currentWorkingPath + $@"\{treesListBox.SelectedItem.ToString()}\";
                 string leafPath = FolderLogic.GetFullLeafName(leavesListBox.SelectedItem.ToString());
-
                 string path = treePath + leafPath;
 
+                // Opens leaf.
                 Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
                 wordApp.Visible = true;
-
                 Document wordDocument = wordApp.Documents.Open(path);
             }
         }
@@ -88,13 +89,15 @@ namespace KnowledgeTrees
         {
             if (treesListBox.SelectedItem != null)
             {
+                // Prompt deletion message:
                 var confirmResult = MessageBox.Show($"Are you sure you want to delete {treesListBox.SelectedItem}? Every leaf in the tree will also be deleted. This cannot be undone.",
                 "Confirm Delete", MessageBoxButtons.YesNo);
 
-                if (confirmResult == DialogResult.Yes)
+                if (confirmResult == DialogResult.Yes) // Delete tree.
                 {
                     FolderLogic.DeleteTree(FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treesListBox.SelectedItem.ToString()));
 
+                    // Update lists.
                     WireUpTreesList();
                     WireUpLeavesList();
                 }
@@ -173,7 +176,7 @@ namespace KnowledgeTrees
                                           e.Index,
                                           e.State ^ DrawItemState.Selected,
                                           e.ForeColor,
-                                          Color.LightGray); //Choose the color
+                                          Color.LightGray);
 
             e.DrawBackground();
             e.Graphics.DrawString(leavesListBox.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds, StringFormat.GenericDefault);

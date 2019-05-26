@@ -34,14 +34,18 @@ namespace TreesLibrary
             return Directory.GetFiles(treePath).Select(Path.GetFileName).ToArray();
         }
 
-        public static string[] GetAllLeafNamesWithNoExtension(string treePath) // Takes out .docx extension so we can display the names in the dashboard.
+        /// <summary>
+        /// Returns all leaf names with no .docx extension, so that they can be displayed in the dashboard.
+        /// </summary>
+        public static string[] GetAllLeafNamesWithNoExtension(string treePath) 
         {
             string[] current = Directory.GetFiles(treePath).Select(Path.GetFileName).ToArray();
             List<string> output = new List<string>();
 
             for (int i = 0; i < current.Length; i++)
             {
-                // Word documents create metafiles when they are running -- this method excludes these files from our leaves list.
+                // Word documents create metafiles when they are running,
+                // this method excludes these files from our leaves list.
                 if (current[i].Contains("~"))
                     continue;
 

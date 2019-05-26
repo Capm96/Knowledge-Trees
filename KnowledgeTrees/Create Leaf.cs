@@ -15,18 +15,19 @@ namespace KnowledgeTrees
         {
             InitializeComponent();
 
+            // We need to keep track of the caller dashboard and parent tree
+            // so we can update the leaves list.
             callingDashboard = dashboard;
             parentTreeName = nameOfCallingTree;
         }
 
         private void createNewLeafButton_Click(object sender, EventArgs e)
         {
-            string leafName = "";
             string errorMessage = LeafNameValidator();
 
-            if (errorMessage.Length == 0)
+            if (errorMessage.Length == 0) // Create new leaf.
             {
-                leafName = leafNameValue.Text;
+                string leafName = leafNameValue.Text;
 
                 // Gets full leaf path.
                 string treePath = GlobalConfig.currentWorkingPath + $@"\{parentTreeName}\";
@@ -62,6 +63,7 @@ namespace KnowledgeTrees
 
         private string LeafNameValidator()
         {
+            // Default size. If there is anything written on this string, something is wrong with the name.
             string output = "";
 
             // Checks if there is a name without any characters.
