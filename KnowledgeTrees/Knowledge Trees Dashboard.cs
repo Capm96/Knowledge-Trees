@@ -71,32 +71,6 @@ namespace KnowledgeTrees
             return output;
         }
 
-        private static List<string> CheckOpenedWordDocuments()
-        {
-            List<string> documents = new List<string>();
-
-            try
-            {
-                Window objectWindow;
-                Microsoft.Office.Interop.Word.Application wordObject;
-                wordObject = (Microsoft.Office.Interop.Word.Application)Marshal.GetActiveObject("Word.Application");
-                for (int i = 0; i < wordObject.Windows.Count; i++)
-                {
-                    object a = i + 1;
-                    objectWindow = wordObject.Windows.get_Item(ref a);
-                    documents.Add(objectWindow.Document.FullName);
-                }
-                objectWindow = null;
-
-            }
-            catch
-            {
-                // No documents opened
-            }
-
-            return documents;
-        }
-
         private void createTreeButton_Click(object sender, EventArgs e)
         {
             bool isOpen = CheckIfFormIsOpen("Create New Tree");
@@ -138,18 +112,16 @@ namespace KnowledgeTrees
             }
         }
 
-        private void viewLeafButton_Click(object sender, EventArgs e) // TODO: Don't let another one open if its already.
+        private void viewLeafButton_Click(object sender, EventArgs e)
         {
-            List<string> openedWordDocuments = CheckOpenedWordDocuments();
+            List<string> openedWordDocuments = WordProcessor.CheckOpenedWordDocuments();
 
             bool isDocOpen = false;
 
             if (leavesListBox.SelectedItem != null)
             {
                 // Gets full leaf path.
-                string treePath = GlobalConfig.currentWorkingPath + $@"\{treesListBox.SelectedItem.ToString()}\";
-                string leafPath = FolderLogic.GetFullLeafName(leavesListBox.SelectedItem.ToString());
-                string path = treePath + leafPath;
+                string path = WordProcessor.GetFullLeafPath(treesListBox.SelectedItem.ToString(), leavesListBox.SelectedItem.ToString());
 
                 // Checks if current file is already open.
                 foreach (string name in openedWordDocuments)
@@ -160,36 +132,25 @@ namespace KnowledgeTrees
 
                 if (isDocOpen)
                 {
-                    MessageBox.Show($"This word document is already open", "Word Doc Already Opened");
+                    MessageBox.Show($"This leaf is already open, check your open word documents.", "Leaf Already Opened");
                     return;
                 }
-                else
+                else // Open leaf.
                 {
-                    // Opens leaf.
                     try
                     {
                         Microsoft.Office.Interop.Word.Application wordApp;
 
+                        // Instantiates a new word application if there is none.
                         if (openedWordDocuments.Count == 0)
                         {
                             wordApp = new Microsoft.Office.Interop.Word.Application();
                             wordApp.Visible = true;
                             Document wordDocument = wordApp.Documents.Open(path);
                         }
-                        else
+                        else // Opens from existing word application.
                         {
-                            wordApp = (Microsoft.Office.Interop.Word.Application)Marshal.GetActiveObject("Word.Application");
-                            object inputFile = path;
-                            object confirmConversions = false;
-                            object readOnly = false;
-                            object visible = true;
-                            object missing = Type.Missing;
-
-                            Document doc = wordApp.Documents.Open(
-                                ref inputFile, ref confirmConversions, ref readOnly, ref missing,
-                                ref missing, ref missing, ref missing, ref missing,
-                                ref missing, ref missing, ref missing, ref visible,
-                                ref missing, ref missing, ref missing, ref missing);
+                            wordApp = WordProcessor.CreateWordDocumentFromExistingInstance(path);
                         }
                     }
                     catch (IOException ex)

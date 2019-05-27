@@ -30,9 +30,7 @@ namespace KnowledgeTrees
                 string leafName = leafNameValue.Text;
 
                 // Gets full leaf path.
-                string treePath = GlobalConfig.currentWorkingPath + $@"\{parentTreeName}\";
-                string leafPath = FolderLogic.GetFullLeafName(leafName);
-                string fullPath = treePath + leafPath;
+                string path = WordProcessor.GetFullLeafPath(parentTreeName, leafName);
 
                 // Instantiates new word document on full leaf path, and inserts default text.
                 Word.Application application = new Word.Application();
@@ -45,13 +43,17 @@ namespace KnowledgeTrees
                 $"One last thing: try to always use the 'Save' button instead of 'Save As'. Just to make sure your leaf is in its proper tree.";
 
                 // Saves newly created document.
-                newLeaf.SaveAs2(fullPath);
+                newLeaf.SaveAs2(path);
 
-                // Opens document.
-                Document wordDocument = application.Documents.Open(fullPath);
+                // Closes document.
+                newLeaf.Close();
+
+                // Quits word application.
+                application.Quit();
 
                 // Wires up dashboard with new leaf.
                 callingDashboard.WireUpLeavesList();
+
                 this.Close();
             }
             else
