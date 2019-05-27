@@ -3,11 +3,18 @@ using System.Drawing;
 using Microsoft.Office.Interop.Word;
 using System.Windows.Forms;
 using TreesLibrary;
+using System.Diagnostics;
+using System.Linq;
+using System.IO;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace KnowledgeTrees
 {
     public partial class knowledgeTreesDashboard : Form
     {
+        List<string> openedWordDocuments = new List<string>();
+
         public knowledgeTreesDashboard()
         {
             InitializeComponent();
@@ -47,34 +54,96 @@ namespace KnowledgeTrees
             }
         }
 
+        private static bool CheckIfFormIsOpen(string formName)
+        {
+            bool output = false;
+
+            foreach (Form form in System.Windows.Forms.Application.OpenForms)
+            {
+                if (form.Text == formName)
+                {
+                    output = true;
+                    form.BringToFront();
+                    break;
+                }
+            }
+
+            return output;
+        }
+
+        private static List<string> CheckOpenedWordDocuments()
+        {
+            List<string> documents = new List<string>();
+
+            try
+            {
+                Window objectWindow;
+                Microsoft.Office.Interop.Word.Application wordObject;
+                wordObject = (Microsoft.Office.Interop.Word.Application)Marshal.GetActiveObject("Word.Application");
+                for (int i = 0; i < wordObject.Windows.Count; i++)
+                {
+                    object a = i + 1;
+                    objectWindow = wordObject.Windows.get_Item(ref a);
+                    documents.Add(objectWindow.Document.FullName);
+                }
+                objectWindow = null;
+
+            }
+            catch
+            {
+                // No documents opened
+            }
+
+            return documents;
+        }
+
         private void createTreeButton_Click(object sender, EventArgs e)
         {
-            createTreeForm form = new createTreeForm(this);
-            form.Show();
+            bool isOpen = CheckIfFormIsOpen("Create New Tree");
+
+            if (isOpen == false)
+            {
+                createTreeForm form = new createTreeForm(this);
+                form.Show();
+            }
         }
 
         private void createLeafButton_Click(object sender, EventArgs e)
         {
-            if (treesListBox.SelectedItem != null)
-            {
-                string selectedTreeName = treesListBox.SelectedItem.ToString();
+            bool isOpen = CheckIfFormIsOpen("Create New Leaf");
 
-                createLeafForm form = new createLeafForm(this, selectedTreeName);
-                form.Show();
+            if (isOpen == false)
+            {
+                if (treesListBox.SelectedItem != null)
+                {
+                    string selectedTreeName = treesListBox.SelectedItem.ToString();
+
+                    createLeafForm form = new createLeafForm(this, selectedTreeName);
+                    form.Show();
+                }
             }
         }
 
         private void viewTreeButton_Click(object sender, EventArgs e)
         {
-            if (treesListBox.SelectedItem != null)
+            bool isOpen = CheckIfFormIsOpen("Tree View");
+
+            if (isOpen == false)
             {
-                treeView form = new treeView(this, treesListBox.SelectedItem.ToString());
-                form.Show();
+                if (treesListBox.SelectedItem != null)
+                {
+                    treeView form = new treeView(this, treesListBox.SelectedItem.ToString());
+                    form.Show();
+                }
             }
         }
 
-        private void viewLeafButton_Click(object sender, EventArgs e)
+        private void viewLeafButton_Click(object sender, EventArgs e) // TODO: Don't let another one open if its already.
         {
+            List<string> openedWordDocuments = CheckOpenedWordDocuments();
+
+            bool isDocOpen = false;
+
             if (leavesListBox.SelectedItem != null)
             {
                 // Gets full leaf path.
@@ -82,10 +151,52 @@ namespace KnowledgeTrees
                 string leafPath = FolderLogic.GetFullLeafName(leavesListBox.SelectedItem.ToString());
                 string path = treePath + leafPath;
 
-                // Opens leaf.
-                Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
-                wordApp.Visible = true;
-                Document wordDocument = wordApp.Documents.Open(path);
+                // Checks if current file is already open.
+                foreach (string name in openedWordDocuments)
+                {
+                    if (name.Equals(path))
+                        isDocOpen = true;
+                }
+
+                if (isDocOpen)
+                {
+                    MessageBox.Show($"This word document is already open", "Word Doc Already Opened");
+                    return;
+                }
+                else
+                {
+                    // Opens leaf.
+                    try
+                    {
+                        Microsoft.Office.Interop.Word.Application wordApp;
+
+                        if (openedWordDocuments.Count == 0)
+                        {
+                            wordApp = new Microsoft.Office.Interop.Word.Application();
+                            wordApp.Visible = true;
+                            Document wordDocument = wordApp.Documents.Open(path);
+                        }
+                        else
+                        {
+                            wordApp = (Microsoft.Office.Interop.Word.Application)Marshal.GetActiveObject("Word.Application");
+                            object inputFile = path;
+                            object confirmConversions = false;
+                            object readOnly = false;
+                            object visible = true;
+                            object missing = Type.Missing;
+
+                            Document doc = wordApp.Documents.Open(
+                                ref inputFile, ref confirmConversions, ref readOnly, ref missing,
+                                ref missing, ref missing, ref missing, ref missing,
+                                ref missing, ref missing, ref missing, ref visible,
+                                ref missing, ref missing, ref missing, ref missing);
+                        }
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show($"{ex}", "Error");
+                    }
+                }
             }
         }
 
