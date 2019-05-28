@@ -58,32 +58,5 @@ namespace TreesLibrary
 
             return fullPath;
         }
-
-        public static int GetFullTreeWordCount(string treeName)
-        {
-            int treeWordCount = 0;
-
-            string treePath = FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treeName);
-
-            string[] leavesInTree = FolderLogic.GetAllLeafNamesWithNoExtension(treePath);
-
-            foreach (string leaf in leavesInTree)
-            {
-                string fullLeafPath = GetFullLeafPath(treeName, leaf);
-
-                // Open a doc file.
-                Application application = new Application();
-                Document document = application.Documents.Open(fullLeafPath);
-
-                // Get word count.
-                treeWordCount += document.Words.Count - 1;
-
-                // Close doc.
-                document.Close();
-                application.Quit();
-            }
-
-            return treeWordCount;
-        }
     }
 }

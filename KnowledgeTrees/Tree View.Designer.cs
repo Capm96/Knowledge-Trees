@@ -36,6 +36,7 @@
             this.returnToDashboardButton = new System.Windows.Forms.Button();
             this.wordCountText = new System.Windows.Forms.Label();
             this.getWordCountButton = new System.Windows.Forms.Button();
+            this.countLeavesProgressBar = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.treePicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,7 +72,7 @@
             this.niceMessageLabel.AutoSize = true;
             this.niceMessageLabel.Font = new System.Drawing.Font("Segoe UI Light", 18F);
             this.niceMessageLabel.ForeColor = System.Drawing.Color.Gray;
-            this.niceMessageLabel.Location = new System.Drawing.Point(34, 466);
+            this.niceMessageLabel.Location = new System.Drawing.Point(34, 493);
             this.niceMessageLabel.MaximumSize = new System.Drawing.Size(500, 0);
             this.niceMessageLabel.Name = "niceMessageLabel";
             this.niceMessageLabel.Size = new System.Drawing.Size(225, 41);
@@ -136,11 +137,21 @@
             this.getWordCountButton.UseVisualStyleBackColor = false;
             this.getWordCountButton.Click += new System.EventHandler(this.getWordCountButton_Click);
             // 
+            // countLeavesProgressBar
+            // 
+            this.countLeavesProgressBar.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.countLeavesProgressBar.Location = new System.Drawing.Point(272, 323);
+            this.countLeavesProgressBar.Name = "countLeavesProgressBar";
+            this.countLeavesProgressBar.Size = new System.Drawing.Size(207, 53);
+            this.countLeavesProgressBar.TabIndex = 14;
+            this.countLeavesProgressBar.Visible = false;
+            // 
             // treeView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1262, 753);
+            this.Controls.Add(this.countLeavesProgressBar);
             this.Controls.Add(this.getWordCountButton);
             this.Controls.Add(this.wordCountText);
             this.Controls.Add(this.returnToDashboardButton);
@@ -167,5 +178,6 @@
         private System.Windows.Forms.Button returnToDashboardButton;
         private System.Windows.Forms.Label wordCountText;
         private System.Windows.Forms.Button getWordCountButton;
+        private System.Windows.Forms.ProgressBar countLeavesProgressBar;
     }
 }

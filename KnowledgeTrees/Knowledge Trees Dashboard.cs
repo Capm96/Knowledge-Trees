@@ -13,7 +13,7 @@ namespace KnowledgeTrees
 {
     public partial class knowledgeTreesDashboard : Form
     {
-        List<string> openedWordDocuments = new List<string>();
+        public List<string> openedWordDocuments = new List<string>();
 
         public knowledgeTreesDashboard()
         {
