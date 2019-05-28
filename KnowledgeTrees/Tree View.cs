@@ -55,6 +55,13 @@ namespace KnowledgeTrees
             }
         }
 
+        private void DisplayWordCount()
+        {
+            string wordCount = WordProcessor.GetFullTreeWordCount(treeName).ToString();
+
+            wordCountText.Text = $"You have a total {wordCount} words in your {treeName} tree.";
+        }
+
         private void DisplayWelcomeMessage()
         {
             welcomeLabel.Text = $"Welcome! This is your {treeName} tree.";
@@ -110,6 +117,11 @@ namespace KnowledgeTrees
         private void returnToDashboardButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void getWordCountButton_Click(object sender, EventArgs e)
+        {
+            DisplayWordCount();
         }
     }
 }
