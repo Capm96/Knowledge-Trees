@@ -14,4 +14,4 @@ Please note that this is a Winforms application, and it only works on Windows de
 [Here is the link](https://github.com/Capm96/Knowledge-Trees/releases) to download it!
 
 ## Demo
-![demo](https://user-images.githubusercontent.com/49093606/58386752-ae935500-7fda-11e9-86f1-cc2d88a74158.gif)
+![demo](https://user-images.githubusercontent.com/49093606/58501701-5d5e9f00-815b-11e9-808e-8cc89ca838e9.gif)

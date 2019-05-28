@@ -42,7 +42,7 @@
             // 
             // welcomeLabel
             // 
-            this.welcomeLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.welcomeLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.welcomeLabel.AutoSize = true;
             this.welcomeLabel.Font = new System.Drawing.Font("Segoe UI Light", 28F, System.Drawing.FontStyle.Bold);
             this.welcomeLabel.ForeColor = System.Drawing.Color.Gray;
@@ -55,7 +55,7 @@
             // 
             // leafCountText
             // 
-            this.leafCountText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.leafCountText.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.leafCountText.AutoSize = true;
             this.leafCountText.Font = new System.Drawing.Font("Segoe UI Light", 18F);
             this.leafCountText.ForeColor = System.Drawing.Color.Gray;
@@ -68,11 +68,11 @@
             // 
             // niceMessageLabel
             // 
-            this.niceMessageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.niceMessageLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.niceMessageLabel.AutoSize = true;
             this.niceMessageLabel.Font = new System.Drawing.Font("Segoe UI Light", 18F);
             this.niceMessageLabel.ForeColor = System.Drawing.Color.Gray;
-            this.niceMessageLabel.Location = new System.Drawing.Point(34, 493);
+            this.niceMessageLabel.Location = new System.Drawing.Point(34, 470);
             this.niceMessageLabel.MaximumSize = new System.Drawing.Size(500, 0);
             this.niceMessageLabel.Name = "niceMessageLabel";
             this.niceMessageLabel.Size = new System.Drawing.Size(225, 41);
@@ -92,7 +92,7 @@
             // 
             // returnToDashboardButton
             // 
-            this.returnToDashboardButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.returnToDashboardButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.returnToDashboardButton.BackColor = System.Drawing.Color.ForestGreen;
             this.returnToDashboardButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
             this.returnToDashboardButton.FlatAppearance.BorderSize = 2;
@@ -109,20 +109,20 @@
             // 
             // wordCountText
             // 
-            this.wordCountText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.wordCountText.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.wordCountText.AutoSize = true;
             this.wordCountText.Font = new System.Drawing.Font("Segoe UI Light", 18F);
             this.wordCountText.ForeColor = System.Drawing.Color.Gray;
             this.wordCountText.Location = new System.Drawing.Point(34, 223);
             this.wordCountText.MaximumSize = new System.Drawing.Size(500, 0);
             this.wordCountText.Name = "wordCountText";
-            this.wordCountText.Size = new System.Drawing.Size(462, 82);
+            this.wordCountText.Size = new System.Drawing.Size(454, 82);
             this.wordCountText.TabIndex = 12;
-            this.wordCountText.Text = "Click the button below to get your word count (this might take a while)";
+            this.wordCountText.Text = "Click the button below to get your word and character count:";
             // 
             // getWordCountButton
             // 
-            this.getWordCountButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.getWordCountButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.getWordCountButton.BackColor = System.Drawing.Color.ForestGreen;
             this.getWordCountButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
             this.getWordCountButton.FlatAppearance.BorderSize = 2;
@@ -133,7 +133,7 @@
             this.getWordCountButton.Name = "getWordCountButton";
             this.getWordCountButton.Size = new System.Drawing.Size(202, 53);
             this.getWordCountButton.TabIndex = 13;
-            this.getWordCountButton.Text = "Get Word Count";
+            this.getWordCountButton.Text = "Get Statistics";
             this.getWordCountButton.UseVisualStyleBackColor = false;
             this.getWordCountButton.Click += new System.EventHandler(this.getWordCountButton_Click);
             // 

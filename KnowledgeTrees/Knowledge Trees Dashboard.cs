@@ -178,6 +178,7 @@ namespace KnowledgeTrees
                         // Update lists.
                         WireUpTreesList();
                         WireUpLeavesList();
+                        treesListBox_SelectedIndexChanged(sender, e);
                     }
                     catch
                     {
@@ -187,7 +188,7 @@ namespace KnowledgeTrees
                 else
                 {
                     return;
-                } 
+                }
             }
         }
 
@@ -224,9 +225,17 @@ namespace KnowledgeTrees
 
         private void treesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Update Leaves list when we move between items in Tree list.
-            WireUpLeavesList();
-            leavesLabel.Text = $"{treesListBox.SelectedItem.ToString()} Leaves";
+            if (treesListBox.SelectedItem != null)
+            {
+                // Update Leaves list when we move between items in Tree list.
+                WireUpLeavesList();
+                leavesLabel.Text = $"{treesListBox.SelectedItem.ToString()} Leaves";
+            }
+            else
+            {
+                WireUpLeavesList();
+                leavesLabel.Text = $"Leaves List";
+            }
         }
 
         private void treesListBox_DrawItem(object sender, DrawItemEventArgs e)

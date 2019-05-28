@@ -188,7 +188,7 @@ namespace KnowledgeTrees
 
         private void DisplayWordCount(int wordCount)
         {
-            wordCountText.Text = $"Done! You have a total of {wordCount} words in your {treeName} tree, and {characterCount} characters as well.";
+            wordCountText.Text = $"Done! You have a total of {wordCount} words, and {characterCount} characters in your {treeName} tree.";
         }
 
         private void returnToDashboardButton_Click(object sender, EventArgs e)
