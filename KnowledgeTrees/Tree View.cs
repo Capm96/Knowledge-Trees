@@ -17,6 +17,7 @@ namespace KnowledgeTrees
         static knowledgeTreesDashboard callingDashboard;
         static int leavesCount;
         static int wordCount;
+        static int characterCount;
         static bool countingWords = false;
         static string treeName;
 
@@ -81,6 +82,7 @@ namespace KnowledgeTrees
         public static int GetFullTreeWordCount(string treeName, BackgroundWorker worker, DoWorkEventArgs e)
         {
             int treeWordCount = 0;
+            int treeCharacterCount = 0;
 
             string treePath = FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treeName);
 
@@ -94,10 +96,16 @@ namespace KnowledgeTrees
                 Microsoft.Office.Interop.Word.Application application = new Microsoft.Office.Interop.Word.Application();
                 Document document = application.Documents.Open(fullLeafPath);
 
-                // Get word count.
-                treeWordCount += document.Words.Count - 1;
+                // Prepare to get statistics.
+                object includeFootnotesAndEndnotes = true;
+                WdStatistic wordStats = WdStatistic.wdStatisticWords;
+                WdStatistic charStats = WdStatistic.wdStatisticCharacters;
 
-                // Close doc.
+                // Get word and character count.
+                treeWordCount += document.ComputeStatistics(wordStats, ref includeFootnotesAndEndnotes);
+                treeCharacterCount += document.ComputeStatistics(charStats, ref includeFootnotesAndEndnotes);
+
+                // Close docs.
                 document.Close();
                 application.Quit();
 
@@ -107,6 +115,7 @@ namespace KnowledgeTrees
 
             // Update form's word count.
             wordCount = treeWordCount;
+            characterCount = treeCharacterCount;
 
             return treeWordCount;
         }
@@ -179,7 +188,7 @@ namespace KnowledgeTrees
 
         private void DisplayWordCount(int wordCount)
         {
-            wordCountText.Text = $"Done! You have a total of {wordCount} words in your {treeName} tree.";
+            wordCountText.Text = $"Done! You have a total of {wordCount} words in your {treeName} tree, and {characterCount} characters as well.";
         }
 
         private void returnToDashboardButton_Click(object sender, EventArgs e)
