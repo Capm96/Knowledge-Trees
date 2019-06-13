@@ -31,7 +31,22 @@ namespace TreesLibrary
 
         public static string[] GetAllLeafNames(string treePath)
         {
-            return Directory.GetFiles(treePath).Select(Path.GetFileName).ToArray();
+            // Includes meta word files.
+            List<string> allNames = Directory.GetFiles(treePath).Select(Path.GetFileName).ToList<string>();
+
+            // Will only include actual files.
+            List<string> cleanNames = new List<string>();
+
+            // Excludes meta files (which include "~" in their name. These files exist while the actual file is being modified).
+            foreach (string name in allNames)
+            {
+                if (name.Contains("~") == false)
+                {
+                    cleanNames.Add(name);
+                }
+            }
+
+            return cleanNames.ToArray();
         }
 
         /// <summary>
@@ -44,7 +59,7 @@ namespace TreesLibrary
 
             for (int i = 0; i < current.Length; i++)
             {
-                // Word documents create metafiles when they are running,
+                // Word documents create meta files when they are running,
                 // this method excludes these files from our leaves list.
                 if (current[i].Contains("~"))
                     continue;
