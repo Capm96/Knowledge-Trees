@@ -20,6 +20,7 @@ namespace KnowledgeTrees
         static int characterCount;
         static bool countingWords = false;
         static string treeName;
+        static treeView thisTreeView;
 
         public treeView(knowledgeTreesDashboard dashboard, string NameOfTree)
         {
@@ -35,6 +36,8 @@ namespace KnowledgeTrees
             DisplayLeafCountMessage();
             DisplayNiceMessage();
             DisplayTreePicture();
+
+            thisTreeView = this;
         }
 
         private void InitializeBackgroundWorker()
@@ -84,6 +87,8 @@ namespace KnowledgeTrees
             int treeWordCount = 0;
             int treeCharacterCount = 0;
 
+            callingDashboard.Hide();
+
             string treePath = FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treeName);
 
             string[] leavesInTree = FolderLogic.GetAllLeafNamesWithNoExtension(treePath);
@@ -116,6 +121,10 @@ namespace KnowledgeTrees
             // Update form's word count.
             wordCount = treeWordCount;
             characterCount = treeCharacterCount;
+
+            callingDashboard.Show();
+
+            thisTreeView.BringToFront();
 
             return treeWordCount;
         }
@@ -240,6 +249,11 @@ namespace KnowledgeTrees
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             countLeavesProgressBar.Value += e.ProgressPercentage;
+        }
+
+        private void treeForm_FormClosing(Object sender, FormClosingEventArgs e)
+        {
+            callingDashboard.Show();
         }
     }
 }

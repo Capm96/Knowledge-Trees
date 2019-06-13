@@ -163,6 +163,7 @@
             this.Name = "treeView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tree View";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.treeForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.treePicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
