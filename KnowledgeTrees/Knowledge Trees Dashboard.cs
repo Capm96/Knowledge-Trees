@@ -3,11 +3,8 @@ using System.Drawing;
 using Microsoft.Office.Interop.Word;
 using System.Windows.Forms;
 using TreesLibrary;
-using System.Diagnostics;
-using System.Linq;
 using System.IO;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace KnowledgeTrees
 {

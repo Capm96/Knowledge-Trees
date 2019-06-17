@@ -11,35 +11,32 @@ namespace KnowledgeTrees
 {
     public partial class treeView : Form
     {
-        // Initializes background worker for progress bar.
         BackgroundWorker backgroundWorker = new BackgroundWorker();
 
         static knowledgeTreesDashboard callingDashboard;
+        static treeView thisTreeView;
+
+        public delegate void HideUI();
+
         static int leavesCount;
         static int wordCount;
         static int characterCount;
         static bool countingWords = false;
         static string treeName;
-        static treeView thisTreeView;
-
-        public delegate void HideUI();
 
         public treeView(knowledgeTreesDashboard dashboard, string NameOfTree)
         {
-            // Initialize form.
-
             InitializeComponent();
             InitializeBackgroundWorker();
 
             callingDashboard = dashboard;
             treeName = NameOfTree;
+            thisTreeView = this;
 
             DisplayWelcomeMessage();
             DisplayLeafCountMessage();
             DisplayNiceMessage();
             DisplayTreePicture();
-
-            thisTreeView = this;
         }
 
         private void InitializeBackgroundWorker()
@@ -206,6 +203,15 @@ namespace KnowledgeTrees
             wordCountText.Text = $"Done! You have a total of {wordCount} words, and {characterCount} characters in your {treeName} tree.";
         }
 
+        private void ResetProgressBar()
+        {
+            countLeavesProgressBar.Value = 100;
+            countLeavesProgressBar.Visible = false;
+            countLeavesProgressBar.Minimum = 0;
+            countLeavesProgressBar.Maximum = 100;
+            countLeavesProgressBar.Value = 0;
+        }
+
         private void returnToDashboardButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -243,15 +249,6 @@ namespace KnowledgeTrees
             ResetProgressBar();
         }
 
-        private void ResetProgressBar()
-        {
-            countLeavesProgressBar.Value = 100;
-            countLeavesProgressBar.Visible = false;
-            countLeavesProgressBar.Minimum = 0;
-            countLeavesProgressBar.Maximum = 100;
-            countLeavesProgressBar.Value = 0;
-        }
-
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             countLeavesProgressBar.Value += e.ProgressPercentage;
@@ -262,6 +259,7 @@ namespace KnowledgeTrees
             if (countingWords)
             {
                 MessageBox.Show("Please wait while we count the words and characters before closing", "Please wait");
+
                 e.Cancel = true;
                 return;
             }
