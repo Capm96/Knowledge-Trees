@@ -22,6 +22,8 @@ namespace KnowledgeTrees
         static string treeName;
         static treeView thisTreeView;
 
+        public delegate void HideUI();
+
         public treeView(knowledgeTreesDashboard dashboard, string NameOfTree)
         {
             // Initialize form.
@@ -61,24 +63,28 @@ namespace KnowledgeTrees
         {
             if (countingWords == false)
             {
-                countingWords = true;
-
                 getWordCountButton.Text = "Counting...";
                 getWordCountButton.Enabled = false;
 
                 returnToDashboardButton.Text = "Just a moment while we count the words";
                 returnToDashboardButton.Enabled = false;
 
+                countingWords = true;
+
+                callingDashboard.Hide();
             }
             else
             {
-                countingWords = false;
-
                 getWordCountButton.Text = "Get Word Count";
                 getWordCountButton.Enabled = true;
 
                 returnToDashboardButton.Text = "Return To Dashboard";
                 returnToDashboardButton.Enabled = true;
+
+                countingWords = false;
+
+                callingDashboard.Show();
+                thisTreeView.BringToFront();
             }
         }
 
@@ -87,7 +93,9 @@ namespace KnowledgeTrees
             int treeWordCount = 0;
             int treeCharacterCount = 0;
 
-            callingDashboard.Hide();
+            Delegate handler = new HideUI(thisTreeView.HandleUIWhileCountingWords);
+
+            thisTreeView.Invoke(handler);
 
             string treePath = FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treeName);
 
@@ -122,9 +130,7 @@ namespace KnowledgeTrees
             wordCount = treeWordCount;
             characterCount = treeCharacterCount;
 
-            callingDashboard.Show();
-
-            thisTreeView.BringToFront();
+            thisTreeView.Invoke(handler);
 
             return treeWordCount;
         }
@@ -218,8 +224,6 @@ namespace KnowledgeTrees
 
             // UI changes while counting.
             countLeavesProgressBar.Visible = true;
-            getWordCountButton.Enabled = false;
-            HandleUIWhileCountingWords();
 
             // Run counting process.
             backgroundWorker.RunWorkerAsync();
@@ -236,10 +240,12 @@ namespace KnowledgeTrees
         {
             // Once we are done, display the wordcount, and re-set the UI & progress bar.
             DisplayWordCount(wordCount);
+            ResetProgressBar();
+        }
+
+        private void ResetProgressBar()
+        {
             countLeavesProgressBar.Value = 100;
-
-            HandleUIWhileCountingWords();
-
             countLeavesProgressBar.Visible = false;
             countLeavesProgressBar.Minimum = 0;
             countLeavesProgressBar.Maximum = 100;
@@ -253,7 +259,16 @@ namespace KnowledgeTrees
 
         private void treeForm_FormClosing(Object sender, FormClosingEventArgs e)
         {
-            callingDashboard.Show();
+            if (countingWords)
+            {
+                MessageBox.Show("Please wait while we count the words and characters before closing", "Please wait");
+                e.Cancel = true;
+                return;
+            }
+            else
+            {
+                e.Cancel = false;
+            }
         }
     }
 }
