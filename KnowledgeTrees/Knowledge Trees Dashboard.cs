@@ -144,10 +144,14 @@ namespace KnowledgeTrees
                             wordApp = new Microsoft.Office.Interop.Word.Application();
                             wordApp.Visible = true;
                             Document wordDocument = wordApp.Documents.Open(path);
+
+                            this.WindowState = FormWindowState.Minimized;
                         }
                         else // Opens from existing word application.
                         {
                             wordApp = WordProcessor.CreateWordDocumentFromExistingInstance(path);
+
+                            this.WindowState = FormWindowState.Minimized;
                         }
                     }
                     catch (IOException ex)
