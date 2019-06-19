@@ -12,7 +12,9 @@ namespace KnowledgeTrees
     {
         public List<string> openedWordDocuments = new List<string>();
 
-        private bool IsThemeDark = false;
+        public Dictionary<string, string> themeColors = new Dictionary<string, string>();
+
+        public bool IsThemeDark = false;
 
         public knowledgeTreesDashboard()
         {
@@ -21,6 +23,26 @@ namespace KnowledgeTrees
             // Populates our lists.
             WireUpTreesList();
             WireUpLeavesList();
+
+            // Fill in dictionary with colors we want.
+            FillInThemeColors();
+        }
+
+        private void FillInThemeColors()
+        {
+            // Update dark theme colors.
+            themeColors.Add("DarkBackground", "#373134");
+            themeColors.Add("DarkButtons", "#299FB5");
+            themeColors.Add("DarkLabels", "#1A8A9F");
+            themeColors.Add("DarkLists", "#C2C2C2");
+            themeColors.Add("DarkTexts", "#f0eae8");
+
+            // Update default theme colors.
+            themeColors.Add("DefaultBackground", "#ffffff");
+            themeColors.Add("DefaultButtons", "#299FB5"); 
+            themeColors.Add("DefaultLabels", "#1A8A9F");
+            themeColors.Add("DefaultLists", "#C2C2C2");
+            themeColors.Add("DefaultTexts", "#f0eae8");
         }
 
         public void WireUpTreesList()
@@ -326,12 +348,12 @@ namespace KnowledgeTrees
         {
             if (IsThemeDark)
             {
-                UpdateColors();
+                this.UpdateTheme(this, themeColors);
                 IsThemeDark = false;
             }
             else
             {
-                UpdateColors();
+                this.UpdateTheme(this, themeColors);
                 IsThemeDark = true;
             }
 

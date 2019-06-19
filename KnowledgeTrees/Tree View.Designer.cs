@@ -93,12 +93,12 @@
             // returnToDashboardButton
             // 
             this.returnToDashboardButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.returnToDashboardButton.BackColor = System.Drawing.Color.ForestGreen;
+            this.returnToDashboardButton.BackColor = System.Drawing.Color.LightGreen;
             this.returnToDashboardButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
             this.returnToDashboardButton.FlatAppearance.BorderSize = 2;
             this.returnToDashboardButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.returnToDashboardButton.Font = new System.Drawing.Font("Segoe UI", 18F);
-            this.returnToDashboardButton.ForeColor = System.Drawing.Color.White;
+            this.returnToDashboardButton.ForeColor = System.Drawing.Color.Black;
             this.returnToDashboardButton.Location = new System.Drawing.Point(48, 658);
             this.returnToDashboardButton.Name = "returnToDashboardButton";
             this.returnToDashboardButton.Size = new System.Drawing.Size(500, 64);
@@ -123,12 +123,12 @@
             // getWordCountButton
             // 
             this.getWordCountButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.getWordCountButton.BackColor = System.Drawing.Color.ForestGreen;
+            this.getWordCountButton.BackColor = System.Drawing.Color.LightGreen;
             this.getWordCountButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
             this.getWordCountButton.FlatAppearance.BorderSize = 2;
             this.getWordCountButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.getWordCountButton.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.getWordCountButton.ForeColor = System.Drawing.Color.White;
+            this.getWordCountButton.ForeColor = System.Drawing.Color.Black;
             this.getWordCountButton.Location = new System.Drawing.Point(41, 323);
             this.getWordCountButton.Name = "getWordCountButton";
             this.getWordCountButton.Size = new System.Drawing.Size(202, 53);

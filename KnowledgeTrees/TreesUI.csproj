@@ -150,6 +150,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ThemeChanger.cs" />
     <Compile Include="Tree View.cs">
       <SubType>Form</SubType>
     </Compile>
