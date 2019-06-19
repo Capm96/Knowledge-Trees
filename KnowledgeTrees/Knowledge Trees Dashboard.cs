@@ -12,6 +12,8 @@ namespace KnowledgeTrees
     {
         public List<string> openedWordDocuments = new List<string>();
 
+        private bool IsThemeDark = false;
+
         public knowledgeTreesDashboard()
         {
             InitializeComponent();
@@ -300,6 +302,132 @@ namespace KnowledgeTrees
         {
             Credits form = new Credits();
             form.Show();
+        }
+
+        private void changeTheme_Click(object sender, EventArgs e)
+        {
+            ChangeTheme();
+        }
+
+
+
+        // TODO: Create new class with extension methods, which take in the main dashboard as a parameter.
+        // Before invoking each new form, check:
+        // If its dark theme, cycle through components and change colors (background, buttons, labels, and texts). 
+        // and then show form.
+
+        // Need to also create a checker on theme button to see if there is more than one form open -- if yes, close
+        // all before changing theme.
+
+        // To check: Upper forms bar (with closing buttons) / dialogue boxes. see if its possible to change these colors.
+
+        // 
+        private void ChangeTheme()
+        {
+            if (IsThemeDark)
+            {
+                UpdateColors();
+                IsThemeDark = false;
+            }
+            else
+            {
+                UpdateColors();
+                IsThemeDark = true;
+            }
+
+            // Gives option for user to select their own colors.
+            //ColorDialog cd = new ColorDialog();
+            //if (cd.ShowDialog() == DialogResult.OK)
+            //    this.BackColor = cd.Color;
+        }
+
+        private void UpdateColors()
+        {
+            // Get colors (https://htmlcolorcodes.com/)
+            Color backgroundColor = ColorTranslator.FromHtml("#373134");
+            ChangeBackgroundsColor(backgroundColor);
+
+            Color buttonsColor = ColorTranslator.FromHtml("#299FB5");
+            ChangeButtonsColor(buttonsColor);
+
+            Color labelsColor = ColorTranslator.FromHtml("#1A8A9F");
+            ChangeLabelsColor(buttonsColor);
+
+            Color listsColor = ColorTranslator.FromHtml("#C2C2C2");
+            ChangeListsColor(listsColor);
+
+        }
+
+        private void ChangeListsColor(Color listsColor)
+        {
+            if (IsThemeDark)
+            {
+                leavesListBox.BackColor = Color.White;
+                treesListBox.BackColor = Color.White;
+            }
+            else
+            {
+                treesListBox.BackColor = listsColor;
+                leavesListBox.BackColor = listsColor;
+            }
+        }
+
+        private void ChangeButtonsColor(Color darkThemeColor)
+        {
+            if (IsThemeDark)
+            {
+                createTreeButton.BackColor = Color.LightGreen;
+                removeTreeButton.BackColor = Color.LightGreen;
+                viewTreeButton.BackColor = Color.LightGreen;
+                createLeafButton.BackColor = Color.LightGreen;
+                removeLeafButton.BackColor = Color.LightGreen;
+                viewLeafButton.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                createTreeButton.BackColor = darkThemeColor;
+                removeTreeButton.BackColor = darkThemeColor;
+                viewTreeButton.BackColor = darkThemeColor;
+                createLeafButton.BackColor = darkThemeColor;
+                removeLeafButton.BackColor = darkThemeColor;
+                viewLeafButton.BackColor = darkThemeColor;
+            }
+        }
+
+        private void ChangeBackgroundsColor(Color darkThemeColor)
+        {
+            if (IsThemeDark)
+            {
+                this.BackColor = Color.White;
+            }
+            else
+            {
+                this.BackColor = darkThemeColor;
+            }
+        }
+
+        private void ChangeLabelsColor(Color darkThemeColor)
+        {
+            if (IsThemeDark)
+            {
+                treesLabel.BackColor = Color.ForestGreen;
+                leavesLabel.BackColor = Color.ForestGreen;
+                dashboardLabel.BackColor = Color.ForestGreen;
+
+                treesLabel.ForeColor = Color.White;
+                leavesLabel.ForeColor = Color.White;
+                dashboardLabel.ForeColor = Color.White;
+            }
+            else
+            {
+                treesLabel.ForeColor = Color.Black;
+                leavesLabel.ForeColor = Color.Black;
+                dashboardLabel.ForeColor = Color.Black;
+
+                treesLabel.BackColor = darkThemeColor;
+                leavesLabel.BackColor = darkThemeColor;
+                dashboardLabel.BackColor = darkThemeColor;
+            }
         }
     }
 }
