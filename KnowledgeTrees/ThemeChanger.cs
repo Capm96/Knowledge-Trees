@@ -12,17 +12,91 @@ namespace KnowledgeTrees
     {
         public static void UpdateTheme(this Form callingForm, knowledgeTreesDashboard dashboard, Dictionary<string, string> colors)
         {
-            // Update background color.
-            if (dashboard.IsThemeDark)
+            var typeOfForm = callingForm.GetType();
+
+            if (typeOfForm == typeof(knowledgeTreesDashboard))
             {
-                ChangeBackground(callingForm, dashboard, colors["DefaultBackground"]);
+                if (dashboard.IsThemeDark)
+                {
+                    SetDefaultTheme(callingForm, dashboard, colors);
+                }
+                else
+                {
+                    SetDarkTheme(callingForm, dashboard, colors);
+                }
             }
             else
             {
-                ChangeBackground(callingForm, dashboard, colors["DarkBackground"]);
+                if (dashboard.IsThemeDark)
+                {
+                    SetDarkTheme(callingForm, dashboard, colors);
+                }
+                else
+                {
+                    SetDefaultTheme(callingForm, dashboard, colors);
+                }
             }
         }
 
+        private static void SetDarkTheme(Form callingForm, knowledgeTreesDashboard dashboard, Dictionary<string, string> colors)
+        {
+            ChangeBackground(callingForm, dashboard, colors["DarkBackground"]);
+            ChangeButtons(callingForm, dashboard, colors["DarkButtons"]);
+            ChangeLabels(callingForm, dashboard, colors["DarkLabels"], colors["DarkLabelsText"]);
+            ChangeLists(callingForm, dashboard, colors["DarkLists"]);
+            ChangeTexts(callingForm, dashboard, colors["DarkTexts"]);
+        }
+
+        private static void SetDefaultTheme(Form callingForm, knowledgeTreesDashboard dashboard, Dictionary<string, string> colors)
+        {
+            ChangeBackground(callingForm, dashboard, colors["DefaultBackground"]);
+            ChangeButtons(callingForm, dashboard, colors["DefaultButtons"]);
+            ChangeLabels(callingForm, dashboard, colors["DefaultLabels"], colors["DefaultLabelsText"]);
+            ChangeLists(callingForm, dashboard, colors["DefaultLists"]);
+            ChangeTexts(callingForm, dashboard, colors["DefaultTexts"]);
+        }
+
+        private static void ChangeLists(Form callingForm, knowledgeTreesDashboard dashboard, string colorCode)
+        {
+            Color listsColor = ColorTranslator.FromHtml($"{colorCode}");
+
+            foreach (var list in callingForm.Controls.OfType<ListBox>())
+            {
+                list.BackColor = listsColor;
+            }
+        }
+
+        private static void ChangeTexts(Form callingForm, knowledgeTreesDashboard dashboard, string colorCode)
+        {
+            Color textsColor = ColorTranslator.FromHtml($"{colorCode}");
+
+            foreach (var text in callingForm.Controls.OfType<TextBox>())
+            {
+                text.BackColor = textsColor;
+            }
+        }
+
+        private static void ChangeLabels(Form callingForm, knowledgeTreesDashboard dashboard, string backColor, string textColor)
+        {
+            Color labelBackColor = ColorTranslator.FromHtml($"{backColor}");
+            Color labelTextColor = ColorTranslator.FromHtml($"{textColor}");
+
+            foreach (var label in callingForm.Controls.OfType<Label>())
+            {
+                label.BackColor = labelBackColor;
+                label.ForeColor = labelTextColor;
+            }
+        }
+
+        private static void ChangeButtons(Form callingForm, knowledgeTreesDashboard dashboard, string colorCode)
+        {
+            Color buttonColor = ColorTranslator.FromHtml($"{colorCode}");
+
+            foreach (var button in callingForm.Controls.OfType<Button>())
+            {
+                button.BackColor = buttonColor;
+            }
+        }
 
         public static void ChangeBackground(this Form callingForm, knowledgeTreesDashboard dashboard, string colorCode)
         {

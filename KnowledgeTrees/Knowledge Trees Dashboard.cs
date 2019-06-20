@@ -33,16 +33,18 @@ namespace KnowledgeTrees
             // Update dark theme colors.
             themeColors.Add("DarkBackground", "#373134");
             themeColors.Add("DarkButtons", "#299FB5");
-            themeColors.Add("DarkLabels", "#1A8A9F");
+            themeColors.Add("DarkLabels", "#299FB5");
+            themeColors.Add("DarkLabelsText", "#000000");
             themeColors.Add("DarkLists", "#C2C2C2");
-            themeColors.Add("DarkTexts", "#f0eae8");
+            themeColors.Add("DarkTexts", "#f2f3f4");
 
             // Update default theme colors.
             themeColors.Add("DefaultBackground", "#ffffff");
-            themeColors.Add("DefaultButtons", "#299FB5"); 
-            themeColors.Add("DefaultLabels", "#1A8A9F");
-            themeColors.Add("DefaultLists", "#C2C2C2");
-            themeColors.Add("DefaultTexts", "#f0eae8");
+            themeColors.Add("DefaultButtons", "#58d68d");
+            themeColors.Add("DefaultLabels", "#229954");
+            themeColors.Add("DefaultLabelsText", "#ffffff");
+            themeColors.Add("DefaultLists", "#ffffff");
+            themeColors.Add("DefaultTexts", "#f2f3f4");
         }
 
         public void WireUpTreesList()
@@ -99,6 +101,7 @@ namespace KnowledgeTrees
             if (isOpen == false)
             {
                 createTreeForm form = new createTreeForm(this);
+                form.UpdateTheme(this, themeColors);
                 form.Show();
             }
         }
@@ -114,6 +117,7 @@ namespace KnowledgeTrees
                     string selectedTreeName = treesListBox.SelectedItem.ToString();
 
                     createLeafForm form = new createLeafForm(this, selectedTreeName);
+                    form.UpdateTheme(this, themeColors);
                     form.Show();
                 }
             }
@@ -128,6 +132,7 @@ namespace KnowledgeTrees
                 if (treesListBox.SelectedItem != null)
                 {
                     treeView form = new treeView(this, treesListBox.SelectedItem.ToString());
+                    form.UpdateTheme(this, themeColors);
                     form.Show();
                 }
             }
@@ -331,8 +336,6 @@ namespace KnowledgeTrees
             ChangeTheme();
         }
 
-
-
         // TODO: Create new class with extension methods, which take in the main dashboard as a parameter.
         // Before invoking each new form, check:
         // If its dark theme, cycle through components and change colors (background, buttons, labels, and texts). 
@@ -363,93 +366,93 @@ namespace KnowledgeTrees
             //    this.BackColor = cd.Color;
         }
 
-        private void UpdateColors()
-        {
-            // Get colors (https://htmlcolorcodes.com/)
-            Color backgroundColor = ColorTranslator.FromHtml("#373134");
-            ChangeBackgroundsColor(backgroundColor);
+        //private void UpdateColors()
+        //{
+        //    // Get colors (https://htmlcolorcodes.com/)
+        //    Color backgroundColor = ColorTranslator.FromHtml("#373134");
+        //    ChangeBackgroundsColor(backgroundColor);
 
-            Color buttonsColor = ColorTranslator.FromHtml("#299FB5");
-            ChangeButtonsColor(buttonsColor);
+        //    Color buttonsColor = ColorTranslator.FromHtml("#299FB5");
+        //    ChangeButtonsColor(buttonsColor);
 
-            Color labelsColor = ColorTranslator.FromHtml("#1A8A9F");
-            ChangeLabelsColor(buttonsColor);
+        //    Color labelsColor = ColorTranslator.FromHtml("#1A8A9F");
+        //    ChangeLabelsColor(buttonsColor);
 
-            Color listsColor = ColorTranslator.FromHtml("#C2C2C2");
-            ChangeListsColor(listsColor);
+        //    Color listsColor = ColorTranslator.FromHtml("#C2C2C2");
+        //    ChangeListsColor(listsColor);
 
-        }
+        //}
 
-        private void ChangeListsColor(Color listsColor)
-        {
-            if (IsThemeDark)
-            {
-                leavesListBox.BackColor = Color.White;
-                treesListBox.BackColor = Color.White;
-            }
-            else
-            {
-                treesListBox.BackColor = listsColor;
-                leavesListBox.BackColor = listsColor;
-            }
-        }
+        //private void ChangeListsColor(Color listsColor)
+        //{
+        //    if (IsThemeDark)
+        //    {
+        //        leavesListBox.BackColor = Color.White;
+        //        treesListBox.BackColor = Color.White;
+        //    }
+        //    else
+        //    {
+        //        treesListBox.BackColor = listsColor;
+        //        leavesListBox.BackColor = listsColor;
+        //    }
+        //}
 
-        private void ChangeButtonsColor(Color darkThemeColor)
-        {
-            if (IsThemeDark)
-            {
-                createTreeButton.BackColor = Color.LightGreen;
-                removeTreeButton.BackColor = Color.LightGreen;
-                viewTreeButton.BackColor = Color.LightGreen;
-                createLeafButton.BackColor = Color.LightGreen;
-                removeLeafButton.BackColor = Color.LightGreen;
-                viewLeafButton.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                createTreeButton.BackColor = darkThemeColor;
-                removeTreeButton.BackColor = darkThemeColor;
-                viewTreeButton.BackColor = darkThemeColor;
-                createLeafButton.BackColor = darkThemeColor;
-                removeLeafButton.BackColor = darkThemeColor;
-                viewLeafButton.BackColor = darkThemeColor;
-            }
-        }
+        //private void ChangeButtonsColor(Color darkThemeColor)
+        //{
+        //    if (IsThemeDark)
+        //    {
+        //        createTreeButton.BackColor = Color.LightGreen;
+        //        removeTreeButton.BackColor = Color.LightGreen;
+        //        viewTreeButton.BackColor = Color.LightGreen;
+        //        createLeafButton.BackColor = Color.LightGreen;
+        //        removeLeafButton.BackColor = Color.LightGreen;
+        //        viewLeafButton.BackColor = Color.LightGreen;
+        //    }
+        //    else
+        //    {
+        //        createTreeButton.BackColor = darkThemeColor;
+        //        removeTreeButton.BackColor = darkThemeColor;
+        //        viewTreeButton.BackColor = darkThemeColor;
+        //        createLeafButton.BackColor = darkThemeColor;
+        //        removeLeafButton.BackColor = darkThemeColor;
+        //        viewLeafButton.BackColor = darkThemeColor;
+        //    }
+        //}
 
-        private void ChangeBackgroundsColor(Color darkThemeColor)
-        {
-            if (IsThemeDark)
-            {
-                this.BackColor = Color.White;
-            }
-            else
-            {
-                this.BackColor = darkThemeColor;
-            }
-        }
+        //private void ChangeBackgroundsColor(Color darkThemeColor)
+        //{
+        //    if (IsThemeDark)
+        //    {
+        //        this.BackColor = Color.White;
+        //    }
+        //    else
+        //    {
+        //        this.BackColor = darkThemeColor;
+        //    }
+        //}
 
-        private void ChangeLabelsColor(Color darkThemeColor)
-        {
-            if (IsThemeDark)
-            {
-                treesLabel.BackColor = Color.ForestGreen;
-                leavesLabel.BackColor = Color.ForestGreen;
-                dashboardLabel.BackColor = Color.ForestGreen;
+        //private void ChangeLabelsColor(Color darkThemeColor)
+        //{
+        //    if (IsThemeDark)
+        //    {
+        //        treesLabel.BackColor = Color.ForestGreen;
+        //        leavesLabel.BackColor = Color.ForestGreen;
+        //        dashboardLabel.BackColor = Color.ForestGreen;
 
-                treesLabel.ForeColor = Color.White;
-                leavesLabel.ForeColor = Color.White;
-                dashboardLabel.ForeColor = Color.White;
-            }
-            else
-            {
-                treesLabel.ForeColor = Color.Black;
-                leavesLabel.ForeColor = Color.Black;
-                dashboardLabel.ForeColor = Color.Black;
+        //        treesLabel.ForeColor = Color.White;
+        //        leavesLabel.ForeColor = Color.White;
+        //        dashboardLabel.ForeColor = Color.White;
+        //    }
+        //    else
+        //    {
+        //        treesLabel.ForeColor = Color.Black;
+        //        leavesLabel.ForeColor = Color.Black;
+        //        dashboardLabel.ForeColor = Color.Black;
 
-                treesLabel.BackColor = darkThemeColor;
-                leavesLabel.BackColor = darkThemeColor;
-                dashboardLabel.BackColor = darkThemeColor;
-            }
-        }
+        //        treesLabel.BackColor = darkThemeColor;
+        //        leavesLabel.BackColor = darkThemeColor;
+        //        dashboardLabel.BackColor = darkThemeColor;
+        //    }
+        //}
     }
 }
