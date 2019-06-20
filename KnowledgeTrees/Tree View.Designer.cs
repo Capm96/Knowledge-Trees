@@ -94,7 +94,7 @@
             // 
             this.returnToDashboardButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.returnToDashboardButton.BackColor = System.Drawing.Color.LightGreen;
-            this.returnToDashboardButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
+            this.returnToDashboardButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.returnToDashboardButton.FlatAppearance.BorderSize = 2;
             this.returnToDashboardButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.returnToDashboardButton.Font = new System.Drawing.Font("Segoe UI", 18F);
@@ -124,7 +124,7 @@
             // 
             this.getWordCountButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.getWordCountButton.BackColor = System.Drawing.Color.LightGreen;
-            this.getWordCountButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
+            this.getWordCountButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.getWordCountButton.FlatAppearance.BorderSize = 2;
             this.getWordCountButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.getWordCountButton.Font = new System.Drawing.Font("Segoe UI", 14F);

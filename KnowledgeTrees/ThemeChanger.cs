@@ -78,13 +78,28 @@ namespace KnowledgeTrees
 
         private static void ChangeLabels(Form callingForm, knowledgeTreesDashboard dashboard, string backColor, string textColor)
         {
+            var formType = callingForm.GetType();
+
             Color labelBackColor = ColorTranslator.FromHtml($"{backColor}");
             Color labelTextColor = ColorTranslator.FromHtml($"{textColor}");
 
-            foreach (var label in callingForm.Controls.OfType<Label>())
+            if (formType == typeof(knowledgeTreesDashboard))
             {
-                label.BackColor = labelBackColor;
-                label.ForeColor = labelTextColor;
+                foreach (var label in callingForm.Controls.OfType<Label>())
+                {
+                    label.BackColor = labelBackColor;
+                    if (dashboard.IsThemeDark)
+                        label.ForeColor = Color.White;
+                    else
+                        label.ForeColor = Color.Black;
+                }
+            }
+            else
+            {
+                foreach (var label in callingForm.Controls.OfType<Label>())
+                {
+                    label.ForeColor = labelTextColor;
+                }
             }
         }
 

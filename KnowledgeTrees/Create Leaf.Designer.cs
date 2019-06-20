@@ -37,7 +37,7 @@
             // createNewLeafButton
             // 
             this.createNewLeafButton.BackColor = System.Drawing.Color.LightGreen;
-            this.createNewLeafButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
+            this.createNewLeafButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.createNewLeafButton.FlatAppearance.BorderSize = 2;
             this.createNewLeafButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.createNewLeafButton.Font = new System.Drawing.Font("Segoe UI", 18F);

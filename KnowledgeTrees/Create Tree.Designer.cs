@@ -56,7 +56,7 @@
             // createNewTreeButton
             // 
             this.createNewTreeButton.BackColor = System.Drawing.Color.LightGreen;
-            this.createNewTreeButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
+            this.createNewTreeButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.createNewTreeButton.FlatAppearance.BorderSize = 2;
             this.createNewTreeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.createNewTreeButton.Font = new System.Drawing.Font("Segoe UI", 18F);

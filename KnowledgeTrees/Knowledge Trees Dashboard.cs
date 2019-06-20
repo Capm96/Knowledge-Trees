@@ -34,17 +34,17 @@ namespace KnowledgeTrees
             themeColors.Add("DarkBackground", "#373134");
             themeColors.Add("DarkButtons", "#299FB5");
             themeColors.Add("DarkLabels", "#299FB5");
-            themeColors.Add("DarkLabelsText", "#000000");
+            themeColors.Add("DarkLabelsText", "#cfcfcf");
             themeColors.Add("DarkLists", "#C2C2C2");
-            themeColors.Add("DarkTexts", "#f2f3f4");
+            themeColors.Add("DarkTexts", "#C2C2C2");
 
             // Update default theme colors.
             themeColors.Add("DefaultBackground", "#ffffff");
             themeColors.Add("DefaultButtons", "#58d68d");
             themeColors.Add("DefaultLabels", "#229954");
-            themeColors.Add("DefaultLabelsText", "#ffffff");
+            themeColors.Add("DefaultLabelsText", "#9c9999");
             themeColors.Add("DefaultLists", "#ffffff");
-            themeColors.Add("DefaultTexts", "#f2f3f4");
+            themeColors.Add("DefaultTexts", "#ffffff");
         }
 
         public void WireUpTreesList()
@@ -336,17 +336,13 @@ namespace KnowledgeTrees
             ChangeTheme();
         }
 
-        // TODO: Create new class with extension methods, which take in the main dashboard as a parameter.
-        // Before invoking each new form, check:
-        // If its dark theme, cycle through components and change colors (background, buttons, labels, and texts). 
-        // and then show form.
-
-        // Need to also create a checker on theme button to see if there is more than one form open -- if yes, close
+        // TODO: Create a checker on theme button to see if there is more than one form open -- if yes, close
         // all before changing theme.
 
         // To check: Upper forms bar (with closing buttons) / dialogue boxes. see if its possible to change these colors.
 
-        // 
+        // Fix individual buttons / labels which are being generically modified.
+
         private void ChangeTheme()
         {
             if (IsThemeDark)
