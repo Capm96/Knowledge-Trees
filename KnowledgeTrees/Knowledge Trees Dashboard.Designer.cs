@@ -41,7 +41,7 @@
             this.leavesLabel = new System.Windows.Forms.Label();
             this.dashboardLabel = new System.Windows.Forms.Label();
             this.creditsButton = new System.Windows.Forms.Button();
-            this.changeTheme = new System.Windows.Forms.Button();
+            this.themeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // treesListBox
@@ -63,7 +63,7 @@
             // 
             // viewTreeButton
             // 
-            this.viewTreeButton.BackColor = System.Drawing.Color.LightGreen;
+            this.viewTreeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(214)))), ((int)(((byte)(141)))));
             this.viewTreeButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.viewTreeButton.FlatAppearance.BorderSize = 2;
             this.viewTreeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -82,7 +82,7 @@
             // 
             // removeTreeButton
             // 
-            this.removeTreeButton.BackColor = System.Drawing.Color.LightGreen;
+            this.removeTreeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(214)))), ((int)(((byte)(141)))));
             this.removeTreeButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.removeTreeButton.FlatAppearance.BorderSize = 2;
             this.removeTreeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -101,7 +101,7 @@
             // 
             // createTreeButton
             // 
-            this.createTreeButton.BackColor = System.Drawing.Color.LightGreen;
+            this.createTreeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(214)))), ((int)(((byte)(141)))));
             this.createTreeButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.createTreeButton.FlatAppearance.BorderSize = 2;
             this.createTreeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -122,7 +122,7 @@
             // createLeafButton
             // 
             this.createLeafButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.createLeafButton.BackColor = System.Drawing.Color.LightGreen;
+            this.createLeafButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(214)))), ((int)(((byte)(141)))));
             this.createLeafButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.createLeafButton.FlatAppearance.BorderSize = 2;
             this.createLeafButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -142,7 +142,7 @@
             // removeLeafButton
             // 
             this.removeLeafButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.removeLeafButton.BackColor = System.Drawing.Color.LightGreen;
+            this.removeLeafButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(214)))), ((int)(((byte)(141)))));
             this.removeLeafButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.removeLeafButton.FlatAppearance.BorderSize = 2;
             this.removeLeafButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -163,7 +163,7 @@
             // 
             this.viewLeafButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.viewLeafButton.AutoSize = true;
-            this.viewLeafButton.BackColor = System.Drawing.Color.LightGreen;
+            this.viewLeafButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(214)))), ((int)(((byte)(141)))));
             this.viewLeafButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.viewLeafButton.FlatAppearance.BorderSize = 2;
             this.viewLeafButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -244,7 +244,7 @@
             // creditsButton
             // 
             this.creditsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.creditsButton.BackColor = System.Drawing.Color.DarkGray;
+            this.creditsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(214)))), ((int)(((byte)(141)))));
             this.creditsButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.creditsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.creditsButton.Font = new System.Drawing.Font("Segoe UI", 18F);
@@ -258,21 +258,21 @@
             this.creditsButton.UseVisualStyleBackColor = false;
             this.creditsButton.Click += new System.EventHandler(this.creditsButton_Click);
             // 
-            // changeTheme
+            // themeButton
             // 
-            this.changeTheme.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.changeTheme.BackColor = System.Drawing.Color.DarkGray;
-            this.changeTheme.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.changeTheme.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.changeTheme.Font = new System.Drawing.Font("Segoe UI", 18F);
-            this.changeTheme.ForeColor = System.Drawing.Color.Transparent;
-            this.changeTheme.Location = new System.Drawing.Point(857, 0);
-            this.changeTheme.Name = "changeTheme";
-            this.changeTheme.Size = new System.Drawing.Size(202, 78);
-            this.changeTheme.TabIndex = 14;
-            this.changeTheme.Text = "Theme";
-            this.changeTheme.UseVisualStyleBackColor = false;
-            this.changeTheme.Click += new System.EventHandler(this.changeTheme_Click);
+            this.themeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.themeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(214)))), ((int)(((byte)(141)))));
+            this.themeButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.themeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.themeButton.Font = new System.Drawing.Font("Segoe UI", 18F);
+            this.themeButton.ForeColor = System.Drawing.Color.Transparent;
+            this.themeButton.Location = new System.Drawing.Point(857, 0);
+            this.themeButton.Name = "themeButton";
+            this.themeButton.Size = new System.Drawing.Size(202, 78);
+            this.themeButton.TabIndex = 14;
+            this.themeButton.Text = "Theme";
+            this.themeButton.UseVisualStyleBackColor = false;
+            this.themeButton.Click += new System.EventHandler(this.changeTheme_Click);
             // 
             // knowledgeTreesDashboard
             // 
@@ -282,7 +282,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1262, 753);
-            this.Controls.Add(this.changeTheme);
+            this.Controls.Add(this.themeButton);
             this.Controls.Add(this.creditsButton);
             this.Controls.Add(this.dashboardLabel);
             this.Controls.Add(this.leavesLabel);
@@ -320,7 +320,7 @@
         public System.Windows.Forms.Label leavesLabel;
         public System.Windows.Forms.Label dashboardLabel;
         private System.Windows.Forms.Button creditsButton;
-        private System.Windows.Forms.Button changeTheme;
+        private System.Windows.Forms.Button themeButton;
     }
 }
 

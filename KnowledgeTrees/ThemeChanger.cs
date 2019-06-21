@@ -88,6 +88,7 @@ namespace KnowledgeTrees
                 foreach (var label in callingForm.Controls.OfType<Label>())
                 {
                     label.BackColor = labelBackColor;
+
                     if (dashboard.IsThemeDark)
                         label.ForeColor = Color.White;
                     else
@@ -110,6 +111,21 @@ namespace KnowledgeTrees
             foreach (var button in callingForm.Controls.OfType<Button>())
             {
                 button.BackColor = buttonColor;
+
+                if (dashboard.IsThemeDark == false)
+                {
+                    if (button.Name == "creditsButton" || button.Name == "themeButton")
+                    {
+                        button.ForeColor = Color.Black;
+                    }
+                }
+                else
+                {
+                    if (button.Name == "creditsButton" || button.Name == "themeButton")
+                    {
+                        button.ForeColor = Color.White;
+                    }
+                }
             }
         }
 

@@ -59,7 +59,7 @@
             // 
             this.returnToDashboardButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.returnToDashboardButton.BackColor = System.Drawing.Color.ForestGreen;
-            this.returnToDashboardButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
+            this.returnToDashboardButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.returnToDashboardButton.FlatAppearance.BorderSize = 2;
             this.returnToDashboardButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.returnToDashboardButton.Font = new System.Drawing.Font("Segoe UI", 18F);
@@ -75,10 +75,10 @@
             // treesLabel
             // 
             this.treesLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.treesLabel.BackColor = System.Drawing.Color.White;
+            this.treesLabel.BackColor = System.Drawing.Color.Transparent;
             this.treesLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.treesLabel.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treesLabel.ForeColor = System.Drawing.Color.ForestGreen;
+            this.treesLabel.ForeColor = System.Drawing.Color.Black;
             this.treesLabel.Location = new System.Drawing.Point(250, 9);
             this.treesLabel.Name = "treesLabel";
             this.treesLabel.Size = new System.Drawing.Size(728, 100);
@@ -90,7 +90,7 @@
             // smartIconsCreditLabel
             // 
             this.smartIconsCreditLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.smartIconsCreditLabel.BackColor = System.Drawing.Color.White;
+            this.smartIconsCreditLabel.BackColor = System.Drawing.Color.Transparent;
             this.smartIconsCreditLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.smartIconsCreditLabel.Font = new System.Drawing.Font("Segoe UI", 14F);
             this.smartIconsCreditLabel.ForeColor = System.Drawing.Color.Black;
@@ -104,7 +104,7 @@
             // IconTrackCreditLabel
             // 
             this.IconTrackCreditLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.IconTrackCreditLabel.BackColor = System.Drawing.Color.White;
+            this.IconTrackCreditLabel.BackColor = System.Drawing.Color.Transparent;
             this.IconTrackCreditLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.IconTrackCreditLabel.Font = new System.Drawing.Font("Segoe UI", 14F);
             this.IconTrackCreditLabel.ForeColor = System.Drawing.Color.Black;
@@ -118,7 +118,7 @@
             // TomasKnopCreditLabel
             // 
             this.TomasKnopCreditLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.TomasKnopCreditLabel.BackColor = System.Drawing.Color.White;
+            this.TomasKnopCreditLabel.BackColor = System.Drawing.Color.Transparent;
             this.TomasKnopCreditLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.TomasKnopCreditLabel.Font = new System.Drawing.Font("Segoe UI", 14F);
             this.TomasKnopCreditLabel.ForeColor = System.Drawing.Color.Black;
@@ -132,7 +132,7 @@
             // ScubaCreditLabel
             // 
             this.ScubaCreditLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.ScubaCreditLabel.BackColor = System.Drawing.Color.White;
+            this.ScubaCreditLabel.BackColor = System.Drawing.Color.Transparent;
             this.ScubaCreditLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ScubaCreditLabel.Font = new System.Drawing.Font("Segoe UI", 14F);
             this.ScubaCreditLabel.ForeColor = System.Drawing.Color.Black;
@@ -230,7 +230,7 @@
             // SmartIconsPath
             // 
             this.SmartIconsPath.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.SmartIconsPath.BackColor = System.Drawing.Color.White;
+            this.SmartIconsPath.BackColor = System.Drawing.Color.Transparent;
             this.SmartIconsPath.Cursor = System.Windows.Forms.Cursors.Hand;
             this.SmartIconsPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SmartIconsPath.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Underline);
@@ -246,7 +246,7 @@
             // TomasKnopPath
             // 
             this.TomasKnopPath.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.TomasKnopPath.BackColor = System.Drawing.Color.White;
+            this.TomasKnopPath.BackColor = System.Drawing.Color.Transparent;
             this.TomasKnopPath.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TomasKnopPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.TomasKnopPath.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Underline);
@@ -263,7 +263,7 @@
             // ScubaPath
             // 
             this.ScubaPath.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.ScubaPath.BackColor = System.Drawing.Color.White;
+            this.ScubaPath.BackColor = System.Drawing.Color.Transparent;
             this.ScubaPath.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ScubaPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ScubaPath.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Underline);
@@ -279,7 +279,7 @@
             // IconTrackPath
             // 
             this.IconTrackPath.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.IconTrackPath.BackColor = System.Drawing.Color.White;
+            this.IconTrackPath.BackColor = System.Drawing.Color.Transparent;
             this.IconTrackPath.Cursor = System.Windows.Forms.Cursors.Hand;
             this.IconTrackPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.IconTrackPath.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Underline);
