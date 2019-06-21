@@ -334,17 +334,23 @@ namespace KnowledgeTrees
 
         private void changeTheme_Click(object sender, EventArgs e)
         {
+            int openForms = 0;
+
+            foreach (Form form in System.Windows.Forms.Application.OpenForms)
+            {
+                openForms++;
+            }
+
+            if (openForms > 1)
+            {
+                MessageBox.Show("Please close all other pages, except the main dashboard, to change the theme.", "Please close other open pages");
+                return;
+            }
+
             ChangeTheme();
         }
 
-        // TODO: Create a checker on theme button to see if there is more than one form open -- if yes, close
-        // all before changing theme.
-
-        // To check: Upper forms bar (with closing buttons) / dialogue boxes. see if its possible to change these colors.
-
-        // Fix individual buttons / labels which are being generically modified.
-
-        // Return dashboard button brings main to front.
+        // TODO: Upper forms bar (with closing buttons) / dialogue boxes. see if its possible to change these colors.
 
         private void ChangeTheme()
         {
