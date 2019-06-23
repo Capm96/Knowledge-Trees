@@ -33,14 +33,13 @@ namespace KnowledgeTrees
             callingDashboard = dashboard;
             treeName = NameOfTree;
             thisTreeView = this;
+            countingWords = false;
+            closingForm = false;
 
             DisplayWelcomeMessage();
             DisplayLeafCountMessage();
             DisplayNiceMessage();
             DisplayTreePicture();
-
-            countingWords = false;
-            closingForm = false;
         }
 
         private void InitializeBackgroundWorker()
@@ -89,22 +88,22 @@ namespace KnowledgeTrees
             }
         }
 
-        public static int GetFullTreeWordCount(string treeName, BackgroundWorker worker, DoWorkEventArgs e)
+        private int GetFullTreeWordCount(string treeName, BackgroundWorker worker, DoWorkEventArgs e)
         {
             int treeWordCount = 0;
             int treeCharacterCount = 0;
 
+            // Take care of UI while counting words.
             Delegate handler = new HideUI(thisTreeView.HandleUIWhileCountingWords);
-
             thisTreeView.Invoke(handler);
 
+            // Gets all the documents we will look through.
             string treePath = FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treeName);
-
             string[] leavesInTree = FolderLogic.GetAllLeafNamesWithNoExtension(treePath);
 
             foreach (string leaf in leavesInTree)
             {
-                while (closingForm) // Pause operation.
+                while (closingForm) // This pauses the process if the user clicked the exit button.
                 {
                     System.Threading.Thread.Sleep(100);
                 }
@@ -135,10 +134,9 @@ namespace KnowledgeTrees
             // Update form's word count.
             wordCount = treeWordCount;
             characterCount = treeCharacterCount;
-
             
-            FormCollection fc = System.Windows.Forms.Application.OpenForms;
-            foreach (Form form in fc)
+            FormCollection formCollection = System.Windows.Forms.Application.OpenForms;
+            foreach (Form form in formCollection)
             {
                 // This only calls the handler (to re-organize UI) if a Tree View form exists.
                 // Need to do this check because we might close the form while counting the words.
@@ -232,6 +230,18 @@ namespace KnowledgeTrees
             countLeavesProgressBar.Value = 0;
         }
 
+        private void CloseTreeViewWhileCounting()
+        {
+            backgroundWorker.CancelAsync();
+
+            ResetProgressBar();
+
+            WordProcessor.CloseAllOpenedWordDocuments();
+
+            Delegate handler = new HideUI(thisTreeView.HandleUIWhileCountingWords);
+            thisTreeView.Invoke(handler);
+        }
+
         private void returnToDashboardButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -242,7 +252,7 @@ namespace KnowledgeTrees
             // Calls parent dashboard and updates how many word docs are open.
             callingDashboard.openedWordDocuments = WordProcessor.CheckOpenedWordDocuments();
 
-            if (callingDashboard.openedWordDocuments.Count > 0)
+            if (callingDashboard.openedWordDocuments.Count > 0) // Can't count while documents are open.
             {
                 MessageBox.Show("Please close out all leaves before counting.", "Close Open Leaves");
                 return;
@@ -272,6 +282,7 @@ namespace KnowledgeTrees
 
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
+            // If for some reason the value would exceed 100 (generally rounding errors) just set it to 100.
             if ((countLeavesProgressBar.Value + e.ProgressPercentage) > 100)
                 countLeavesProgressBar.Value = 100;
             else
@@ -298,19 +309,6 @@ namespace KnowledgeTrees
             }
 
             closingForm = false;
-        }
-
-        private void CloseTreeViewWhileCounting()
-        {
-            backgroundWorker.CancelAsync();
-
-            ResetProgressBar();
-
-            WordProcessor.CloseAllOpenedWordDocuments();
-
-            Delegate handler = new HideUI(thisTreeView.HandleUIWhileCountingWords);
-
-            thisTreeView.Invoke(handler);
         }
     }
 }

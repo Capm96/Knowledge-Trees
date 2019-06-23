@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KnowledgeTrees
@@ -16,7 +13,7 @@ namespace KnowledgeTrees
 
             if (typeOfForm == typeof(knowledgeTreesDashboard))
             {
-                if (dashboard.IsThemeDark)
+                if (dashboard.isThemeDark)
                 {
                     SetDefaultTheme(callingForm, dashboard, colors);
                 }
@@ -27,7 +24,7 @@ namespace KnowledgeTrees
             }
             else
             {
-                if (dashboard.IsThemeDark)
+                if (dashboard.isThemeDark)
                 {
                     SetDarkTheme(callingForm, dashboard, colors);
                 }
@@ -89,7 +86,7 @@ namespace KnowledgeTrees
                 {
                     label.BackColor = labelBackColor;
 
-                    if (dashboard.IsThemeDark)
+                    if (dashboard.isThemeDark)
                         label.ForeColor = Color.White;
                     else
                         label.ForeColor = Color.Black;
@@ -112,7 +109,7 @@ namespace KnowledgeTrees
             {
                 button.BackColor = buttonColor;
 
-                if (dashboard.IsThemeDark == false)
+                if (dashboard.isThemeDark == false)
                 {
                     if (button.Name == "creditsButton" || button.Name == "themeButton")
                     {
@@ -129,7 +126,7 @@ namespace KnowledgeTrees
             }
         }
 
-        public static void ChangeBackground(this Form callingForm, knowledgeTreesDashboard dashboard, string colorCode)
+        private static void ChangeBackground(this Form callingForm, knowledgeTreesDashboard dashboard, string colorCode)
         {
             Color backgroundColor = ColorTranslator.FromHtml($"{colorCode}");
 

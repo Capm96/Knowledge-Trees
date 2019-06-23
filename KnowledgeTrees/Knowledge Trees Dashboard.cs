@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Drawing;
-using Microsoft.Office.Interop.Word;
 using System.Windows.Forms;
-using TreesLibrary;
 using System.IO;
 using System.Collections.Generic;
+using TreesLibrary;
+using Microsoft.Office.Interop.Word;
 
 namespace KnowledgeTrees
 {
     public partial class knowledgeTreesDashboard : Form
     {
         public List<string> openedWordDocuments = new List<string>();
-
         public Dictionary<string, string> themeColors = new Dictionary<string, string>();
-
-        public bool IsThemeDark = false;
+        public bool isThemeDark = false;
 
         public knowledgeTreesDashboard()
         {
@@ -69,15 +67,17 @@ namespace KnowledgeTrees
             if (treesListBox.SelectedItem != null)
             {
                 string parentTreeName = treesListBox.SelectedItem.ToString();
+
                 leavesListBox.DataSource = FolderLogic.GetAllLeafNamesWithNoExtension(FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, parentTreeName));
             }
+
             if (treesListBox.SelectedItem == null)
             {
                 leavesListBox.DataSource = null;
             }
         }
 
-        private static bool CheckIfFormIsOpen(string formName)
+        private bool CheckIfFormIsOpen(string formName)
         {
             bool output = false;
 
@@ -92,6 +92,20 @@ namespace KnowledgeTrees
             }
 
             return output;
+        }
+
+        private void ChangeTheme()
+        {
+            if (isThemeDark)
+            {
+                this.UpdateTheme(this, themeColors);
+                isThemeDark = false;
+            }
+            else
+            {
+                this.UpdateTheme(this, themeColors);
+                isThemeDark = true;
+            }
         }
 
         private void createTreeButton_Click(object sender, EventArgs e)
@@ -141,7 +155,6 @@ namespace KnowledgeTrees
         private void viewLeafButton_Click(object sender, EventArgs e)
         {
             List<string> openedWordDocuments = WordProcessor.CheckOpenedWordDocuments();
-
             bool isDocOpen = false;
 
             if (leavesListBox.SelectedItem != null)
@@ -231,25 +244,32 @@ namespace KnowledgeTrees
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    openedWordDocuments = WordProcessor.CheckOpenedWordDocuments();
-
-                    if (openedWordDocuments.Count > 0)
+                    try
                     {
-                        MessageBox.Show("Please close all leaves before deleting", "Close Opened Leaves");
-                        return;
+                        openedWordDocuments = WordProcessor.CheckOpenedWordDocuments();
+
+                        if (openedWordDocuments.Count > 0)
+                        {
+                            MessageBox.Show("Please close all leaves before deleting", "Close Opened Leaves");
+                            return;
+                        }
+
+                        string path = WordProcessor.GetFullLeafPath(treesListBox.SelectedItem.ToString(), leavesListBox.SelectedItem.ToString());
+
+                        FolderLogic.DeleteLeaf(path);
+
+                        WireUpTreesList();
+                        WireUpLeavesList();
                     }
-
-                    string path = WordProcessor.GetFullLeafPath(treesListBox.SelectedItem.ToString(), leavesListBox.SelectedItem.ToString());
-
-                    FolderLogic.DeleteLeaf(path);
-
-                    WireUpTreesList();
-                    WireUpLeavesList();
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show($"{ex}", "Error");
+                    }
                 }
-                else
-                {
-                    return;
-                }
+            }
+            else
+            {
+                return;
             }
         }
 
@@ -264,7 +284,7 @@ namespace KnowledgeTrees
             else
             {
                 WireUpLeavesList();
-                leavesLabel.Text = $"Leaves List";
+                leavesLabel.Text = "Leaves List";
             }
         }
 
@@ -280,7 +300,7 @@ namespace KnowledgeTrees
                                           e.Index,
                                           e.State ^ DrawItemState.Selected,
                                           e.ForeColor,
-                                          Color.LightGray); //Choose the color
+                                          Color.LightGray);
             }
 
             // Draw the background of the ListBox control for each item.
@@ -316,7 +336,6 @@ namespace KnowledgeTrees
             e.Graphics.DrawString(leavesListBox.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds, StringFormat.GenericDefault);
             e.DrawFocusRectangle();
 
-            // Checks if we need to increase the horizontal extent (to allow for horizontal scrollbar).
             int newHorizontalExtent = (int)(e.Graphics.MeasureString(leavesListBox.SelectedItem.ToString(), e.Font).Width + 2);
 
             if (leavesListBox.HorizontalExtent < newHorizontalExtent)
@@ -348,27 +367,6 @@ namespace KnowledgeTrees
             }
 
             ChangeTheme();
-        }
-
-        // TODO: Upper forms bar (with closing buttons) / dialogue boxes. see if its possible to change these colors.
-
-        private void ChangeTheme()
-        {
-            if (IsThemeDark)
-            {
-                this.UpdateTheme(this, themeColors);
-                IsThemeDark = false;
-            }
-            else
-            {
-                this.UpdateTheme(this, themeColors);
-                IsThemeDark = true;
-            }
-
-            // Gives option for user to select their own colors.
-            //ColorDialog cd = new ColorDialog();
-            //if (cd.ShowDialog() == DialogResult.OK)
-            //    this.BackColor = cd.Color;
         }
     }
 }

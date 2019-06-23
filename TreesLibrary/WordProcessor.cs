@@ -1,10 +1,9 @@
-﻿using Microsoft.Office.Interop.Word;
-using Word = Microsoft.Office.Interop.Word;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Linq;
+using Microsoft.Office.Interop.Word;
 
 namespace TreesLibrary
 {
@@ -19,12 +18,14 @@ namespace TreesLibrary
                 Window objectWindow;
                 Application wordObject;
                 wordObject = (Application)Marshal.GetActiveObject("Word.Application");
+
                 for (int i = 0; i < wordObject.Windows.Count; i++)
                 {
                     object a = i + 1;
                     objectWindow = wordObject.Windows.get_Item(ref a);
                     documents.Add(objectWindow.Document.FullName);
                 }
+
                 objectWindow = null;
 
             }
@@ -79,7 +80,9 @@ namespace TreesLibrary
         public static string GetFullLeafPath(string treeName, string leafName)
         {
             string treePath = GlobalConfig.currentWorkingPath + $@"\{treeName}\";
+
             string leafPath = FolderLogic.GetFullLeafName(leafName);
+
             string fullPath = treePath + leafPath;
 
             return fullPath;
