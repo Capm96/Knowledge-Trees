@@ -62,7 +62,7 @@
             // 
             this.leafNameLabel.AutoSize = true;
             this.leafNameLabel.Font = new System.Drawing.Font("Segoe UI Light", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.leafNameLabel.ForeColor = System.Drawing.Color.Gray;
+            this.leafNameLabel.ForeColor = System.Drawing.Color.Black;
             this.leafNameLabel.Location = new System.Drawing.Point(12, 18);
             this.leafNameLabel.Name = "leafNameLabel";
             this.leafNameLabel.Size = new System.Drawing.Size(115, 50);

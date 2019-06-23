@@ -38,7 +38,7 @@
             // 
             this.treeNameLabel.AutoSize = true;
             this.treeNameLabel.Font = new System.Drawing.Font("Segoe UI Light", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treeNameLabel.ForeColor = System.Drawing.Color.Gray;
+            this.treeNameLabel.ForeColor = System.Drawing.Color.Black;
             this.treeNameLabel.Location = new System.Drawing.Point(12, 19);
             this.treeNameLabel.Name = "treeNameLabel";
             this.treeNameLabel.Size = new System.Drawing.Size(115, 50);

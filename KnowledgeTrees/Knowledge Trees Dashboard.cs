@@ -40,7 +40,7 @@ namespace KnowledgeTrees
             themeColors.Add("DefaultBackground", "#ffffff");
             themeColors.Add("DefaultButtons", "#58d68d");
             themeColors.Add("DefaultLabels", "#229954");
-            themeColors.Add("DefaultLabelsText", "#9c9999");
+            themeColors.Add("DefaultLabelsText", "#000000");
             themeColors.Add("DefaultLists", "#ffffff");
             themeColors.Add("DefaultTexts", "#ffffff");
         }

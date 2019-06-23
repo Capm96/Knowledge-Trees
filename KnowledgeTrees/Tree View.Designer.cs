@@ -45,7 +45,7 @@
             this.welcomeLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.welcomeLabel.AutoSize = true;
             this.welcomeLabel.Font = new System.Drawing.Font("Segoe UI Light", 28F, System.Drawing.FontStyle.Bold);
-            this.welcomeLabel.ForeColor = System.Drawing.Color.Gray;
+            this.welcomeLabel.ForeColor = System.Drawing.Color.Black;
             this.welcomeLabel.Location = new System.Drawing.Point(12, 27);
             this.welcomeLabel.Name = "welcomeLabel";
             this.welcomeLabel.Size = new System.Drawing.Size(375, 62);
@@ -58,7 +58,7 @@
             this.leafCountText.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.leafCountText.AutoSize = true;
             this.leafCountText.Font = new System.Drawing.Font("Segoe UI Light", 18F);
-            this.leafCountText.ForeColor = System.Drawing.Color.Gray;
+            this.leafCountText.ForeColor = System.Drawing.Color.Black;
             this.leafCountText.Location = new System.Drawing.Point(34, 138);
             this.leafCountText.MaximumSize = new System.Drawing.Size(500, 0);
             this.leafCountText.Name = "leafCountText";
@@ -71,7 +71,7 @@
             this.niceMessageLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.niceMessageLabel.AutoSize = true;
             this.niceMessageLabel.Font = new System.Drawing.Font("Segoe UI Light", 18F);
-            this.niceMessageLabel.ForeColor = System.Drawing.Color.Gray;
+            this.niceMessageLabel.ForeColor = System.Drawing.Color.Black;
             this.niceMessageLabel.Location = new System.Drawing.Point(34, 470);
             this.niceMessageLabel.MaximumSize = new System.Drawing.Size(500, 0);
             this.niceMessageLabel.Name = "niceMessageLabel";
@@ -112,7 +112,7 @@
             this.wordCountText.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.wordCountText.AutoSize = true;
             this.wordCountText.Font = new System.Drawing.Font("Segoe UI Light", 18F);
-            this.wordCountText.ForeColor = System.Drawing.Color.Gray;
+            this.wordCountText.ForeColor = System.Drawing.Color.Black;
             this.wordCountText.Location = new System.Drawing.Point(34, 223);
             this.wordCountText.MaximumSize = new System.Drawing.Size(500, 0);
             this.wordCountText.Name = "wordCountText";
