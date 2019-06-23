@@ -22,6 +22,7 @@ namespace KnowledgeTrees
         static int wordCount;
         static int characterCount;
         static bool countingWords = false;
+        static bool closingForm = false;
         static string treeName;
 
         public treeView(knowledgeTreesDashboard dashboard, string NameOfTree)
@@ -37,6 +38,9 @@ namespace KnowledgeTrees
             DisplayLeafCountMessage();
             DisplayNiceMessage();
             DisplayTreePicture();
+
+            countingWords = false;
+            closingForm = false;
         }
 
         private void InitializeBackgroundWorker()
@@ -100,6 +104,11 @@ namespace KnowledgeTrees
 
             foreach (string leaf in leavesInTree)
             {
+                while (closingForm) // Pause operation.
+                {
+                    System.Threading.Thread.Sleep(100);
+                }
+
                 string fullLeafPath = WordProcessor.GetFullLeafPath(treeName, leaf);
 
                 // Open a doc file.
@@ -127,7 +136,18 @@ namespace KnowledgeTrees
             wordCount = treeWordCount;
             characterCount = treeCharacterCount;
 
-            thisTreeView.Invoke(handler);
+            
+            FormCollection fc = System.Windows.Forms.Application.OpenForms;
+            foreach (Form form in fc)
+            {
+                // This only calls the handler (to re-organize UI) if a Tree View form exists.
+                // Need to do this check because we might close the form while counting the words.
+                // In that case, this is never true because the form doesn't exist and the method exits successfully. 
+                if (form.Text == "Tree View")
+                {
+                    form.BeginInvoke(handler);
+                }
+            }
 
             return treeWordCount;
         }
@@ -240,6 +260,7 @@ namespace KnowledgeTrees
             var backgroundWorker = sender as BackgroundWorker;
 
             e.Result = GetFullTreeWordCount(treeName, backgroundWorker, e);
+
         }
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -251,22 +272,45 @@ namespace KnowledgeTrees
 
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            countLeavesProgressBar.Value += e.ProgressPercentage;
+            if ((countLeavesProgressBar.Value + e.ProgressPercentage) > 100)
+                countLeavesProgressBar.Value = 100;
+            else
+                countLeavesProgressBar.Value += e.ProgressPercentage;
         }
 
         private void treeForm_FormClosing(Object sender, FormClosingEventArgs e)
         {
+            closingForm = true;
+
             if (countingWords)
             {
-                MessageBox.Show("Please wait while we count the words and characters before closing", "Please wait");
+                var confirmResult = MessageBox.Show($"Are you sure you want to close the page? We are counting your words and characters.",
+                "Confirm Exit", MessageBoxButtons.YesNo);
 
-                e.Cancel = true;
-                return;
+                if (confirmResult == DialogResult.Yes)
+                {
+                    CloseTreeViewWhileCounting();
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
             }
-            else
-            {
-                e.Cancel = false;
-            }
+
+            closingForm = false;
+        }
+
+        private void CloseTreeViewWhileCounting()
+        {
+            backgroundWorker.CancelAsync();
+
+            ResetProgressBar();
+
+            WordProcessor.CloseAllOpenedWordDocuments();
+
+            Delegate handler = new HideUI(thisTreeView.HandleUIWhileCountingWords);
+
+            thisTreeView.Invoke(handler);
         }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using Microsoft.Office.Interop.Word;
+using Word = Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Linq;
 
 namespace TreesLibrary
 {
@@ -31,6 +34,29 @@ namespace TreesLibrary
             }
 
             return documents;
+        }
+
+        public static void CloseAllOpenedWordDocuments()
+        {
+            try
+            {
+                if (Process.GetProcessesByName("winword").Count() > 0)
+                {
+                    Application wordInstance = (Application)Marshal.GetActiveObject("Word.Application");
+
+                    foreach (Document doc in wordInstance.Documents)
+                    {
+                        doc.Save();
+                        doc.Close();
+                    }
+
+                    wordInstance.Quit();
+                }
+            }
+            catch
+            {
+                // No documents opened
+            }
         }
 
         public static Application CreateWordDocumentFromExistingInstance(string path)
