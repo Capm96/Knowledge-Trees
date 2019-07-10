@@ -42,6 +42,7 @@
             this.dashboardLabel = new System.Windows.Forms.Label();
             this.creditsButton = new System.Windows.Forms.Button();
             this.themeButton = new System.Windows.Forms.Button();
+            this.backupButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // treesListBox
@@ -274,6 +275,21 @@
             this.themeButton.UseVisualStyleBackColor = false;
             this.themeButton.Click += new System.EventHandler(this.changeTheme_Click);
             // 
+            // backupButton
+            // 
+            this.backupButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.backupButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(214)))), ((int)(((byte)(141)))));
+            this.backupButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.backupButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backupButton.Font = new System.Drawing.Font("Segoe UI", 18F);
+            this.backupButton.ForeColor = System.Drawing.Color.Transparent;
+            this.backupButton.Location = new System.Drawing.Point(659, 0);
+            this.backupButton.Name = "backupButton";
+            this.backupButton.Size = new System.Drawing.Size(202, 78);
+            this.backupButton.TabIndex = 15;
+            this.backupButton.Text = "Backup";
+            this.backupButton.UseVisualStyleBackColor = false;
+            // 
             // knowledgeTreesDashboard
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -282,6 +298,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1262, 753);
+            this.Controls.Add(this.backupButton);
             this.Controls.Add(this.themeButton);
             this.Controls.Add(this.creditsButton);
             this.Controls.Add(this.dashboardLabel);
@@ -321,6 +338,7 @@
         public System.Windows.Forms.Label dashboardLabel;
         private System.Windows.Forms.Button creditsButton;
         private System.Windows.Forms.Button themeButton;
+        private System.Windows.Forms.Button backupButton;
     }
 }
 

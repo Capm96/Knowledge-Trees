@@ -111,14 +111,14 @@ namespace KnowledgeTrees
 
                 if (dashboard.isThemeDark == false)
                 {
-                    if (button.Name == "creditsButton" || button.Name == "themeButton")
+                    if (button.Name == "creditsButton" || button.Name == "themeButton" || button.Name == "backupButton")
                     {
                         button.ForeColor = Color.Black;
                     }
                 }
                 else
                 {
-                    if (button.Name == "creditsButton" || button.Name == "themeButton")
+                    if (button.Name == "creditsButton" || button.Name == "themeButton" || button.Name == "backupButton")
                     {
                         button.ForeColor = Color.White;
                     }
