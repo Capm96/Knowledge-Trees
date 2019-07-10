@@ -84,5 +84,43 @@ namespace TreesLibrary
         {
             File.Delete(leafPath);
         }
+
+        public static void BackupTrees(string currentLocation, string backupLocation, bool copySubDirectories)
+        {
+            // Get the subdirectories for the specified directory.
+            DirectoryInfo sourceDirectory = new DirectoryInfo(currentLocation);
+
+            if (!sourceDirectory.Exists)
+            {
+                throw new DirectoryNotFoundException("Source directory does not exist or could not be found: "
+                    + currentLocation);
+            }
+
+            DirectoryInfo[] sourceDirectories = sourceDirectory.GetDirectories();
+
+            // If the destination directory doesn't exist, create it.
+            if (!Directory.Exists(backupLocation))
+            {
+                Directory.CreateDirectory(backupLocation);
+            }
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfo[] files = sourceDirectory.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string temporaryPath = Path.Combine(backupLocation, file.Name);
+                file.CopyTo(temporaryPath, false);
+            }
+
+            // If copying subdirectories, copy them and their contents to new location.
+            if (copySubDirectories)
+            {
+                foreach (DirectoryInfo subDirectory in sourceDirectories)
+                {
+                    string temppath = Path.Combine(backupLocation, subDirectory.Name);
+                    BackupTrees(subDirectory.FullName, temppath, copySubDirectories);
+                }
+            }
+        }
     }
 }

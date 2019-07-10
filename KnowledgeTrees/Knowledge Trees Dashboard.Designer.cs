@@ -289,6 +289,7 @@
             this.backupButton.TabIndex = 15;
             this.backupButton.Text = "Backup";
             this.backupButton.UseVisualStyleBackColor = false;
+            this.backupButton.Click += new System.EventHandler(this.backupButton_Click);
             // 
             // knowledgeTreesDashboard
             // 

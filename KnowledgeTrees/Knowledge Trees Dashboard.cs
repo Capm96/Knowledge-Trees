@@ -368,5 +368,32 @@ namespace KnowledgeTrees
 
             ChangeTheme();
         }
+
+        private void backupButton_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    try
+                    {
+                        string source = GlobalConfig.currentWorkingPath;
+                        string destination = $@"{fbd.SelectedPath}\TreesBackup";
+
+                        FolderLogic.BackupTrees(source, destination, true);
+
+                        MessageBox.Show($"Backup Done! Your trees were successfully saved at {destination}", "Success!");
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show("This path already contains a Backup folder. Delete the old one, or choose a new path.", 
+                            "Invalid path");
+                    }
+                }
+            }
+            // Save all trees into selected folder.
+        }
     }
 }
