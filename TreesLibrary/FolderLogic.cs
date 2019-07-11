@@ -122,5 +122,12 @@ namespace TreesLibrary
                 }
             }
         }
+
+        public static string GetThemeStatus(string path)
+        {
+            string[] result = File.ReadAllLines(path);
+
+            return result[0];
+        }
     }
 }

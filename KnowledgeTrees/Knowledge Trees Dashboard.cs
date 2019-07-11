@@ -24,6 +24,9 @@ namespace KnowledgeTrees
 
             // Fill in dictionary with colors we want.
             FillInThemeColors();
+
+            // Update theme based on what was last set.
+            UpdateThemeWithStartup();
         }
 
         private void FillInThemeColors()
@@ -389,11 +392,19 @@ namespace KnowledgeTrees
                     catch (IOException ex)
                     {
                         MessageBox.Show("This path already contains a Backup folder. Delete the old one, or choose a new path.", 
-                            "Invalid path");
+                            "Invalid path");    
                     }
                 }
             }
-            // Save all trees into selected folder.
+        }
+
+        public void UpdateThemeWithStartup()
+        {
+            string status = FolderLogic.GetThemeStatus(GlobalConfig.currentThemeStatus);
+
+            isThemeDark = status == "true" ? true : false;
+
+            ChangeTheme();
         }
     }
 }

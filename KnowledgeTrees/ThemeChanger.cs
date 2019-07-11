@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using TreesLibrary;
 
 namespace KnowledgeTrees
 {
@@ -33,6 +35,8 @@ namespace KnowledgeTrees
                     SetDefaultTheme(callingForm, dashboard, colors);
                 }
             }
+
+            UpdateCurrentThemeStatus(dashboard);
         }
 
         private static void SetDarkTheme(Form callingForm, knowledgeTreesDashboard dashboard, Dictionary<string, string> colors)
@@ -131,6 +135,35 @@ namespace KnowledgeTrees
             Color backgroundColor = ColorTranslator.FromHtml($"{colorCode}");
 
             callingForm.BackColor = backgroundColor;
+        }
+
+        private static void UpdateCurrentThemeStatus(knowledgeTreesDashboard dashboard)
+        {
+            string pathForThemeStatus = GlobalConfig.currentThemeStatus;
+
+            // If this is first time changing, create a CSV file containing the current status. 
+            if (!File.Exists(pathForThemeStatus))
+            {
+                File.Create(pathForThemeStatus);
+            }
+
+            string status = "";
+
+            try
+            {
+                // Update status according to what is currently set.
+                status = (dashboard.isThemeDark) ? "true" : "false";
+
+                // Clear current content.
+                File.WriteAllText(pathForThemeStatus, string.Empty);
+
+                // Write new.
+                File.WriteAllText(pathForThemeStatus, status);
+            }
+            catch
+            {
+
+            }
         }
     }
 }
