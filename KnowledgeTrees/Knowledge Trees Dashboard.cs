@@ -228,16 +228,26 @@ namespace KnowledgeTrees
                 {
                     try
                     {
-                        FolderLogic.DeleteTree(FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treesListBox.SelectedItem.ToString()));
+                        openedWordDocuments = WordProcessor.CheckOpenedWordDocuments();
+
+                        if (openedWordDocuments.Count > 0)
+                        {
+                            MessageBox.Show("Please close all word documents before deleting tree.", "Close Opened Leaves");
+                            return;
+                        }
+
+                        string treePath = FolderLogic.GetFullTreePath(GlobalConfig.currentWorkingPath, treesListBox.SelectedItem.ToString());
+
+                        FolderLogic.DeleteTree(treePath);
 
                         // Update lists.
                         WireUpTreesList();
                         WireUpLeavesList();
                         treesListBox_SelectedIndexChanged(sender, e);
                     }
-                    catch
+                    catch (IOException ex)
                     {
-                        MessageBox.Show("Please close all word documents before deleting tree.", "Word Documents Open");
+                        MessageBox.Show($"{ex}", "Error");
                     }
                 }
                 else
