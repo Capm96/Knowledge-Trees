@@ -9,7 +9,7 @@ namespace KnowledgeTrees
 {
     public static class ThemeChanger
     {
-        public static void UpdateTheme(this Form callingForm, knowledgeTreesDashboard dashboard, Dictionary<string, string> colors)
+        public static void UpdateThemeOnClick(this Form callingForm, knowledgeTreesDashboard dashboard, Dictionary<string, string> colors)
         {
             var typeOfForm = callingForm.GetType();
 
@@ -17,29 +17,41 @@ namespace KnowledgeTrees
             {
                 if (dashboard.isThemeDark)
                 {
-                    SetDefaultTheme(callingForm, dashboard, colors);
+                    SetDefaultThemeOnClick(callingForm, dashboard, colors);
                 }
                 else
                 {
-                    SetDarkTheme(callingForm, dashboard, colors);
+                    SetDarkThemeOnClick(callingForm, dashboard, colors);
                 }
             }
             else
             {
                 if (dashboard.isThemeDark)
                 {
-                    SetDarkTheme(callingForm, dashboard, colors);
+                    SetDarkThemeOnClick(callingForm, dashboard, colors);
                 }
                 else
                 {
-                    SetDefaultTheme(callingForm, dashboard, colors);
+                    SetDefaultThemeOnClick(callingForm, dashboard, colors);
                 }
             }
-
-            UpdateCurrentThemeStatus(dashboard);
         }
 
-        private static void SetDarkTheme(Form callingForm, knowledgeTreesDashboard dashboard, Dictionary<string, string> colors)
+        public static void UpdateThemeOnStartup(this Form callingForm, knowledgeTreesDashboard dashboard, Dictionary<string, string> colors)
+        {
+            var typeOfForm = callingForm.GetType();
+
+            if (dashboard.isThemeDark)
+            {
+                SetDarkThemeOnStartup(callingForm, dashboard, colors);
+            }
+            else
+            {
+                SetDefaultThemeOnStartup(callingForm, dashboard, colors);
+            }
+        }
+
+        private static void SetDarkThemeOnClick(Form callingForm, knowledgeTreesDashboard dashboard, Dictionary<string, string> colors)
         {
             ChangeBackground(callingForm, dashboard, colors["DarkBackground"]);
             ChangeButtons(callingForm, dashboard, colors["DarkButtons"]);
@@ -48,11 +60,29 @@ namespace KnowledgeTrees
             ChangeTexts(callingForm, dashboard, colors["DarkTexts"]);
         }
 
-        private static void SetDefaultTheme(Form callingForm, knowledgeTreesDashboard dashboard, Dictionary<string, string> colors)
+        private static void SetDefaultThemeOnClick(Form callingForm, knowledgeTreesDashboard dashboard, Dictionary<string, string> colors)
         {
             ChangeBackground(callingForm, dashboard, colors["DefaultBackground"]);
             ChangeButtons(callingForm, dashboard, colors["DefaultButtons"]);
             ChangeLabels(callingForm, dashboard, colors["DefaultLabels"], colors["DefaultLabelsText"]);
+            ChangeLists(callingForm, dashboard, colors["DefaultLists"]);
+            ChangeTexts(callingForm, dashboard, colors["DefaultTexts"]);
+        }
+
+        private static void SetDarkThemeOnStartup(Form callingForm, knowledgeTreesDashboard dashboard, Dictionary<string, string> colors)
+        {
+            ChangeBackground(callingForm, dashboard, colors["DarkBackground"]);
+            ChangeButtonsOnStartup(callingForm, dashboard, colors["DarkButtons"]);
+            ChangeLabelsOnStartup(callingForm, dashboard, colors["DarkLabels"], colors["DarkLabelsText"]);
+            ChangeLists(callingForm, dashboard, colors["DarkLists"]);
+            ChangeTexts(callingForm, dashboard, colors["DarkTexts"]);
+        }
+
+        private static void SetDefaultThemeOnStartup(Form callingForm, knowledgeTreesDashboard dashboard, Dictionary<string, string> colors)
+        {
+            ChangeBackground(callingForm, dashboard, colors["DefaultBackground"]);
+            ChangeButtonsOnStartup(callingForm, dashboard, colors["DefaultButtons"]);
+            ChangeLabelsOnStartup(callingForm, dashboard, colors["DefaultLabels"], colors["DefaultLabelsText"]);
             ChangeLists(callingForm, dashboard, colors["DefaultLists"]);
             ChangeTexts(callingForm, dashboard, colors["DefaultTexts"]);
         }
@@ -105,6 +135,34 @@ namespace KnowledgeTrees
             }
         }
 
+        private static void ChangeLabelsOnStartup(Form callingForm, knowledgeTreesDashboard dashboard, string backColor, string textColor)
+        {
+            var formType = callingForm.GetType();
+
+            Color labelBackColor = ColorTranslator.FromHtml($"{backColor}");
+            Color labelTextColor = ColorTranslator.FromHtml($"{textColor}");
+
+            if (formType == typeof(knowledgeTreesDashboard))
+            {
+                foreach (var label in callingForm.Controls.OfType<Label>())
+                {
+                    label.BackColor = labelBackColor;
+
+                    if (dashboard.isThemeDark)
+                        label.ForeColor = Color.Black;
+                    else
+                        label.ForeColor = Color.White;
+                }
+            }
+            else
+            {
+                foreach (var label in callingForm.Controls.OfType<Label>())
+                {
+                    label.ForeColor = labelTextColor;
+                }
+            }
+        }
+
         private static void ChangeButtons(Form callingForm, knowledgeTreesDashboard dashboard, string colorCode)
         {
             Color buttonColor = ColorTranslator.FromHtml($"{colorCode}");
@@ -130,6 +188,31 @@ namespace KnowledgeTrees
             }
         }
 
+        private static void ChangeButtonsOnStartup(Form callingForm, knowledgeTreesDashboard dashboard, string colorCode)
+        {
+            Color buttonColor = ColorTranslator.FromHtml($"{colorCode}");
+
+            foreach (var button in callingForm.Controls.OfType<Button>())
+            {
+                button.BackColor = buttonColor;
+
+                if (dashboard.isThemeDark)
+                {
+                    if (button.Name == "creditsButton" || button.Name == "themeButton" || button.Name == "backupButton")
+                    {
+                        button.ForeColor = Color.Black;
+                    }
+                }
+                else
+                {
+                    if (button.Name == "creditsButton" || button.Name == "themeButton" || button.Name == "backupButton")
+                    {
+                        button.ForeColor = Color.White;
+                    }
+                }
+            }
+        }
+
         private static void ChangeBackground(this Form callingForm, knowledgeTreesDashboard dashboard, string colorCode)
         {
             Color backgroundColor = ColorTranslator.FromHtml($"{colorCode}");
@@ -137,7 +220,7 @@ namespace KnowledgeTrees
             callingForm.BackColor = backgroundColor;
         }
 
-        private static void UpdateCurrentThemeStatus(knowledgeTreesDashboard dashboard)
+        public static void UpdateCurrentThemeStatus(knowledgeTreesDashboard dashboard)
         {
             string pathForThemeStatus = GlobalConfig.currentThemeStatus;
 
@@ -152,7 +235,7 @@ namespace KnowledgeTrees
             try
             {
                 // Update status according to what is currently set.
-                status = (dashboard.isThemeDark) ? "true" : "false";
+                status = (dashboard.isThemeDark) ? "dark" : "green";
 
                 // Clear current content.
                 File.WriteAllText(pathForThemeStatus, string.Empty);

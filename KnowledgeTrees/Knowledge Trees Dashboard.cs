@@ -97,18 +97,27 @@ namespace KnowledgeTrees
             return output;
         }
 
-        private void ChangeTheme()
+        private void ChangeThemeOnClick()
         {
             if (isThemeDark)
             {
-                this.UpdateTheme(this, themeColors);
+                this.UpdateThemeOnClick(this, themeColors);
                 isThemeDark = false;
             }
             else
             {
-                this.UpdateTheme(this, themeColors);
+                this.UpdateThemeOnClick(this, themeColors);
                 isThemeDark = true;
             }
+
+            ThemeChanger.UpdateCurrentThemeStatus(this);
+        }
+
+        private void ChangeThemeOnStartup()
+        {
+            this.UpdateThemeOnStartup(this, themeColors);
+
+            ThemeChanger.UpdateCurrentThemeStatus(this);
         }
 
         private void createTreeButton_Click(object sender, EventArgs e)
@@ -118,7 +127,7 @@ namespace KnowledgeTrees
             if (isOpen == false)
             {
                 createTreeForm form = new createTreeForm(this);
-                form.UpdateTheme(this, themeColors);
+                form.UpdateThemeOnClick(this, themeColors);
                 form.Show();
             }
         }
@@ -134,7 +143,7 @@ namespace KnowledgeTrees
                     string selectedTreeName = treesListBox.SelectedItem.ToString();
 
                     createLeafForm form = new createLeafForm(this, selectedTreeName);
-                    form.UpdateTheme(this, themeColors);
+                    form.UpdateThemeOnClick(this, themeColors);
                     form.Show();
                 }
             }
@@ -149,7 +158,7 @@ namespace KnowledgeTrees
                 if (treesListBox.SelectedItem != null)
                 {
                     treeView form = new treeView(this, treesListBox.SelectedItem.ToString());
-                    form.UpdateTheme(this, themeColors);
+                    form.UpdateThemeOnClick(this, themeColors);
                     form.Show();
                 }
             }
@@ -350,7 +359,7 @@ namespace KnowledgeTrees
         private void creditsButton_Click(object sender, EventArgs e)
         {
             Credits form = new Credits();
-            form.UpdateTheme(this, themeColors);
+            form.UpdateThemeOnClick(this, themeColors);
             form.Show();
         }
 
@@ -369,7 +378,7 @@ namespace KnowledgeTrees
                 return;
             }
 
-            ChangeTheme();
+            ChangeThemeOnClick();
         }
 
         private void backupButton_Click(object sender, EventArgs e)
@@ -402,9 +411,9 @@ namespace KnowledgeTrees
         {
             string status = FolderLogic.GetThemeStatus(GlobalConfig.currentThemeStatus);
 
-            isThemeDark = status == "true" ? true : false;
+            isThemeDark = status == "dark" ? true : false;
 
-            ChangeTheme();
+            ChangeThemeOnStartup();
         }
     }
 }

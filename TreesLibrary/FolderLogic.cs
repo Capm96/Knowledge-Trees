@@ -125,9 +125,20 @@ namespace TreesLibrary
 
         public static string GetThemeStatus(string path)
         {
-            string[] result = File.ReadAllLines(path);
+            if (File.Exists(path))
+            {
+                try
+                {
+                    string[] result = File.ReadAllLines(path);
+                    return result[0];
+                }
+                catch
+                {
 
-            return result[0];
+                }
+            }
+
+            return "green";
         }
     }
 }
