@@ -1,22 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using Services.Interfaces;
 
 namespace Services
 {
-
     public class FolderLogicHandler : IFolderLogicHandler
     {
-        //public string GetFullTreePath(string baseDirectory, string treeName)
-        //{
-        //    return $@"{ baseDirectory }\{ treeName }";
-        //}
-
-        //public string GetFullLeafNameWithExtension(string currentLeafName) // Adds in .docx extension.
-        //{
-        //    return string.Concat(currentLeafName, ".docx");
-        //}
-
         public IList<string> GetAllTreePaths(string baseDirectory)
         {
             return Directory.GetDirectories(baseDirectory).ToList();
@@ -112,6 +102,14 @@ namespace Services
                     BackupTrees(subDirectory.FullName, temporaryPath, copySubDirectories);
                 }
             }
+        }
+
+        public string GetFullLeafPath(string treeName, string leafName)
+        {
+            string treePath = Directory.GetCurrentDirectory() + $@"\{treeName}\";
+            string leafPath = string.Concat(leafName, ".docx");
+
+            return treePath + leafPath;
         }
     }
 }

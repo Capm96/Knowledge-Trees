@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Services
+namespace Services.Interfaces
 {
     /// <summary>
     /// Handles all logic involved with Windows' folders manipulation (adding, deleting, getting paths, etc).
@@ -46,5 +46,10 @@ namespace Services
         /// Returns all three paths in the given directory.
         /// </summary>
         IList<string> GetAllTreePaths(string baseDirectory);
+
+        /// <summary>
+        /// Returns the full leaf path for the given leaf at the given tree.
+        /// </summary>
+        string GetFullLeafPath(string treeName, string leafName);
     }
 }
