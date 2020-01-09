@@ -51,13 +51,10 @@ namespace Services.Interfaces
         /// Returns the full leaf path for the given leaf at the given tree.
         /// </summary>
         string GetFullLeafPath(string treeName, string leafName);
-<<<<<<< HEAD
 
         /// <summary>
         /// Returns the full tree path for the given tree name.
         /// </summary>
         string GetFullTreePath(string treeName);
-=======
->>>>>>> d2b9d017515476da329690706a1471df68883430
     }
 }

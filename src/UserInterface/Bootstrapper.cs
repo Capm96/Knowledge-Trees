@@ -1,9 +1,6 @@
 ﻿using Caliburn.Micro;
-<<<<<<< HEAD
 using Services;
 using Services.Interfaces;
-=======
->>>>>>> d2b9d017515476da329690706a1471df68883430
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +13,13 @@ namespace UserInterface
 {
     public class Bootstrapper : BootstrapperBase
     {
-<<<<<<< HEAD
         private SimpleContainer _container = new SimpleContainer();
 
-=======
->>>>>>> d2b9d017515476da329690706a1471df68883430
         public Bootstrapper()
         {
             Initialize();
         }
 
-<<<<<<< HEAD
         protected override void Configure()
         {
             _container.Instance(_container);
@@ -49,13 +42,10 @@ namespace UserInterface
                     viewModelType, viewModelType.ToString(), viewModelType));
         }
 
-=======
->>>>>>> d2b9d017515476da329690706a1471df68883430
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
             DisplayRootViewFor<MainDashboardViewModel>();
         }
-<<<<<<< HEAD
 
         protected override object GetInstance(Type service, string key)
         {
@@ -71,7 +61,5 @@ namespace UserInterface
         {
             _container.BuildUp(instance);
         }
-=======
->>>>>>> d2b9d017515476da329690706a1471df68883430
     }
 }

@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserInterface.Views"
         mc:Ignorable="d"
-<<<<<<< HEAD
         Title="Knowledge Trees - Main Dashboard" 
         Height="450" 
         Width="800" 
@@ -104,41 +103,6 @@
             <ListBox x:Name="listBoxLeaves" Height="150" Background="LightGray" Style="{StaticResource ListStyle}"
                      ItemsSource="{Binding Path=Leaves, NotifyOnSourceUpdated=True}" 
                      SelectedItem="{Binding SelectedLeaf, Mode=OneWayToSource}"/>
-=======
-        Title="MainDashboardView" Height="450" Width="800">
-    <Grid Margin="10" Background="LightBlue">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-
-        <StackPanel Grid.Column="0">
-            <ListBox x:Name="listBoxTrees" Height="150" Background="LightGray">
-            </ListBox>
-
-            <Button x:Name="btnCreateTree" Content="Create Tree">
-            </Button>
-
-            <Button x:Name="btnViewTree" Content="View Tree">
-            </Button>
-
-            <Button x:Name="btnDeleteTree" Content="Delete Tree">
-            </Button>
-        </StackPanel>
-
-        <StackPanel Grid.Column="1">
-            <ListBox x:Name="listBoxLeaves" Height="150" Background="LightGray">
-            </ListBox>
-
-            <Button x:Name="btnCreateLeaf" Content="Create Leaf">
-            </Button>
-
-            <Button x:Name="btnViewLeaf" Content="View Leaf">
-            </Button>
-
-            <Button x:Name="btnDeleteLeaf" Content="Delete Leaf">
-            </Button>
->>>>>>> d2b9d017515476da329690706a1471df68883430
         </StackPanel>
     </Grid>
 </Window>
