@@ -1,0 +1,24 @@
+﻿<Window x:Class="UserInterface.Views.CreateNewLeafView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UserInterface.Views"
+        mc:Ignorable="d"
+        Title="CreateNewLeafView" 
+        Height="150" 
+        Width="250" 
+        Background="#252425" 
+        WindowStartupLocation="CenterScreen" >
+    <StackPanel Margin="10">
+        <TextBox Text="{Binding Path=NewLeafName, Mode=OneWayToSource, 
+            ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Height="25" FontSize="14"
+                 ToolTip="{Binding ErrorCollection[NewLeafName]}"/>
+
+        <TextBlock Margin="0, 10, 0, 0" Text="{Binding ErrorCollection[NewLeafName]}" Foreground="White" FontSize="12" FontWeight="Bold"/>
+        <Button x:Name="CreateNewLeaf" Margin="0, 10, 0, 0" Height="30" Content="Create Leaf" 
+                FontSize="14" Foreground="White" FontWeight="Bold" Width="150"
+                IsEnabled="{Binding CreateLeafButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource ButtonStyle}"/>
+    </StackPanel>
+</Window>
