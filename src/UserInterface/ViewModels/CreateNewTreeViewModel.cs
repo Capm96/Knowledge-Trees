@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using Caliburn.Micro;
 using Services.Constants;
 using Services.Interfaces;
@@ -123,3 +124,17 @@ namespace UserInterface.ViewModels
         #endregion
     }
 }
+=======
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace UserInterface.ViewModels
+{
+    class CreateNewTreeViewModel
+    {
+    }
+}
+>>>>>>> d2b9d017515476da329690706a1471df68883430

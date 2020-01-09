@@ -1,14 +1,23 @@
 ﻿using Caliburn.Micro;
+<<<<<<< HEAD
 using Services.Constants;
 using Services.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+=======
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+>>>>>>> d2b9d017515476da329690706a1471df68883430
 
 namespace UserInterface.ViewModels
 {
     public class MainDashboardViewModel : Conductor<object>
     {
+<<<<<<< HEAD
         #region Fields & properties
 
         IWindowManager _windowManager;
@@ -272,5 +281,7 @@ namespace UserInterface.ViewModels
         }
 
         #endregion
+=======
+>>>>>>> d2b9d017515476da329690706a1471df68883430
     }
 }

@@ -5,16 +5,20 @@ using System.Runtime.InteropServices;
 using System.Linq;
 using Microsoft.Office.Interop.Word;
 using Services.Interfaces;
+<<<<<<< HEAD
 using System.Windows;
 using Application = Microsoft.Office.Interop.Word.Application;
 using Window = Microsoft.Office.Interop.Word.Window;
 using System.IO;
 using Services.Constants;
+=======
+>>>>>>> d2b9d017515476da329690706a1471df68883430
 
 namespace Services
 {
     public class WordLogicHandler : IWordLogicHandler
     {
+<<<<<<< HEAD
         private Application _wordInstance;
 
         public void CreateNewLeaf(string path, string leafName, string treeName)
@@ -63,6 +67,34 @@ namespace Services
         }
 
         public void SaveAndCloseAllLeaves()
+=======
+        public IList<string> GetNamesOfAllOpenWordDocuments()
+        {
+            List<string> documentNames = new List<string>();
+
+            try
+            {
+                Window objectWindow;
+                Application wordInstance;
+                wordInstance = (Application)Marshal.GetActiveObject("Word.Application");
+
+                for (int i = 0; i <= wordInstance.Windows.Count; i++)
+                {
+                    object a = i + 1;
+                    objectWindow = wordInstance.Windows.get_Item(ref a);
+                    documentNames.Add(objectWindow.Document.FullName);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.ToString());
+            }
+
+            return documentNames;
+        }
+
+        public void SaveAndCloseAllOpenedWordDocuments()
+>>>>>>> d2b9d017515476da329690706a1471df68883430
         {
             try
             {
@@ -85,6 +117,7 @@ namespace Services
             }
         }
 
+<<<<<<< HEAD
         public IList<string> GetAllOpenLeafNames()
         {
             List<string> documentNames = new List<string>();
@@ -201,6 +234,30 @@ namespace Services
             output.Add(StatsNamingConstants.LeafCount, 0);
             output.Add(StatsNamingConstants.CharacterCount, 0);
             return output;
+=======
+        public Application CreateWordDocumentFromExistingWordInstance(string path)
+        {
+            try
+            {
+                Application wordApp = (Application)Marshal.GetActiveObject("Word.Application");
+                object inputFile = path;
+                object confirmConversions = false;
+                object readOnly = false;
+                object visible = true;
+                object missing = Type.Missing;
+
+                Document doc = wordApp.Documents.Open(
+                    ref inputFile, ref confirmConversions, ref readOnly, ref missing,
+                    ref missing, ref missing, ref missing, ref missing,
+                    ref missing, ref missing, ref missing, ref visible,
+                    ref missing, ref missing, ref missing, ref missing);
+                return wordApp;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.ToString());
+            }
+>>>>>>> d2b9d017515476da329690706a1471df68883430
         }
     }
 }

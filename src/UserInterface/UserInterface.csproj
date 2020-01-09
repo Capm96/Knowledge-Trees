@@ -71,6 +71,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="ViewModels\CreateNewLeafViewModel.cs" />
     <Compile Include="ViewModels\CreateNewTreeViewModel.cs" />
     <Compile Include="ViewModels\MainDashboardViewModel.cs" />
@@ -78,15 +79,22 @@
     <Compile Include="Views\CreateNewLeafView.xaml.cs">
       <DependentUpon>CreateNewLeafView.xaml</DependentUpon>
     </Compile>
+=======
+    <Compile Include="ViewModels\CreateNewTreeViewModel.cs" />
+    <Compile Include="ViewModels\MainDashboardViewModel.cs" />
+>>>>>>> d2b9d017515476da329690706a1471df68883430
     <Compile Include="Views\CreateNewTreeView.xaml.cs">
       <DependentUpon>CreateNewTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainDashboardView.xaml.cs">
       <DependentUpon>MainDashboardView.xaml</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Views\ViewTreeView.xaml.cs">
       <DependentUpon>ViewTreeView.xaml</DependentUpon>
     </Compile>
+=======
+>>>>>>> d2b9d017515476da329690706a1471df68883430
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
@@ -117,10 +125,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Page Include="Views\CreateNewLeafView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+=======
+>>>>>>> d2b9d017515476da329690706a1471df68883430
     <Page Include="Views\CreateNewTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,6 +140,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+<<<<<<< HEAD
     <Page Include="Views\ViewTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -143,6 +155,11 @@
       <Project>{192D83C7-AE1E-4798-9079-3216910F32F0}</Project>
       <Name>Services</Name>
     </ProjectReference>
+=======
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+>>>>>>> d2b9d017515476da329690706a1471df68883430
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,6 +6,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
+<<<<<<< HEAD
                     <Style x:Key="ButtonStyle" TargetType="Button">
                         <Style.Resources>
                             <Style TargetType="Border">
@@ -44,6 +45,8 @@
                             </Trigger>
                         </Style.Triggers>
                     </Style>
+=======
+>>>>>>> d2b9d017515476da329690706a1471df68883430
                     <local:Bootstrapper x:Key="Bootstrapper"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
