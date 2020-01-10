@@ -5,16 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserInterface.Views"
         mc:Ignorable="d"
-        Title="ViewTreeView" Height="450" Width="800" Background="DarkGray" WindowStartupLocation="CenterScreen">
+        Title="Tree View" 
+        Height="350" 
+        Width="600" 
+        Background="#252425"
+        WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <TextBlock Text="{Binding TreeName, UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
-            <Button x:Name="UpdateStatistics" Content="Get Statistics On Leaf" Margin="0, 30, 0, 0"/>
-            <TextBlock Text="{Binding ReportMessage, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel>
+            <TextBlock FontSize="35" Margin="0, 20, 0, 35" Foreground="White" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Run Text="{Binding TreeName, UpdateSourceTrigger=PropertyChanged}"/>
+                <Run Text="Tree"/>
+            </TextBlock>
+            <Button x:Name="UpdateStatistics" Content="Get Statistics" Style="{StaticResource ButtonStyle}"
+                    MinWidth="200"/>
+            <TextBlock Text="{Binding ReportMessage, UpdateSourceTrigger=PropertyChanged}"
+                       Margin="0, 25, 0, 0" FontSize="18" Foreground="White" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
         </StackPanel>
     </Grid>
 </Window>
