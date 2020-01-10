@@ -93,15 +93,22 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\CreateNewLeafViewModel.cs" />
+    <Compile Include="ViewModels\Commands\CreateLeaf\CreateLeafCommand.cs" />
+    <Compile Include="ViewModels\Commands\CreateTree\CreateTreeCommand.cs" />
+    <Compile Include="ViewModels\Commands\MainDashboard\DeleteLeafCommand.cs" />
+    <Compile Include="ViewModels\Commands\MainDashboard\DeleteTreeCommand.cs" />
+    <Compile Include="ViewModels\Commands\MainDashboard\ViewLeafCommand.cs" />
+    <Compile Include="ViewModels\Commands\ViewTree\UpdateStatisticsCommand.cs" />
+    <Compile Include="ViewModels\Commands\MainDashboard\ViewTreeCommand.cs" />
+    <Compile Include="ViewModels\CreateLeafViewModel.cs" />
     <Compile Include="ViewModels\ViewTreeViewModel.cs" />
-    <Compile Include="Views\CreateNewLeafView.xaml.cs">
-      <DependentUpon>CreateNewLeafView.xaml</DependentUpon>
+    <Compile Include="Views\CreateLeafView.xaml.cs">
+      <DependentUpon>CreateLeafView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\CreateNewTreeViewModel.cs" />
+    <Compile Include="ViewModels\CreateTreeViewModel.cs" />
     <Compile Include="ViewModels\MainDashboardViewModel.cs" />
-    <Compile Include="Views\CreateNewTreeView.xaml.cs">
-      <DependentUpon>CreateNewTreeView.xaml</DependentUpon>
+    <Compile Include="Views\CreateTreeView.xaml.cs">
+      <DependentUpon>CreateTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainDashboardView.xaml.cs">
       <DependentUpon>MainDashboardView.xaml</DependentUpon>
@@ -139,11 +146,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\CreateNewLeafView.xaml">
+    <Page Include="Views\CreateLeafView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CreateNewTreeView.xaml">
+    <Page Include="Views\CreateTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -158,7 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="ViewModels\Commands\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Services\Services.csproj">

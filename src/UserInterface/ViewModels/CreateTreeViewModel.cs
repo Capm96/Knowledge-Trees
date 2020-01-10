@@ -6,15 +6,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
+using UserInterface.ViewModels.Commands.MainDashboard;
 
 namespace UserInterface.ViewModels
 {
-    class CreateNewTreeViewModel : Screen, IDataErrorInfo
+    public class CreateTreeViewModel : Screen, IDataErrorInfo
     {
         #region Fields & Properties
 
         IFolderLogicHandler _folderLogicHandler;
         MainDashboardViewModel _mainDashboard;
+
+        public ICommand CreateTreeCommand { get; set; }
 
         private string _newTreeName;
         public string NewTreeName
@@ -77,10 +81,11 @@ namespace UserInterface.ViewModels
 
         #region Constructors
 
-        public CreateNewTreeViewModel(IFolderLogicHandler folderLogicHandler, MainDashboardViewModel mainDashboard)
+        public CreateTreeViewModel(IFolderLogicHandler folderLogicHandler, MainDashboardViewModel mainDashboard)
         {
             _folderLogicHandler = folderLogicHandler;
             _mainDashboard = mainDashboard;
+            CreateTreeCommand = new CreateTreeCommand(this);
         }
 
         #endregion

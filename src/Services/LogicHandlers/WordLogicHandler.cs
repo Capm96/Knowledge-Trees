@@ -194,6 +194,9 @@ namespace Services
                 document.Close();
             }
 
+            application.Quit();
+            GC.Collect();
+
             return statistics;
         }
 

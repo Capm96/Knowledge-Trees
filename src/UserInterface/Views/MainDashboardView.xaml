@@ -46,9 +46,9 @@
 
         <!-- Trees Buttons -->
         <StackPanel Grid.Column="0" Grid.Row="2">
-            <Button x:Name="CreateNewTreeButton" Content="Create" Style="{StaticResource ButtonStyle}"/>
-            <Button x:Name="ViewTreeButton" Content="View" Style="{StaticResource ButtonStyle}"/>
-            <Button x:Name="DeleteTreeButton" Content="Delete" Style="{StaticResource ButtonStyle}"/>
+            <Button x:Name="OpenCreateTreeWindow" Content="Create" Style="{StaticResource ButtonStyle}"/>
+            <Button Command="{Binding ViewTreeCommand}" Content="View" Style="{StaticResource ButtonStyle}"/>
+            <Button Command="{Binding DeleteTreeCommand}" Content="Delete" Style="{StaticResource ButtonStyle}"/>
         </StackPanel>
 
         <!-- Trees List -->
@@ -59,11 +59,11 @@
 
         <!-- Leaves Buttons -->
         <StackPanel Grid.Column="3" Grid.Row="2">
-            <Button x:Name="CreateNewLeafButton" Content="Create" Style="{StaticResource ButtonStyle}"
+            <Button x:Name="OpenCreateLeafWindow" Content="Create" Style="{StaticResource ButtonStyle}"
                     IsEnabled="{Binding CreateLeafButtonEnabled, NotifyOnSourceUpdated=True}"/>
-            <Button x:Name="ViewLeafButton" Content="View" Style="{StaticResource ButtonStyle}"
+            <Button Command="{Binding ViewLeafCommand}" Content="View" Style="{StaticResource ButtonStyle}"
                     IsEnabled="{Binding AddAndRemoveLeafButtonsEnabled, NotifyOnSourceUpdated=True}"/>
-            <Button x:Name="DeleteLeafButton" Content="Delete" Style="{StaticResource ButtonStyle}"
+            <Button Command="{Binding DeleteLeafCommand}" Content="Delete" Style="{StaticResource ButtonStyle}"
                     IsEnabled="{Binding AddAndRemoveLeafButtonsEnabled, NotifyOnSourceUpdated=True}"/>
         </StackPanel>
 

@@ -4,7 +4,8 @@ using Services.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
-
+using System.Windows.Input;
+using UserInterface.ViewModels.Commands.MainDashboard;
 
 namespace UserInterface.ViewModels
 {
@@ -16,8 +17,8 @@ namespace UserInterface.ViewModels
         IFolderLogicHandler _folderLogicHandler;
         IWordLogicHandler _wordLogicHandler;
 
-        private CreateNewLeafViewModel _createNewLeafViewModel;
-        private CreateNewTreeViewModel _createNewTreeViewModel;
+        private CreateLeafViewModel _createLeafViewModel;
+        private CreateTreeViewModel _createTreeViewModel;
         private ViewTreeViewModel _viewTreeViewModel;
 
         private ObservableCollection<string> _trees;
@@ -100,6 +101,11 @@ namespace UserInterface.ViewModels
             }
         }
 
+        public ICommand DeleteTreeCommand { get; set; }
+        public ICommand ViewTreeCommand { get; set; }
+        public ICommand DeleteLeafCommand { get; set; }
+        public ICommand ViewLeafCommand { get; set; }
+
         #endregion
 
         #region Constructors
@@ -111,6 +117,12 @@ namespace UserInterface.ViewModels
             _folderLogicHandler = folderLogicHandler;
             _wordLogicHandler = wordLogicHandler;
 
+            DeleteTreeCommand = new DeleteTreeCommand(this);
+            ViewTreeCommand = new ViewTreeCommand(this);
+
+            DeleteLeafCommand = new DeleteLeafCommand(this);
+            ViewLeafCommand = new ViewLeafCommand(this);
+
             UpdateTreesList();
             UpdateLeavesList();
         }
@@ -119,38 +131,38 @@ namespace UserInterface.ViewModels
 
         #region Methods to call new ViewModels
 
-        public void CreateNewTreeButton()
+        public void OpenCreateTreeWindow()
         {
-            if (_createNewTreeViewModel == null)
+            if (_createTreeViewModel == null)
             {
-                _createNewTreeViewModel = new CreateNewTreeViewModel(_folderLogicHandler, this);
+                _createTreeViewModel = new CreateTreeViewModel(_folderLogicHandler, this);
             }
 
-            _createNewTreeViewModel.TryClose();
-            _windowManager.ShowWindow(_createNewTreeViewModel);
+            _createTreeViewModel.TryClose();
+            _windowManager.ShowWindow(_createTreeViewModel);
         }
 
-        public void CreateNewLeafButton()
+        public void OpenCreateLeafWindow()
         {
-            if (_createNewLeafViewModel == null)
+            if (_createLeafViewModel == null)
             {
-                _createNewLeafViewModel = 
-                    new CreateNewLeafViewModel(_wordLogicHandler, this, SelectedTree);
+                _createLeafViewModel = 
+                    new CreateLeafViewModel(_wordLogicHandler, this, SelectedTree);
             }
 
-            _createNewLeafViewModel.TryClose();
-            _windowManager.ShowWindow(_createNewLeafViewModel);
+            _createLeafViewModel.TryClose();
+            _windowManager.ShowWindow(_createLeafViewModel);
         }
 
-        public void ViewTreeButton()
+        public void OpenViewTreeWindow()
         {
             if (_viewTreeViewModel == null)
             {
-                _viewTreeViewModel = new ViewTreeViewModel(_folderLogicHandler, _wordLogicHandler, this, SelectedTree, Leaves);
+                _viewTreeViewModel = new ViewTreeViewModel(_wordLogicHandler, SelectedTree);
             }
 
             _viewTreeViewModel.TreeName = SelectedTree;
-            _viewTreeViewModel.ReportMessage = "";
+            _viewTreeViewModel.StatisticsReportMessage = "";
             _viewTreeViewModel.TryClose();
             _windowManager.ShowWindow(_viewTreeViewModel);
         }
@@ -210,7 +222,7 @@ namespace UserInterface.ViewModels
 
         #region Other methods
 
-        public void DeleteTreeButton()
+        public void DeleteTree()
         {
             bool canDelete = Trees.Count >= 1 && SelectedTree != null; 
 
