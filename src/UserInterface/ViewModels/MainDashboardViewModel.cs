@@ -2,6 +2,7 @@
 using Services.Constants;
 using Services.Interfaces;
 using System.Collections.ObjectModel;
+using System.IO.Abstractions;
 using System.Windows;
 using System.Windows.Input;
 using UserInterface.ViewModels.Commands.MainDashboard;
@@ -12,9 +13,10 @@ namespace UserInterface.ViewModels
     {
         #region Fields & properties
 
-        IWindowManager _windowManager;
-        IFolderLogicHandler _folderLogicHandler;
-        IWordLogicHandler _wordLogicHandler;
+        private readonly IWindowManager _windowManager;
+        private readonly IFolderLogicHandler _folderLogicHandler;
+        private readonly IWordLogicHandler _wordLogicHandler;
+        private readonly IFileSystem _fileSystem;
 
         private CreateLeafViewModel _createLeafViewModel;
         private CreateTreeViewModel _createTreeViewModel;
@@ -110,11 +112,12 @@ namespace UserInterface.ViewModels
         #region Constructors
 
         public MainDashboardViewModel(IWindowManager windowManager, IFolderLogicHandler folderLogicHandler, 
-            IWordLogicHandler wordLogicHandler)
+            IWordLogicHandler wordLogicHandler, IFileSystem fileSystem)
         {
             _windowManager = windowManager;
             _folderLogicHandler = folderLogicHandler;
             _wordLogicHandler = wordLogicHandler;
+            _fileSystem = fileSystem;
 
             DeleteTreeCommand = new DeleteTreeCommand(this);
             ViewTreeCommand = new ViewTreeCommand(this);

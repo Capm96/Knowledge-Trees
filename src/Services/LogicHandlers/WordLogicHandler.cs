@@ -9,12 +9,19 @@ using System.Windows;
 using Application = Microsoft.Office.Interop.Word.Application;
 using Window = Microsoft.Office.Interop.Word.Window;
 using Services.Constants;
+using System.IO.Abstractions;
 
 namespace Services
 {
     public class WordLogicHandler : IWordLogicHandler
     {
         private Application _wordInstance;
+        private readonly IFileSystem _fileSystem;
+
+        public WordLogicHandler(IFileSystem fileSystem)
+        {
+            _fileSystem = fileSystem;
+        }
 
         public void CreateNewLeaf(string path, string leafName, string treeName)
         {
@@ -163,7 +170,7 @@ namespace Services
         public Dictionary<string,int> GetTotalTreeStatistics(string treeName)
         {
             // Gets names of all the leaves we will look through.
-            var folderLogic = new FolderLogicHandler();
+            var folderLogic = new FolderLogicHandler(new FileSystem());
             var treePath = folderLogic.GetFullTreePath(treeName);
             var leavesInTree = folderLogic.GetAllLeafNamesWithNoExtension(treePath);
 

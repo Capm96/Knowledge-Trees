@@ -9,14 +9,22 @@ namespace Services
 {
     public class FolderLogicHandler : IFolderLogicHandler
     {
+        private readonly IFileSystem _fileSystem;
+
+        public FolderLogicHandler(IFileSystem fileSystem)
+        {
+            _fileSystem = fileSystem;
+        }
+
         public IList<string> GetAllTreeNames(string baseDirectory)
         {
-            bool baseDirectoryExists = Directory.Exists(baseDirectory);
+            bool baseDirectoryExists = _fileSystem.Directory.Exists(baseDirectory);
             if (baseDirectoryExists)
             {
                 try
                 {
-                    return Directory.GetDirectories(baseDirectory).Select(Path.GetFileName).ToList();
+                    return _fileSystem.Directory.GetDirectories(baseDirectory).
+                        Select(_fileSystem.Path.GetFileName).ToList();
                 }
                 catch (IOException ex)
                 {
@@ -25,18 +33,19 @@ namespace Services
             }
             else
             {
-                Directory.CreateDirectory(baseDirectory);
+                _fileSystem.Directory.CreateDirectory(baseDirectory);
                 return new List<string>();
             }
         }
 
         public IList<string> GetAllLeafNamesWithNoExtension(string treePath)
         {
-            if (Directory.Exists(treePath))
+            if (_fileSystem.Directory.Exists(treePath))
             {
                 try
                 {
-                    var allLeaves = Directory.GetFiles(treePath).Select(Path.GetFileName).ToArray();
+                    var allLeaves = _fileSystem.Directory.GetFiles(treePath)
+                        .Select(_fileSystem.Path.GetFileName).ToArray();
 
                     // Word documents create meta files when they are running, 
                     // this loop excludes these files from our leaves list.
@@ -62,20 +71,20 @@ namespace Services
 
         public void CreateNewTreeFolder(string fullTreePath)
         {
-            if (Directory.Exists(fullTreePath) == false)
-                Directory.CreateDirectory(fullTreePath);
+            if (_fileSystem.Directory.Exists(fullTreePath) == false)
+                _fileSystem.Directory.CreateDirectory(fullTreePath);
         }
 
         public void DeleteTree(string treePath)
         {
-            if (Directory.Exists(treePath))
-                Directory.Delete(treePath, true);
+            if (_fileSystem.Directory.Exists(treePath))
+                _fileSystem.Directory.Delete(treePath, true);
         }
 
         public void DeleteLeaf(string leafPath)
         {
-            if (File.Exists(leafPath))
-                File.Delete(leafPath);
+            if (_fileSystem.File.Exists(leafPath))
+                _fileSystem.File.Delete(leafPath);
         }
 
         public void BackupTrees(string baseDirectory, string destinationDirectory, bool copySubDirectories)
@@ -83,28 +92,28 @@ namespace Services
             try
             {
                 // Check if directory with data exists.
-                var sourceDirectory = new DirectoryInfo(baseDirectory);
+                var sourceDirectory = _fileSystem.DirectoryInfo.FromDirectoryName(baseDirectory);
                 if (sourceDirectory.Exists == false)
                     throw new DirectoryNotFoundException($"Source directory does not exist or could not be found: {baseDirectory}");
 
                 // If the destination directory doesn't exist, create it.
-                if (Directory.Exists(destinationDirectory) == false)
-                    Directory.CreateDirectory(destinationDirectory);
+                if (_fileSystem.Directory.Exists(destinationDirectory) == false)
+                    _fileSystem.Directory.CreateDirectory(destinationDirectory);
 
                 // Get the files in the base directory and copy them to the new location.
                 var files = sourceDirectory.GetFiles();
-                foreach (FileInfo file in files)
+                foreach (var file in files)
                 {
-                    var temporaryPath = Path.Combine(destinationDirectory, file.Name);
+                    var temporaryPath = _fileSystem.Path.Combine(destinationDirectory, file.Name);
                     file.CopyTo(temporaryPath, false);
                 }
 
                 // If copying subdirectories, copy them and their contents to new location.
-                DirectoryInfo[] sourceDirectories = sourceDirectory.GetDirectories();
+                var sourceDirectories = sourceDirectory.GetDirectories();
                 if (copySubDirectories)
-                    foreach (DirectoryInfo subDirectory in sourceDirectories)
+                    foreach (var subDirectory in sourceDirectories)
                     {
-                        string temporaryPath = Path.Combine(destinationDirectory, subDirectory.Name);
+                        string temporaryPath = _fileSystem.Path.Combine(destinationDirectory, subDirectory.Name);
                         BackupTrees(subDirectory.FullName, temporaryPath, copySubDirectories);
                     }
             }
@@ -116,12 +125,12 @@ namespace Services
 
         public string GetFullLeafPath(string treeName, string leafName)
         {
-            return Path.GetFullPath($@"{DirectoryConstants.CurrentWorkingPath}\{treeName}\{leafName}.docx");
+            return _fileSystem.Path.GetFullPath($@"{DirectoryConstants.CurrentWorkingPath}\{treeName}\{leafName}.docx");
         }
 
         public string GetFullTreePath(string treeName)
         {
-            return Path.GetFullPath($@"{DirectoryConstants.CurrentWorkingPath}\{treeName}");
+            return _fileSystem.Path.GetFullPath($@"{DirectoryConstants.CurrentWorkingPath}\{treeName}");
         }
     }
 }
