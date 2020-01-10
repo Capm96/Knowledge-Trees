@@ -10,6 +10,10 @@ using Application = Microsoft.Office.Interop.Word.Application;
 using Window = Microsoft.Office.Interop.Word.Window;
 using System.IO;
 using Services.Constants;
+using System.Threading;
+using System.Threading.Tasks;
+using Task = System.Threading.Tasks.Task;
+using Services.Entities;
 
 namespace Services
 {
@@ -160,21 +164,20 @@ namespace Services
             return false;
         }
 
-        public Dictionary<string, int> GetTotalTreeStatistics(string treeName)
+        public Dictionary<string,int> GetTotalTreeStatistics(string treeName)
         {
-            // Get the object to hold the statistics we will acquire.
-            var statistics = GetStatisticsContainer();
-
             // Gets names of all the leaves we will look through.
             var folderLogic = new FolderLogicHandler();
             var treePath = folderLogic.GetFullTreePath(treeName);
             var leavesInTree = folderLogic.GetAllLeafNamesWithNoExtension(treePath);
 
             // Open an instance of word to open the documents in.
-            Application application = new Application();
+            var application = new Application();
 
+            var statistics = GetStatisticsContainer();
             foreach (string leaf in leavesInTree)
             {
+                // Open current leaf.
                 string fullLeafPath = folderLogic.GetFullLeafPath(treeName, leaf);
                 Document document = application.Documents.Open(fullLeafPath);
 
@@ -194,7 +197,7 @@ namespace Services
             return statistics;
         }
 
-        private static Dictionary<string, int> GetStatisticsContainer()
+        private Dictionary<string, int> GetStatisticsContainer()
         {
             var output = new Dictionary<string, int>();
             output.Add(StatsNamingConstants.WordCount, 0);

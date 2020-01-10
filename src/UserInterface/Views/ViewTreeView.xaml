@@ -18,10 +18,15 @@
                 <Run Text="Tree"/>
             </TextBlock>
             <Button x:Name="UpdateStatistics" Content="Get Statistics" Style="{StaticResource ButtonStyle}"
-                    MinWidth="200"/>
+                    MinWidth="200" IsEnabled="{Binding StatsButtonEnabled, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Text="{Binding ReportMessage, UpdateSourceTrigger=PropertyChanged}"
                        Margin="0, 25, 0, 0" FontSize="18" Foreground="White" 
                        HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+            <TextBlock Text="{Binding LoadingButtonEnabled, UpdateSourceTrigger=PropertyChanged}"
+                       Margin="0, 25, 0, 0" FontSize="18" Foreground="White" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+            <!--<ProgressBar Maximum="100" Value="{Binding CompletedProgressInGettingStatistics}" Height="20"
+                         vis/>-->
         </StackPanel>
     </Grid>
 </Window>

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 ﻿using Microsoft.Office.Interop.Word;
 using System.Collections.Generic;
+using Task = System.Threading.Tasks.Task;
+using Services.Entities;
 
 namespace Services.Interfaces
 {
@@ -38,6 +40,6 @@ namespace Services.Interfaces
         /// <summary>
         /// Gets all the statistics from the tree.
         /// </summary>
-        Dictionary<string, int> GetTotalTreeStatistics(string treeName);
+        Dictionary<string,int> GetTotalTreeStatistics(string treeName);
     }
 }

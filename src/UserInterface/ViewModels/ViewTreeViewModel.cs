@@ -1,7 +1,10 @@
 ﻿using Caliburn.Micro;
+using Services;
 using Services.Constants;
 using Services.Interfaces;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace UserInterface.ViewModels
 {
@@ -67,6 +70,43 @@ namespace UserInterface.ViewModels
             }
         }
 
+        private double _completedProgressInGettingStatistics;
+
+        public double CompletedProgressInGettingStatistics
+        {
+            get { return _completedProgressInGettingStatistics; }
+            set 
+            { 
+                _completedProgressInGettingStatistics = value;
+                NotifyOfPropertyChange(() => CompletedProgressInGettingStatistics);
+            }
+        }
+
+        private string _loadingButtonEnabled;
+
+        public string LoadingButtonEnabled
+        {
+            get { return _loadingButtonEnabled; }
+            set 
+            { 
+                _loadingButtonEnabled = value;
+                NotifyOfPropertyChange(() => LoadingButtonEnabled);
+            }
+        }
+
+        private bool _statsButtonEnabled;
+
+        public bool StatsButtonEnabled
+        {
+            get { return _statsButtonEnabled; }
+            set
+            { 
+                _statsButtonEnabled = value;
+                NotifyOfPropertyChange(() => StatsButtonEnabled);
+            }
+        }
+
+
         #endregion
 
         #region Constructors
@@ -78,20 +118,50 @@ namespace UserInterface.ViewModels
             _mainDashboardViewModel = mainDashboardViewModel;
             TreeName = selectedTree;
             _leaves = leaves;
+            StatsButtonEnabled = true;
+            LoadingButtonEnabled = "";
         }
 
         #endregion
 
         #region Methods
-        public void UpdateStatistics()
+        public async void UpdateStatistics()
         {
-            var statistics = _wordLogicHandler.GetTotalTreeStatistics(TreeName);
+            var feedbackProvider = new FeedbackProvider();
 
-            WordCount = (statistics[StatsNamingConstants.WordCount] - 1).ToString();
-            LeafCount = statistics[StatsNamingConstants.LeafCount].ToString();
-            CharacterCount = (statistics[StatsNamingConstants.CharacterCount] - 1).ToString();
+            CheckIfGeneratingStatistics(true);
+
+            var result = await Task.Run(() =>
+            {
+                var statistics = _wordLogicHandler.GetTotalTreeStatistics(TreeName);
+                UpdateStatisticsProperties(statistics);
+                return true;
+            });
+
+            CheckIfGeneratingStatistics(false);
+        }
+
+        private void UpdateStatisticsProperties(Dictionary<string, int> stats)
+        {
+            WordCount = (stats[StatsNamingConstants.WordCount] - 1).ToString();
+            CharacterCount = (stats[StatsNamingConstants.CharacterCount] - 1).ToString();
+            LeafCount = stats[StatsNamingConstants.LeafCount].ToString();
 
             ReportMessage = $"You have written {CharacterCount} characters in {WordCount} words across {LeafCount} leaves!";
+        }
+
+        private void CheckIfGeneratingStatistics(bool operationRunning)
+        {
+            if (operationRunning == true)
+            {
+                LoadingButtonEnabled = "Loading...";
+                StatsButtonEnabled = false;
+            }
+            else
+            {
+                LoadingButtonEnabled = "";
+                StatsButtonEnabled = true;
+            }
         }
 
         #endregion
