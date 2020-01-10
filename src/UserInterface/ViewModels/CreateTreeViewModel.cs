@@ -5,9 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
-using System.Windows;
 using System.Windows.Input;
-using UserInterface.ViewModels.Commands.MainDashboard;
+using UserInterface.ViewModels.Commands.CreateTree;
 
 namespace UserInterface.ViewModels
 {
@@ -92,7 +91,7 @@ namespace UserInterface.ViewModels
 
         #region Creating & validating methods.
 
-        public void CreateNewTree()
+        public void CreateTree()
         {
             // Get path.
             var treePath = DirectoryConstants.CurrentWorkingPath + $@"\{NewTreeName}";

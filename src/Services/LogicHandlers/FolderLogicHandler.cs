@@ -8,26 +8,6 @@ namespace Services
 {
     public class FolderLogicHandler : IFolderLogicHandler
     {
-        public IList<string> GetAllTreePaths(string baseDirectory)
-        {
-            if (Directory.Exists(baseDirectory))
-            {
-                try
-                {
-                    return Directory.GetDirectories(baseDirectory).ToList();
-                }
-                catch (IOException ex)
-                {
-                    throw new IOException(ex.Message);
-                }
-            }
-            else
-            {
-                Directory.CreateDirectory(baseDirectory);
-                return new List<string>();
-            }
-        }
-
         public IList<string> GetAllTreeNames(string baseDirectory)
         {
             bool baseDirectoryExists = Directory.Exists(baseDirectory);
@@ -49,52 +29,23 @@ namespace Services
             }
         }
 
-        public IList<string> GeAllLeafNames(string treePath)
-        {
-            if (Directory.Exists(treePath))
-            {
-                try
-                {
-                    // Includes meta word files.
-                    var allNames = Directory.GetFiles(treePath).Select(Path.GetFileName).ToList();
-
-                    // Will only include actual files.
-                    var cleanNames = new List<string>();
-
-                    // Excludes meta files (which include "~" in their name. These files exist while the actual file is being modified).
-                    foreach (string name in allNames)
-                    {
-                        if (name.Contains("~") == false)
-                            cleanNames.Add(name);
-                    }
-
-                    return cleanNames.ToArray();
-                }
-                catch (IOException ex)
-                {
-                    throw new IOException(ex.Message);
-                }
-            }
-
-            return new List<string>();
-        }
-
         public IList<string> GetAllLeafNamesWithNoExtension(string treePath)
         {
             if (Directory.Exists(treePath))
             {
                 try
                 {
-                    var current = Directory.GetFiles(treePath).Select(Path.GetFileName).ToArray();
+                    var allLeaves = Directory.GetFiles(treePath).Select(Path.GetFileName).ToArray();
 
+                    // Word documents create meta files when they are running, 
+                    // this loop excludes these files from our leaves list.
                     var output = new List<string>();
-                    for (int i = 0; i < current.Length; i++)
+                    for (int i = 0; i < allLeaves.Length; i++)
                     {
-                        // Word documents create meta files when they are running, this method excludes these files from our leaves list.
-                        if (current[i].Contains("~"))
+                        if (allLeaves[i].Contains("~"))
                             continue;
 
-                        output.Add(current[i].Substring(0, current[i].Length - 5)); // 5 is length of .docx extension.
+                        output.Add(allLeaves[i].Substring(0, allLeaves[i].Length - 5)); // 5 is length of .docx extension.
                     }
 
                     return output.ToArray();

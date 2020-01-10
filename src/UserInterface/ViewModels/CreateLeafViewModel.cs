@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using UserInterface.ViewModels.Commands;
+using UserInterface.ViewModels.Commands.CreateLeaf;
 
 namespace UserInterface.ViewModels
 {
@@ -100,7 +100,7 @@ namespace UserInterface.ViewModels
 
         #region Creating and validating methods.
 
-        public void CreateNewLeaf()
+        public void CreateLeaf()
         {
             // Get path.
             var leafPath = DirectoryConstants.CurrentWorkingPath + $@"\{ParentTreeName}" + $@"\{NewLeafName}.docx";

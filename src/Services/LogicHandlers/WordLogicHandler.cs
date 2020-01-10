@@ -8,12 +8,7 @@ using Services.Interfaces;
 using System.Windows;
 using Application = Microsoft.Office.Interop.Word.Application;
 using Window = Microsoft.Office.Interop.Word.Window;
-using System.IO;
 using Services.Constants;
-using System.Threading;
-using System.Threading.Tasks;
-using Task = System.Threading.Tasks.Task;
-using Services.Entities;
 
 namespace Services
 {
@@ -24,7 +19,7 @@ namespace Services
         public void CreateNewLeaf(string path, string leafName, string treeName)
         {
             // Create word instance.
-            Application wordInstance = CreateWordInstance();
+            var wordInstance = CreateWordInstance();
 
             try
             {
@@ -72,7 +67,7 @@ namespace Services
             {
                 if (Process.GetProcessesByName("winword").Count() > 0)
                 {
-                    Application wordInstance = (Application)Marshal.GetActiveObject("Word.Application");
+                    var wordInstance = (Application)Marshal.GetActiveObject("Word.Application");
 
                     foreach (Document doc in wordInstance.Documents)
                     {
@@ -89,10 +84,9 @@ namespace Services
             }
         }
 
-        public IList<string> GetAllOpenLeafNames()
+        public IList<string> GetAllOpenLeavesPaths()
         {
-            List<string> documentNames = new List<string>();
-            Window wordWindow;
+            var documentNames = new List<string>();
 
             try
             {
@@ -104,6 +98,8 @@ namespace Services
                 // If there are any open windows (documents), get their names.
                 if (_wordInstance.Windows.Count > 0)
                 {
+                    Window wordWindow;
+
                     for (int i = 0; i < _wordInstance.Windows.Count; i++)
                     {
                         object a = i + 1;
@@ -114,9 +110,9 @@ namespace Services
             }
             catch (COMException ex)
             {
+                //throw new COMException(ex.Message);
                 _wordInstance = CreateWordInstance();
                 return new List<string>();
-                //throw new COMException(ex.Message);
             }
 
             return documentNames;
@@ -124,7 +120,7 @@ namespace Services
 
         public void OpenExistingLeaf(string path)
         {
-            IList<string> openedWordDocuments = GetAllOpenLeafNames();
+            var openedWordDocuments = GetAllOpenLeavesPaths();
 
             // Checks if current file is already open.
             foreach (string name in openedWordDocuments)
@@ -136,13 +132,13 @@ namespace Services
                 }
             }
 
-            if (_wordInstance == null)
-            {
-                _wordInstance = (Application)Marshal.GetActiveObject("Word.Application");
-            }
-
             try
             {
+                if (_wordInstance == null)
+                {
+                    _wordInstance = (Application)Marshal.GetActiveObject("Word.Application");
+                }
+
                 _wordInstance.Visible = true;
                 Document wordDocument = _wordInstance.Documents.Open(path);
             }
@@ -154,10 +150,10 @@ namespace Services
 
         public bool CheckIfLeafIsOpen(string currentPath)
         {
-            IList<string> openedWordDocumentsPaths = GetAllOpenLeafNames();
+            var openPaths = GetAllOpenLeavesPaths();
 
             // Checks if current file is already open.
-            foreach (string documentPath in openedWordDocumentsPaths)
+            foreach (string documentPath in openPaths)
                 if (documentPath.Equals(currentPath))
                     return true;
 
@@ -172,14 +168,14 @@ namespace Services
             var leavesInTree = folderLogic.GetAllLeafNamesWithNoExtension(treePath);
 
             // Open an instance of word to open the documents in.
-            var application = new Application();
+            var wordInstance = new Application();
 
             var statistics = GetStatisticsContainer();
             foreach (string leaf in leavesInTree)
             {
                 // Open current leaf.
                 string fullLeafPath = folderLogic.GetFullLeafPath(treeName, leaf);
-                Document document = application.Documents.Open(fullLeafPath);
+                Document document = wordInstance.Documents.Open(fullLeafPath);
 
                 // Prepare to get statistics.
                 object includeFootnotesAndEndnotes = true;
@@ -194,7 +190,7 @@ namespace Services
                 document.Close();
             }
 
-            application.Quit();
+            wordInstance.Quit();
             GC.Collect();
 
             return statistics;

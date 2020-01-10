@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace UserInterface.ViewModels.Commands
+namespace UserInterface.ViewModels.Commands.ViewTree
 {
     public class UpdateStatisticsCommand : ICommand
     {

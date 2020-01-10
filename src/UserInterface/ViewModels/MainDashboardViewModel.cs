@@ -1,7 +1,6 @@
 ﻿using Caliburn.Micro;
 using Services.Constants;
 using Services.Interfaces;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -169,7 +168,7 @@ namespace UserInterface.ViewModels
 
         #endregion
 
-        #region Methods to update dashboard data/buttons status.
+        #region Methods to update dashboard data and buttons status.
 
         public void UpdateTreesList()
         {
@@ -247,7 +246,7 @@ namespace UserInterface.ViewModels
             }
         }
 
-        public void DeleteLeafButton()
+        public void DeleteLeaf()
         {
             bool canDelete = Leaves.Count >= 1 && SelectedLeaf != null;
 
@@ -277,7 +276,7 @@ namespace UserInterface.ViewModels
             }
         }
 
-        public void ViewLeafButton()
+        public void ViewLeaf()
         {
             string path = _folderLogicHandler.GetFullLeafPath(SelectedTree, SelectedLeaf);
 

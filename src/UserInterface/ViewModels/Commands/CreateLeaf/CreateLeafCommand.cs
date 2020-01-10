@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace UserInterface.ViewModels.Commands
+namespace UserInterface.ViewModels.Commands.CreateLeaf
 {
     public class CreateLeafCommand : ICommand
     {
@@ -25,7 +25,7 @@ namespace UserInterface.ViewModels.Commands
 
         public void Execute(object parameter)
         {
-            _createNewLeafViewModel.CreateNewLeaf();
+            _createNewLeafViewModel.CreateLeaf();
         }
     }
 }

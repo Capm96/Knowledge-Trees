@@ -25,7 +25,7 @@ namespace UserInterface.ViewModels.Commands.MainDashboard
 
         public void Execute(object parameter)
         {
-            _mainDashboardViewModel.DeleteTree();
+            _mainDashboardViewModel.DeleteLeaf();
         }
     }
 }

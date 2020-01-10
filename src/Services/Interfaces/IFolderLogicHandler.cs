@@ -28,11 +28,6 @@ namespace Services.Interfaces
         void DeleteTree(string treePath);
 
         /// <summary>
-        /// Returns all leaf names in the given tree.
-        /// </summary>
-        IList<string> GeAllLeafNames(string treePath);
-
-        /// <summary>
         /// Returns all leaf names with no .docx extension to be displayed on the dashboard.
         /// </summary>
         IList<string> GetAllLeafNamesWithNoExtension(string treePath);
@@ -41,11 +36,6 @@ namespace Services.Interfaces
         /// Returns all three names in the given directory.
         /// </summary>
         IList<string> GetAllTreeNames(string baseDirectory);
-
-        /// <summary>
-        /// Returns all three paths in the given directory.
-        /// </summary>
-        IList<string> GetAllTreePaths(string baseDirectory);
 
         /// <summary>
         /// Returns the full leaf path for the given leaf at the given tree.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace UserInterface.ViewModels.Commands.MainDashboard
+namespace UserInterface.ViewModels.Commands.CreateTree
 {
     public class CreateTreeCommand : ICommand
     {
@@ -25,7 +25,7 @@ namespace UserInterface.ViewModels.Commands.MainDashboard
 
         public void Execute(object parameter)
         {
-            _createNewTreeViewModel.CreateNewTree();
+            _createNewTreeViewModel.CreateTree();
         }
     }
 }
