@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:UserInterface.Views"
         mc:Ignorable="d"
         Title="CreateNewTreeView" 
-        Height="150" 
-        Width="250" 
+        Height="200" 
+        Width="300" 
         Background="#252425" 
         WindowStartupLocation="CenterScreen">
     <StackPanel Margin="10">
