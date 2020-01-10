@@ -3,6 +3,7 @@ using System.Linq;
 using System.IO;
 using Services.Interfaces;
 using Services.Constants;
+using System.IO.Abstractions;
 
 namespace Services
 {
