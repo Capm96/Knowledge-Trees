@@ -86,9 +86,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Services\Services.csproj">
+    <ProjectReference Include="..\Services\KnowledgeTrees.Services.csproj">
       <Project>{192d83c7-ae1e-4798-9079-3216910f32f0}</Project>
-      <Name>Services</Name>
+      <Name>KnowledgeTrees.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

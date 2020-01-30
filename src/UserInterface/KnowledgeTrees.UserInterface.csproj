@@ -185,9 +185,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Services\Services.csproj">
+    <ProjectReference Include="..\Services\KnowledgeTrees.Services.csproj">
       <Project>{192D83C7-AE1E-4798-9079-3216910F32F0}</Project>
-      <Name>Services</Name>
+      <Name>KnowledgeTrees.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

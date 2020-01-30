@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Linq;
 using System.IO.Abstractions.TestingHelpers;
+using Services.Constants;
 
 namespace Services.Tests.LogicHandlersTests
 {
@@ -152,6 +153,39 @@ namespace Services.Tests.LogicHandlersTests
             Assert.IsTrue(mockFileSystem.File.Exists(treePathZero + "zero.docx"));
             Assert.IsTrue(mockFileSystem.File.Exists(treePathOne + "one.docx"));
             Assert.IsTrue(mockFileSystem.File.Exists(treePathTwo + "two.docx"));
+        }
+
+        [Test]
+        public void GetFullTreePath_WorksAsExpected()
+        {
+            // Arrange - get target path.
+            string treeName = "NewTree";
+            var expected = DirectoryConstants.CurrentWorkingPath + $@"\{treeName}";
+
+            // Act - get actual path.
+            var mockFileSystem = new MockFileSystem();
+            var folderLogicHandler = new FolderLogicHandler(mockFileSystem);
+            var actual = folderLogicHandler.GetFullTreePath(treeName);
+
+            // Assert - Check paths are equal.
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void GetFullLeafPath_WorksAsExpected()
+        {
+            // Arrange - get target path.
+            string treeName = "NewTree";
+            string leafName = "NewLeaf";
+            var expected = DirectoryConstants.CurrentWorkingPath + $@"\{treeName}\{leafName}.docx";
+
+            // Act - get actual path.
+            var mockFileSystem = new MockFileSystem();
+            var folderLogicHandler = new FolderLogicHandler(mockFileSystem);
+            var actual = folderLogicHandler.GetFullLeafPath(treeName, leafName);
+
+            // Assert - Check paths are equal.
+            Assert.AreEqual(expected, actual);
         }
     }
 }
