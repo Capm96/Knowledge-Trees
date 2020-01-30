@@ -9,12 +9,22 @@ namespace Services
 {
     public class FolderLogicHandler : IFolderLogicHandler
     {
+        #region Fields & Properties
+
         private readonly IFileSystem _fileSystem;
+
+        #endregion
+
+        #region Constructors
 
         public FolderLogicHandler(IFileSystem fileSystem)
         {
             _fileSystem = fileSystem;
         }
+
+        #endregion
+
+        #region Methods
 
         public IList<string> GetAllTreeNames(string baseDirectory)
         {
@@ -134,5 +144,7 @@ namespace Services
         {
             return _fileSystem.Path.GetFullPath($@"{DirectoryConstants.CurrentWorkingPath}\{treeName}");
         }
+
+        #endregion
     }
 }

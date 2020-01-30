@@ -8,26 +8,50 @@ namespace Services.Tests.LogicHandlersTests
     [TestFixture]
     public class FolderLogicHandlerTests
     {
-        string testDirectory = @"C:\temp\trees\";
+        #region Constants
+
+        // Paths.
+        private string _baseDirectory = DirectoryConstants.CurrentWorkingPath;
+        private string _testingTreeName = "Test Tree";
+        private string _testingLeafName = "Test Leaf";
+
+        // Handlers.
+        private MockFileSystem _mockFileSystem;
+        private FolderLogicHandler _folderLogicHandler;
+
+        #endregion 
+
+        #region Constructors
+
+        public FolderLogicHandlerTests()
+        {
+            // Get handlers.
+            _mockFileSystem = new MockFileSystem();
+            _folderLogicHandler = new FolderLogicHandler(_mockFileSystem);
+        }
+
+        #endregion
+
+        #region Tests
 
         [Test]
         public void GetAllTreeNames_ReturnTheCorrectNames()
         {
+            ResetHandlers();
+
             // Arrange - Create tree folders.
-            var mockFileSystem = new MockFileSystem();
+            var treePathOne = _baseDirectory + @"\treeOne";
+            _mockFileSystem.Directory.CreateDirectory(treePathOne);
 
-            var treePathOne = testDirectory + @"\treeOne";
-            mockFileSystem.Directory.CreateDirectory(treePathOne);
+            var treePathTwo = _baseDirectory + @"\treeTwo";
+            _mockFileSystem.Directory.CreateDirectory(treePathTwo);
 
-            var treePathTwo = testDirectory + @"\treeTwo";
-            mockFileSystem.Directory.CreateDirectory(treePathTwo);
-
-            var treePathThree = testDirectory + @"\treeThree";
-            mockFileSystem.Directory.CreateDirectory(treePathThree);
+            var treePathThree = _baseDirectory + @"\treeThree";
+            _mockFileSystem.Directory.CreateDirectory(treePathThree);
 
             // Act - Try to get the names of the trees.
-            var folderLogicHandler = new FolderLogicHandler(mockFileSystem);
-            var actual = folderLogicHandler.GetAllTreeNames(testDirectory);
+            var folderLogicHandler = new FolderLogicHandler(_mockFileSystem);
+            var actual = folderLogicHandler.GetAllTreeNames(_baseDirectory);
 
             // Assert - Check names.
             Assert.AreEqual(actual[0], "treeOne");
@@ -38,17 +62,17 @@ namespace Services.Tests.LogicHandlersTests
         [Test]
         public void GetAllLeafNamesWithoutExtension_ReturnTheCorrectNames()
         {
+            ResetHandlers();
+
             // Arrange - Create files on the directory.
-            var mockFileSystem = new MockFileSystem();
             var mockInputFile = new MockFileData("line1\nline2\nline3");
 
-            mockFileSystem.AddFile(testDirectory + "zero.docx", mockInputFile);
-            mockFileSystem.AddFile(testDirectory + "one.docx", mockInputFile);
-            mockFileSystem.AddFile(testDirectory + "two.docx", mockInputFile);
+            _mockFileSystem.AddFile(_baseDirectory + $@"\zero.docx", mockInputFile);
+            _mockFileSystem.AddFile(_baseDirectory + $@"\one.docx", mockInputFile);
+            _mockFileSystem.AddFile(_baseDirectory + $@"\two.docx", mockInputFile);
 
             // Act - Try to get the names of the files.
-            var folderLogicHandler = new FolderLogicHandler(mockFileSystem);
-            var actual = folderLogicHandler.GetAllLeafNamesWithNoExtension(testDirectory);
+            var actual = _folderLogicHandler.GetAllLeafNamesWithNoExtension(_baseDirectory);
 
             // Assert - Check names.
             Assert.AreEqual(actual[0], "zero");
@@ -59,18 +83,18 @@ namespace Services.Tests.LogicHandlersTests
         [Test]
         public void CreateNewTree_WorksAsExpected()
         {
+            ResetHandlers();
+
             // Arrange - Get tree path.
-            var treePath = testDirectory + @"newTree";
+            var treePath = _folderLogicHandler.GetFullTreePath(_testingTreeName);
 
             // Act - Create tree.
-            var mockFileSystem = new MockFileSystem();
-            var folderLogicHandler = new FolderLogicHandler(mockFileSystem);
-            folderLogicHandler.CreateNewTreeFolder(treePath);
+            _folderLogicHandler.CreateNewTreeFolder(treePath);
 
             // Assert - Check that file exists, and that its name matches.
-            Assert.True(mockFileSystem.Directory.Exists(treePath));
+            Assert.True(_mockFileSystem.Directory.Exists(treePath));
 
-            var basedirectory = mockFileSystem.DirectoryInfo.FromDirectoryName(testDirectory);
+            var basedirectory = _mockFileSystem.DirectoryInfo.FromDirectoryName(_baseDirectory);
             var subdirectories = basedirectory.GetDirectories();
             Assert.AreEqual(subdirectories[0].FullName, treePath);
             Assert.True(subdirectories.Length == 1);
@@ -79,93 +103,90 @@ namespace Services.Tests.LogicHandlersTests
         [Test]
         public void DeleteTree_WorksAsExpected()
         {
+            ResetHandlers();
+
             // Arrange - Get tree path.
-            var treePath = testDirectory + @"treeThatWillBeDeleted";
+            var treePath = _baseDirectory + _testingTreeName;
 
             // Act - Create tree and delete it.
-            var mockFileSystem = new MockFileSystem();
-            var folderLogicHandler = new FolderLogicHandler(mockFileSystem);
-            folderLogicHandler.CreateNewTreeFolder(treePath);
-            folderLogicHandler.DeleteTree(treePath);
+            _folderLogicHandler.CreateNewTreeFolder(treePath);
+            _folderLogicHandler.DeleteTree(treePath);
 
             // Assert - Check that the tree does not exist.
-            Assert.True(mockFileSystem.Directory.Exists(treePath) == false);
+            Assert.True(_mockFileSystem.Directory.Exists(treePath) == false);
         }
 
         [Test]
         public void DeleteLeaf_WorksAsExpected()
         {
+            ResetHandlers();
+
             // Arrange - Get tree path.
-            var treePath = testDirectory + @"testTree";
+            var treePath = _baseDirectory + _testingTreeName;
 
             // Act - Create tree.
-            var mockFileSystem = new MockFileSystem();
-            var folderLogicHandler = new FolderLogicHandler(mockFileSystem);
-            folderLogicHandler.CreateNewTreeFolder(treePath);
+            _folderLogicHandler.CreateNewTreeFolder(treePath);
 
             // Act - Add in leaf (generic file, not actually being created from the internal methods).
-            var leafPath = treePath + @"\newLeaf.docx";
+            var leafPath = _folderLogicHandler.GetFullLeafPath(_testingTreeName, _testingLeafName);
             var mockInputFile = new MockFileData("line1\nline2\nline3");
-            mockFileSystem.AddFile(leafPath, mockInputFile);
+            _mockFileSystem.AddFile(leafPath, mockInputFile);
 
             // Assert - Check that leaf was created as expected.
-            Assert.True(mockFileSystem.File.Exists(leafPath));
-            Assert.True(mockFileSystem.Path.GetFileName(leafPath) == "newLeaf.docx");
+            Assert.True(_mockFileSystem.File.Exists(leafPath));
+            Assert.True(_mockFileSystem.Path.GetFileNameWithoutExtension(leafPath) == $"{_testingLeafName}");
 
             // Act - Delete leaf.
-            folderLogicHandler.DeleteLeaf(leafPath);
+            _folderLogicHandler.DeleteLeaf(leafPath);
 
             // Assert - Check that leaf was deleted.
-            Assert.True(mockFileSystem.File.Exists(leafPath) == false);
+            Assert.True(_mockFileSystem.File.Exists(leafPath) == false);
         }
 
         [Test]
         public void BackupTrees_SavesFilesAsExpected()
         {
+            ResetHandlers();
+
             // Arrange - Create tree folders.
-            var mockFileSystem = new MockFileSystem();
             var mockInputFile = new MockFileData("line1\nline2\nline3");
 
-            var treePathZero = testDirectory + @"\treeZero";
-            mockFileSystem.Directory.CreateDirectory(treePathZero);
-            mockFileSystem.AddFile(treePathZero + "zero.docx", mockInputFile);
+            var treePathZero = _baseDirectory + @"\treeZero";
+            _mockFileSystem.Directory.CreateDirectory(treePathZero);
+            _mockFileSystem.AddFile(treePathZero + "zero.docx", mockInputFile);
 
-            var treePathOne = testDirectory + @"\treeOne";
-            mockFileSystem.Directory.CreateDirectory(treePathOne);
-            mockFileSystem.AddFile(treePathOne + "one.docx", mockInputFile);
+            var treePathOne = _baseDirectory + @"\treeOne";
+            _mockFileSystem.Directory.CreateDirectory(treePathOne);
+            _mockFileSystem.AddFile(treePathOne + "one.docx", mockInputFile);
 
-            var treePathTwo = testDirectory + @"\treeTwo";
-            mockFileSystem.Directory.CreateDirectory(treePathTwo);
-            mockFileSystem.AddFile(treePathTwo + "two.docx", mockInputFile);
+            var treePathTwo = _baseDirectory + @"\treeTwo";
+            _mockFileSystem.Directory.CreateDirectory(treePathTwo);
+            _mockFileSystem.AddFile(treePathTwo + "two.docx", mockInputFile);
 
             // Act - Try to backup.
             var backupDestination = @"C:\temp\destination\";
-            var folderLogicHandler = new FolderLogicHandler(mockFileSystem);
-            folderLogicHandler.BackupTrees(testDirectory, backupDestination, true);
+            _folderLogicHandler.BackupTrees(_baseDirectory, backupDestination, true);
 
             // Assert - Check files have been transferred.
-            var trees = mockFileSystem.DirectoryInfo.FromDirectoryName(backupDestination).GetDirectories()
+            var trees = _mockFileSystem.DirectoryInfo.FromDirectoryName(backupDestination).GetDirectories()
                 .Select(d => d.Name).ToList();
             Assert.AreEqual(trees[0], "treeZero");
             Assert.AreEqual(trees[1], "treeOne");
             Assert.AreEqual(trees[2], "treeTwo");
 
-            Assert.IsTrue(mockFileSystem.File.Exists(treePathZero + "zero.docx"));
-            Assert.IsTrue(mockFileSystem.File.Exists(treePathOne + "one.docx"));
-            Assert.IsTrue(mockFileSystem.File.Exists(treePathTwo + "two.docx"));
+            Assert.IsTrue(_mockFileSystem.File.Exists(treePathZero + "zero.docx"));
+            Assert.IsTrue(_mockFileSystem.File.Exists(treePathOne + "one.docx"));
+            Assert.IsTrue(_mockFileSystem.File.Exists(treePathTwo + "two.docx"));
         }
 
         [Test]
         public void GetFullTreePath_WorksAsExpected()
         {
             // Arrange - get target path.
-            string treeName = "NewTree";
-            var expected = DirectoryConstants.CurrentWorkingPath + $@"\{treeName}";
+            var expected = DirectoryConstants.CurrentWorkingPath + $@"\{_testingTreeName}";
 
             // Act - get actual path.
-            var mockFileSystem = new MockFileSystem();
-            var folderLogicHandler = new FolderLogicHandler(mockFileSystem);
-            var actual = folderLogicHandler.GetFullTreePath(treeName);
+            var actual = _folderLogicHandler.GetFullTreePath(_testingTreeName);
 
             // Assert - Check paths are equal.
             Assert.AreEqual(expected, actual);
@@ -175,17 +196,25 @@ namespace Services.Tests.LogicHandlersTests
         public void GetFullLeafPath_WorksAsExpected()
         {
             // Arrange - get target path.
-            string treeName = "NewTree";
-            string leafName = "NewLeaf";
-            var expected = DirectoryConstants.CurrentWorkingPath + $@"\{treeName}\{leafName}.docx";
+            var expected = DirectoryConstants.CurrentWorkingPath + $@"\{_testingTreeName}\{_testingLeafName}.docx";
 
             // Act - get actual path.
-            var mockFileSystem = new MockFileSystem();
-            var folderLogicHandler = new FolderLogicHandler(mockFileSystem);
-            var actual = folderLogicHandler.GetFullLeafPath(treeName, leafName);
+            var actual = _folderLogicHandler.GetFullLeafPath(_testingTreeName, _testingLeafName);
 
             // Assert - Check paths are equal.
             Assert.AreEqual(expected, actual);
         }
+
+        #endregion
+
+        #region Helpers
+
+        private void ResetHandlers()
+        {
+            _mockFileSystem = new MockFileSystem();
+            _folderLogicHandler = new FolderLogicHandler(_mockFileSystem);
+        }
+
+        #endregion
     }
 }

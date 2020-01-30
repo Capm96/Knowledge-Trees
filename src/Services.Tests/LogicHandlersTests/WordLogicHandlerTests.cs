@@ -2,7 +2,6 @@
 using Services.Constants;
 using System.IO;
 using System.IO.Abstractions.TestingHelpers;
-using Services.LogicHandlers;
 using Services.LogicHandlers.Helpers;
 
 namespace Services.Tests.LogicHandlersTests
@@ -10,6 +9,8 @@ namespace Services.Tests.LogicHandlersTests
     [TestFixture]
     class WordLogicHandlerTests
     {
+        #region Constants
+
         // Paths.
         private string _baseDirectory = DirectoryConstants.CurrentWorkingPath;
         private string _testingTreeName = "Test Tree";
@@ -22,6 +23,10 @@ namespace Services.Tests.LogicHandlersTests
         private FolderLogicHandler _folderLogicHandler;
         private WordLogicHandler _wordLogicHandler;
 
+        #endregion
+
+        #region Constructors
+
         public WordLogicHandlerTests()
         {
             // Get handlers.
@@ -29,6 +34,10 @@ namespace Services.Tests.LogicHandlersTests
             _folderLogicHandler = new FolderLogicHandler(_mockFileSystem);
             _wordLogicHandler = new WordLogicHandler(_mockFileSystem);
         }
+
+        #endregion
+
+        #region Tests
 
         [Test]
         public void CreateNewLeaf_WorksAsExpected()
@@ -72,6 +81,8 @@ namespace Services.Tests.LogicHandlersTests
             Assert.True(statistics[StatsNamingConstants.WordCount] > 10);
             Assert.True(statistics[StatsNamingConstants.CharacterCount] > 50);
         }
+
+        #endregion
 
         #region Helpers
 

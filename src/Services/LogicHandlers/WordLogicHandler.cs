@@ -10,20 +10,30 @@ using Application = Microsoft.Office.Interop.Word.Application;
 using Window = Microsoft.Office.Interop.Word.Window;
 using Services.Constants;
 using System.IO.Abstractions;
-using Services.LogicHandlers;
 using Services.LogicHandlers.Helpers;
+using Services.Helpers;
 
 namespace Services
 {
     public class WordLogicHandler : IWordLogicHandler
     {
+        #region Fields & Properties
+
         private Application _wordInstance;
         private readonly IFileSystem _fileSystem;
+
+        #endregion
+
+        #region Constructors
 
         public WordLogicHandler(IFileSystem fileSystem)
         {
             _fileSystem = fileSystem;
         }
+
+        #endregion
+
+        #region
 
         public void CreateNewLeaf(string path, string leafName, string treeName)
         {
@@ -177,7 +187,7 @@ namespace Services
             // Open an instance of word to open the documents in.
             var wordInstance = new Application();
 
-            var statistics = GetStatisticsContainer();
+            var statistics = TreeStatsContainerGetter.GetStatisticsContainer();
             foreach (string leaf in leavesInTree)
             {
                 // Open current leaf.
@@ -202,13 +212,6 @@ namespace Services
             return statistics;
         }
 
-        private Dictionary<string, int> GetStatisticsContainer()
-        {
-            var output = new Dictionary<string, int>();
-            output.Add(StatsNamingConstants.WordCount, 0);
-            output.Add(StatsNamingConstants.LeafCount, 0);
-            output.Add(StatsNamingConstants.CharacterCount, 0);
-            return output;
-        }
+        #endregion
     }
 }
