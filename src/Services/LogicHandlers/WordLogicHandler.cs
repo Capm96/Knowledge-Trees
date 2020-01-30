@@ -10,6 +10,8 @@ using Application = Microsoft.Office.Interop.Word.Application;
 using Window = Microsoft.Office.Interop.Word.Window;
 using Services.Constants;
 using System.IO.Abstractions;
+using Services.LogicHandlers;
+using Services.LogicHandlers.Helpers;
 
 namespace Services
 {
@@ -26,7 +28,7 @@ namespace Services
         public void CreateNewLeaf(string path, string leafName, string treeName)
         {
             // Create word instance.
-            var wordInstance = CreateWordInstance();
+            var wordInstance = CreateNewWordInstance();
 
             try
             {
@@ -47,13 +49,11 @@ namespace Services
             }
             finally
             {
-                // Dispose word instance.
-                wordInstance.Quit();
-                GC.Collect();
+                Dispatcher.DisposeOfWordInstance(wordInstance);
             }
         }
 
-        private Application CreateWordInstance()
+        public Application CreateNewWordInstance()
         {
             var wordInstance = new Application();
             wordInstance.Visible = false;
@@ -82,7 +82,7 @@ namespace Services
                         doc.Close();
                     }
 
-                    wordInstance.Quit();
+                    Dispatcher.DisposeOfWordInstance(wordInstance);
                 }
             }
             catch (Exception e)
@@ -118,7 +118,7 @@ namespace Services
             catch (COMException ex)
             {
                 //throw new COMException(ex.Message);
-                _wordInstance = CreateWordInstance();
+                _wordInstance = CreateNewWordInstance();
                 return new List<string>();
             }
 
@@ -197,8 +197,7 @@ namespace Services
                 document.Close();
             }
 
-            wordInstance.Quit();
-            GC.Collect();
+            Dispatcher.DisposeOfWordInstance(wordInstance);
 
             return statistics;
         }

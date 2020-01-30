@@ -87,7 +87,7 @@ namespace Services
                 _fileSystem.File.Delete(leafPath);
         }
 
-        public void BackupTrees(string baseDirectory, string destinationDirectory, bool copySubDirectories)
+        public void BackupTrees(string baseDirectory, string destinationDirectory, bool copyingSubDirectories)
         {
             try
             {
@@ -110,12 +110,14 @@ namespace Services
 
                 // If copying subdirectories, copy them and their contents to new location.
                 var sourceDirectories = sourceDirectory.GetDirectories();
-                if (copySubDirectories)
+                if (copyingSubDirectories)
+                {
                     foreach (var subDirectory in sourceDirectories)
                     {
                         string temporaryPath = _fileSystem.Path.Combine(destinationDirectory, subDirectory.Name);
-                        BackupTrees(subDirectory.FullName, temporaryPath, copySubDirectories);
+                        BackupTrees(subDirectory.FullName, temporaryPath, copyingSubDirectories);
                     }
+                }
             }
             catch (IOException ex)
             {

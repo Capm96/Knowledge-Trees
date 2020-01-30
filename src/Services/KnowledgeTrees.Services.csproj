@@ -103,6 +103,7 @@
     <Compile Include="Constants\StatsNamingConstants.cs" />
     <Compile Include="Entities\FeedbackProvider.cs" />
     <Compile Include="Interfaces\IFeedbackProvider.cs" />
+    <Compile Include="Helpers\Dispatcher.cs" />
     <Compile Include="LogicHandlers\FolderLogicHandler.cs" />
     <Compile Include="Interfaces\IFolderLogicHandler.cs" />
     <Compile Include="Interfaces\IWordLogicHandler.cs" />
