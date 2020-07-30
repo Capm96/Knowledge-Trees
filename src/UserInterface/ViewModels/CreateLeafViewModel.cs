@@ -14,6 +14,8 @@ namespace UserInterface.ViewModels
     {
         #region Fields & Properties
 
+        // Test new git connection
+
         IWordLogicHandler _wordLogicHandler;
         MainDashboardViewModel _mainDashboard;
 
