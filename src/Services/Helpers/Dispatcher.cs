@@ -11,7 +11,7 @@ namespace Services.LogicHandlers.Helpers
             instance.DisplayAlerts = Microsoft.Office.Interop.Word.WdAlertLevel.wdAlertsNone;
             instance.Visible = false;
             instance.Quit();
-            Marshal.FinalReleaseComObject(instance);
+            //Marshal.FinalReleaseComObject(instance);
             GC.Collect();
         }
     }

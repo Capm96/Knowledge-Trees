@@ -18,8 +18,8 @@ namespace UserInterface.ViewModels
         private readonly IWordLogicHandler _wordLogicHandler;
         private readonly IFileSystem _fileSystem;
 
-        private CreateLeafViewModel _createLeafViewModel;
-        private CreateTreeViewModel _createTreeViewModel;
+        public CreateLeafViewModel _createLeafViewModel;
+        public CreateTreeViewModel CreateTreeViewModel { get; set; }
         private ViewTreeViewModel _viewTreeViewModel;
 
         private ObservableCollection<string> _trees;
@@ -135,13 +135,13 @@ namespace UserInterface.ViewModels
 
         public void OpenCreateTreeWindow()
         {
-            if (_createTreeViewModel == null)
+            if (CreateTreeViewModel == null)
             {
-                _createTreeViewModel = new CreateTreeViewModel(_folderLogicHandler, this);
+                CreateTreeViewModel = new CreateTreeViewModel(_folderLogicHandler, this);
             }
 
-            _createTreeViewModel.TryClose();
-            _windowManager.ShowWindow(_createTreeViewModel);
+            CreateTreeViewModel.TryClose();
+            _windowManager.ShowWindow(CreateTreeViewModel);
         }
 
         public void OpenCreateLeafWindow()
