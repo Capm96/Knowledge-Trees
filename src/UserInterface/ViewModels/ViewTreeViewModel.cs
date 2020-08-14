@@ -1,10 +1,10 @@
 ﻿using Caliburn.Micro;
-using Services;
 using Services.Constants;
 using Services.Interfaces;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using UserInterface.ViewModels.Commands.ViewTree;
 
 namespace UserInterface.ViewModels
 {
@@ -12,26 +12,28 @@ namespace UserInterface.ViewModels
     {
         #region Fields & properties.
 
-        private IFolderLogicHandler _folderLogicHandler;
         private IWordLogicHandler _wordLogicHandler;
-        private MainDashboardViewModel _mainDashboardViewModel;
+
+        public ICommand UpdateStatisticsCommand { get; set; }
 
         private string _treeName;
         public string TreeName
         {
             get { return _treeName; }
-            set { _treeName = value; }
-        }
-
-        private ObservableCollection<string> _leaves;
-
-        private string _charCount;
-        public string CharacterCount
-        {
-            get { return _charCount; }
             set 
             { 
-                _charCount = value; 
+                _treeName = value;
+                NotifyOfPropertyChange(() => TreeName);
+            }
+        }
+
+        private string _characterCount;
+        public string CharacterCount
+        {
+            get { return _characterCount; }
+            set 
+            { 
+                _characterCount = value; 
                 NotifyOfPropertyChange(() => CharacterCount);
             }
         }
@@ -58,44 +60,29 @@ namespace UserInterface.ViewModels
             }
         }
 
-        private string _reportMessage;
-
-        public string ReportMessage
+        private string _statisticsReportMessage;
+        public string StatisticsReportMessage
         {
-            get { return _reportMessage; }
+            get { return _statisticsReportMessage; }
             set 
             { 
-                _reportMessage = value; 
-                NotifyOfPropertyChange(() => ReportMessage);
+                _statisticsReportMessage = value; 
+                NotifyOfPropertyChange(() => StatisticsReportMessage);
             }
         }
 
-        private double _completedProgressInGettingStatistics;
-
-        public double CompletedProgressInGettingStatistics
+        private string _loadingMessage;
+        public string LoadingMessage
         {
-            get { return _completedProgressInGettingStatistics; }
+            get { return _loadingMessage; }
             set 
             { 
-                _completedProgressInGettingStatistics = value;
-                NotifyOfPropertyChange(() => CompletedProgressInGettingStatistics);
-            }
-        }
-
-        private string _loadingButtonEnabled;
-
-        public string LoadingButtonEnabled
-        {
-            get { return _loadingButtonEnabled; }
-            set 
-            { 
-                _loadingButtonEnabled = value;
-                NotifyOfPropertyChange(() => LoadingButtonEnabled);
+                _loadingMessage = value;
+                NotifyOfPropertyChange(() => LoadingMessage);
             }
         }
 
         private bool _statsButtonEnabled;
-
         public bool StatsButtonEnabled
         {
             get { return _statsButtonEnabled; }
@@ -106,30 +93,26 @@ namespace UserInterface.ViewModels
             }
         }
 
-
         #endregion
 
         #region Constructors
 
-        public ViewTreeViewModel(IFolderLogicHandler folderLogicHandler, IWordLogicHandler wordLogicHandler, MainDashboardViewModel mainDashboardViewModel, string selectedTree, ObservableCollection<string> leaves)
+        public ViewTreeViewModel(IWordLogicHandler wordLogicHandler, string selectedTree)
         {
-            _folderLogicHandler = folderLogicHandler;
             _wordLogicHandler = wordLogicHandler;
-            _mainDashboardViewModel = mainDashboardViewModel;
             TreeName = selectedTree;
-            _leaves = leaves;
             StatsButtonEnabled = true;
-            LoadingButtonEnabled = "";
+            LoadingMessage = "";
+            UpdateStatisticsCommand = new UpdateStatisticsCommand(this);
         }
 
         #endregion
 
         #region Methods
+
         public async void UpdateStatistics()
         {
-            var feedbackProvider = new FeedbackProvider();
-
-            CheckIfGeneratingStatistics(true);
+            ModifyUIWhileUpdatingStatistics(true);
 
             var result = await Task.Run(() =>
             {
@@ -138,7 +121,7 @@ namespace UserInterface.ViewModels
                 return true;
             });
 
-            CheckIfGeneratingStatistics(false);
+            ModifyUIWhileUpdatingStatistics(false);
         }
 
         private void UpdateStatisticsProperties(Dictionary<string, int> stats)
@@ -147,19 +130,19 @@ namespace UserInterface.ViewModels
             CharacterCount = (stats[StatsNamingConstants.CharacterCount] - 1).ToString();
             LeafCount = stats[StatsNamingConstants.LeafCount].ToString();
 
-            ReportMessage = $"You have written {CharacterCount} characters in {WordCount} words across {LeafCount} leaves!";
+            StatisticsReportMessage = $"You have written {CharacterCount} characters in {WordCount} words across {LeafCount} leaves!";
         }
 
-        private void CheckIfGeneratingStatistics(bool operationRunning)
+        private void ModifyUIWhileUpdatingStatistics(bool operationRunning)
         {
             if (operationRunning == true)
             {
-                LoadingButtonEnabled = "Loading...";
+                LoadingMessage = "Loading...";
                 StatsButtonEnabled = false;
             }
             else
             {
-                LoadingButtonEnabled = "";
+                LoadingMessage = "";
                 StatsButtonEnabled = true;
             }
         }

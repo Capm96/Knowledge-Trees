@@ -1,8 +1,4 @@
 ﻿using System.Collections.Generic;
-﻿using Microsoft.Office.Interop.Word;
-using System.Collections.Generic;
-using Task = System.Threading.Tasks.Task;
-using Services.Entities;
 
 namespace Services.Interfaces
 {
@@ -25,7 +21,7 @@ namespace Services.Interfaces
         /// <summary>
         /// Gets the list of names for all open word documents.
         /// </summary>
-        IList<string> GetAllOpenLeafNames();
+        IList<string> GetAllOpenLeavesPaths();
 
         /// <summary>
         /// Opens an existing leaf for modification.

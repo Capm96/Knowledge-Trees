@@ -6,8 +6,8 @@
     /// </summary>
     public static class StatsNamingConstants
     {
-        public static string WordCount = "WordCount";
-        public static string LeafCount = "LeafCount";
-        public static string CharacterCount = "CharacterCount";
+        public static string WordCount { get; private set; } = "WordCount";
+        public static string LeafCount { get; private set; } = "LeafCount";
+        public static string CharacterCount { get; private set; } = "CharacterCount";
     }
 }

@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace UserInterface.Views
 {
     /// <summary>
-    /// Interaction logic for CreateNewTreeView.xaml
+    /// Interaction logic for CreateNewLeafView.xaml
     /// </summary>
-    public partial class CreateNewTreeView : Window
+    public partial class CreateLeafView : Window
     {
-        public CreateNewTreeView()
+        public CreateLeafView()
         {
             InitializeComponent();
         }

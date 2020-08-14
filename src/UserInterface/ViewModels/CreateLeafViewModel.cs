@@ -5,15 +5,21 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
+using System.Windows.Input;
+using UserInterface.ViewModels.Commands.CreateLeaf;
 
 namespace UserInterface.ViewModels
 {
-    public class CreateNewLeafViewModel : Screen, IDataErrorInfo
+    public class CreateLeafViewModel : Screen, IDataErrorInfo
     {
         #region Fields & Properties
 
+        // Test new git connection
+
         IWordLogicHandler _wordLogicHandler;
         MainDashboardViewModel _mainDashboard;
+
+        public ICommand CreateLeafCommand { get; set; }
 
         public string ParentTreeName { get; set; }
 
@@ -84,18 +90,19 @@ namespace UserInterface.ViewModels
 
         #region Constructors
 
-        public CreateNewLeafViewModel(IWordLogicHandler wordLogicHandler, MainDashboardViewModel mainDashboard, string parentTreeName)
+        public CreateLeafViewModel(IWordLogicHandler wordLogicHandler, MainDashboardViewModel mainDashboard, string parentTreeName)
         {
             _wordLogicHandler = wordLogicHandler;
             _mainDashboard = mainDashboard;
             ParentTreeName = parentTreeName;
+            CreateLeafCommand = new CreateLeafCommand(this);
         }
 
         #endregion
 
         #region Creating and validating methods.
 
-        public void CreateNewLeaf()
+        public void CreateLeaf()
         {
             // Get path.
             var leafPath = DirectoryConstants.CurrentWorkingPath + $@"\{ParentTreeName}" + $@"\{NewLeafName}.docx";

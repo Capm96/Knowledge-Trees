@@ -3,39 +3,38 @@ using System.Linq;
 using System.IO;
 using Services.Interfaces;
 using Services.Constants;
+using System.IO.Abstractions;
 
 namespace Services
 {
     public class FolderLogicHandler : IFolderLogicHandler
     {
-        public IList<string> GetAllTreePaths(string baseDirectory)
+        #region Fields & Properties
+
+        private readonly IFileSystem _fileSystem;
+
+        #endregion
+
+        #region Constructors
+
+        public FolderLogicHandler(IFileSystem fileSystem)
         {
-            if (Directory.Exists(baseDirectory))
-            {
-                try
-                {
-                    return Directory.GetDirectories(baseDirectory).ToList();
-                }
-                catch (IOException ex)
-                {
-                    throw new IOException(ex.Message);
-                }
-            }
-            else
-            {
-                Directory.CreateDirectory(baseDirectory);
-                return new List<string>();
-            }
+            _fileSystem = fileSystem;
         }
+
+        #endregion
+
+        #region Methods
 
         public IList<string> GetAllTreeNames(string baseDirectory)
         {
-            bool baseDirectoryExists = Directory.Exists(baseDirectory);
+            bool baseDirectoryExists = _fileSystem.Directory.Exists(baseDirectory);
             if (baseDirectoryExists)
             {
                 try
                 {
-                    return Directory.GetDirectories(baseDirectory).Select(Path.GetFileName).ToList();
+                    return _fileSystem.Directory.GetDirectories(baseDirectory).
+                        Select(_fileSystem.Path.GetFileName).ToList();
                 }
                 catch (IOException ex)
                 {
@@ -44,57 +43,29 @@ namespace Services
             }
             else
             {
-                Directory.CreateDirectory(baseDirectory);
+                _fileSystem.Directory.CreateDirectory(baseDirectory);
                 return new List<string>();
             }
         }
 
-        public IList<string> GeAllLeafNames(string treePath)
-        {
-            if (Directory.Exists(treePath))
-            {
-                try
-                {
-                    // Includes meta word files.
-                    var allNames = Directory.GetFiles(treePath).Select(Path.GetFileName).ToList();
-
-                    // Will only include actual files.
-                    var cleanNames = new List<string>();
-
-                    // Excludes meta files (which include "~" in their name. These files exist while the actual file is being modified).
-                    foreach (string name in allNames)
-                    {
-                        if (name.Contains("~") == false)
-                            cleanNames.Add(name);
-                    }
-
-                    return cleanNames.ToArray();
-                }
-                catch (IOException ex)
-                {
-                    throw new IOException(ex.Message);
-                }
-            }
-
-            return new List<string>();
-        }
-
         public IList<string> GetAllLeafNamesWithNoExtension(string treePath)
         {
-            if (Directory.Exists(treePath))
+            if (_fileSystem.Directory.Exists(treePath))
             {
                 try
                 {
-                    var current = Directory.GetFiles(treePath).Select(Path.GetFileName).ToArray();
+                    var allLeaves = _fileSystem.Directory.GetFiles(treePath)
+                        .Select(_fileSystem.Path.GetFileName).ToArray();
 
+                    // Word documents create meta files when they are running, 
+                    // this loop excludes these files from our leaves list.
                     var output = new List<string>();
-                    for (int i = 0; i < current.Length; i++)
+                    for (int i = 0; i < allLeaves.Length; i++)
                     {
-                        // Word documents create meta files when they are running, this method excludes these files from our leaves list.
-                        if (current[i].Contains("~"))
+                        if (allLeaves[i].Contains("~"))
                             continue;
 
-                        output.Add(current[i].Substring(0, current[i].Length - 5)); // 5 is length of .docx extension.
+                        output.Add(allLeaves[i].Substring(0, allLeaves[i].Length - 5)); // 5 is length of .docx extension.
                     }
 
                     return output.ToArray();
@@ -110,51 +81,53 @@ namespace Services
 
         public void CreateNewTreeFolder(string fullTreePath)
         {
-            if (Directory.Exists(fullTreePath) == false)
-                Directory.CreateDirectory(fullTreePath);
+            if (_fileSystem.Directory.Exists(fullTreePath) == false)
+                _fileSystem.Directory.CreateDirectory(fullTreePath);
         }
 
         public void DeleteTree(string treePath)
         {
-            if (Directory.Exists(treePath))
-                Directory.Delete(treePath, true);
+            if (_fileSystem.Directory.Exists(treePath))
+                _fileSystem.Directory.Delete(treePath, true);
         }
 
         public void DeleteLeaf(string leafPath)
         {
-            if (File.Exists(leafPath))
-                File.Delete(leafPath);
+            if (_fileSystem.File.Exists(leafPath))
+                _fileSystem.File.Delete(leafPath);
         }
 
-        public void BackupTrees(string baseDirectory, string destinationDirectory, bool copySubDirectories)
+        public void BackupTrees(string baseDirectory, string destinationDirectory, bool copyingSubDirectories)
         {
             try
             {
                 // Check if directory with data exists.
-                var sourceDirectory = new DirectoryInfo(baseDirectory);
+                var sourceDirectory = _fileSystem.DirectoryInfo.FromDirectoryName(baseDirectory);
                 if (sourceDirectory.Exists == false)
                     throw new DirectoryNotFoundException($"Source directory does not exist or could not be found: {baseDirectory}");
 
                 // If the destination directory doesn't exist, create it.
-                if (Directory.Exists(destinationDirectory) == false)
-                    Directory.CreateDirectory(destinationDirectory);
+                if (_fileSystem.Directory.Exists(destinationDirectory) == false)
+                    _fileSystem.Directory.CreateDirectory(destinationDirectory);
 
                 // Get the files in the base directory and copy them to the new location.
                 var files = sourceDirectory.GetFiles();
-                foreach (FileInfo file in files)
+                foreach (var file in files)
                 {
-                    var temporaryPath = Path.Combine(destinationDirectory, file.Name);
+                    var temporaryPath = _fileSystem.Path.Combine(destinationDirectory, file.Name);
                     file.CopyTo(temporaryPath, false);
                 }
 
                 // If copying subdirectories, copy them and their contents to new location.
-                DirectoryInfo[] sourceDirectories = sourceDirectory.GetDirectories();
-                if (copySubDirectories)
-                    foreach (DirectoryInfo subDirectory in sourceDirectories)
+                var sourceDirectories = sourceDirectory.GetDirectories();
+                if (copyingSubDirectories)
+                {
+                    foreach (var subDirectory in sourceDirectories)
                     {
-                        string temporaryPath = Path.Combine(destinationDirectory, subDirectory.Name);
-                        BackupTrees(subDirectory.FullName, temporaryPath, copySubDirectories);
+                        string temporaryPath = _fileSystem.Path.Combine(destinationDirectory, subDirectory.Name);
+                        BackupTrees(subDirectory.FullName, temporaryPath, copyingSubDirectories);
                     }
+                }
             }
             catch (IOException ex)
             {
@@ -164,12 +137,14 @@ namespace Services
 
         public string GetFullLeafPath(string treeName, string leafName)
         {
-            return Path.GetFullPath($@"{DirectoryConstants.CurrentWorkingPath}\{treeName}\{leafName}.docx");
+            return _fileSystem.Path.GetFullPath($@"{DirectoryConstants.CurrentWorkingPath}\{treeName}\{leafName}.docx");
         }
 
         public string GetFullTreePath(string treeName)
         {
-            return Path.GetFullPath($@"{DirectoryConstants.CurrentWorkingPath}\{treeName}");
+            return _fileSystem.Path.GetFullPath($@"{DirectoryConstants.CurrentWorkingPath}\{treeName}");
         }
+
+        #endregion
     }
 }

@@ -8,23 +8,37 @@ using Services.Interfaces;
 using System.Windows;
 using Application = Microsoft.Office.Interop.Word.Application;
 using Window = Microsoft.Office.Interop.Word.Window;
-using System.IO;
 using Services.Constants;
-using System.Threading;
-using System.Threading.Tasks;
-using Task = System.Threading.Tasks.Task;
-using Services.Entities;
+using System.IO.Abstractions;
+using Services.LogicHandlers.Helpers;
+using Services.Helpers;
 
 namespace Services
 {
     public class WordLogicHandler : IWordLogicHandler
     {
+        #region Fields & Properties
+
         private Application _wordInstance;
+        private readonly IFileSystem _fileSystem;
+
+        #endregion
+
+        #region Constructors
+
+        public WordLogicHandler(IFileSystem fileSystem)
+        {
+            _fileSystem = fileSystem;
+        }
+
+        #endregion
+
+        #region
 
         public void CreateNewLeaf(string path, string leafName, string treeName)
         {
             // Create word instance.
-            Application wordInstance = CreateWordInstance();
+            var wordInstance = CreateNewWordInstance();
 
             try
             {
@@ -45,13 +59,11 @@ namespace Services
             }
             finally
             {
-                // Dispose word instance.
-                wordInstance.Quit();
-                GC.Collect();
+                Dispatcher.DisposeOfWordInstance(wordInstance);
             }
         }
 
-        private Application CreateWordInstance()
+        public Application CreateNewWordInstance()
         {
             var wordInstance = new Application();
             wordInstance.Visible = false;
@@ -72,7 +84,7 @@ namespace Services
             {
                 if (Process.GetProcessesByName("winword").Count() > 0)
                 {
-                    Application wordInstance = (Application)Marshal.GetActiveObject("Word.Application");
+                    var wordInstance = (Application)Marshal.GetActiveObject("Word.Application");
 
                     foreach (Document doc in wordInstance.Documents)
                     {
@@ -80,7 +92,7 @@ namespace Services
                         doc.Close();
                     }
 
-                    wordInstance.Quit();
+                    Dispatcher.DisposeOfWordInstance(wordInstance);
                 }
             }
             catch (Exception e)
@@ -89,10 +101,9 @@ namespace Services
             }
         }
 
-        public IList<string> GetAllOpenLeafNames()
+        public IList<string> GetAllOpenLeavesPaths()
         {
-            List<string> documentNames = new List<string>();
-            Window wordWindow;
+            var documentNames = new List<string>();
 
             try
             {
@@ -104,6 +115,8 @@ namespace Services
                 // If there are any open windows (documents), get their names.
                 if (_wordInstance.Windows.Count > 0)
                 {
+                    Window wordWindow;
+
                     for (int i = 0; i < _wordInstance.Windows.Count; i++)
                     {
                         object a = i + 1;
@@ -114,9 +127,9 @@ namespace Services
             }
             catch (COMException ex)
             {
-                _wordInstance = CreateWordInstance();
-                return new List<string>();
                 //throw new COMException(ex.Message);
+                _wordInstance = CreateNewWordInstance();
+                return new List<string>();
             }
 
             return documentNames;
@@ -124,7 +137,7 @@ namespace Services
 
         public void OpenExistingLeaf(string path)
         {
-            IList<string> openedWordDocuments = GetAllOpenLeafNames();
+            var openedWordDocuments = GetAllOpenLeavesPaths();
 
             // Checks if current file is already open.
             foreach (string name in openedWordDocuments)
@@ -136,13 +149,13 @@ namespace Services
                 }
             }
 
-            if (_wordInstance == null)
-            {
-                _wordInstance = (Application)Marshal.GetActiveObject("Word.Application");
-            }
-
             try
             {
+                if (_wordInstance == null)
+                {
+                    _wordInstance = (Application)Marshal.GetActiveObject("Word.Application");
+                }
+
                 _wordInstance.Visible = true;
                 Document wordDocument = _wordInstance.Documents.Open(path);
             }
@@ -154,10 +167,10 @@ namespace Services
 
         public bool CheckIfLeafIsOpen(string currentPath)
         {
-            IList<string> openedWordDocumentsPaths = GetAllOpenLeafNames();
+            var openPaths = GetAllOpenLeavesPaths();
 
             // Checks if current file is already open.
-            foreach (string documentPath in openedWordDocumentsPaths)
+            foreach (string documentPath in openPaths)
                 if (documentPath.Equals(currentPath))
                     return true;
 
@@ -167,19 +180,19 @@ namespace Services
         public Dictionary<string,int> GetTotalTreeStatistics(string treeName)
         {
             // Gets names of all the leaves we will look through.
-            var folderLogic = new FolderLogicHandler();
+            var folderLogic = new FolderLogicHandler(new FileSystem());
             var treePath = folderLogic.GetFullTreePath(treeName);
             var leavesInTree = folderLogic.GetAllLeafNamesWithNoExtension(treePath);
 
             // Open an instance of word to open the documents in.
-            var application = new Application();
+            var wordInstance = new Application();
 
-            var statistics = GetStatisticsContainer();
+            var statistics = TreeStatsContainerGetter.GetStatisticsContainer();
             foreach (string leaf in leavesInTree)
             {
                 // Open current leaf.
                 string fullLeafPath = folderLogic.GetFullLeafPath(treeName, leaf);
-                Document document = application.Documents.Open(fullLeafPath);
+                Document document = wordInstance.Documents.Open(fullLeafPath);
 
                 // Prepare to get statistics.
                 object includeFootnotesAndEndnotes = true;
@@ -194,16 +207,11 @@ namespace Services
                 document.Close();
             }
 
+            Dispatcher.DisposeOfWordInstance(wordInstance);
+
             return statistics;
         }
 
-        private Dictionary<string, int> GetStatisticsContainer()
-        {
-            var output = new Dictionary<string, int>();
-            output.Add(StatsNamingConstants.WordCount, 0);
-            output.Add(StatsNamingConstants.LeafCount, 0);
-            output.Add(StatsNamingConstants.CharacterCount, 0);
-            return output;
-        }
+        #endregion
     }
 }

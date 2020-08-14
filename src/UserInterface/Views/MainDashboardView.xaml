@@ -9,7 +9,7 @@
         Height="450" 
         Width="800" 
         WindowStartupLocation="CenterScreen" 
-        Background="#252425">
+        Background="WhiteSmoke">
     <Window.Resources>
 
         <!-- List styling -->
@@ -17,8 +17,17 @@
             <Setter Property="Margin" Value="10, 0, 0, 0"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="MinHeight" Value="300"/>
-            <Setter Property="Background" Value="#424243"/>
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
+        <Style x:Key="ListHeaderStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="28"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="ForestGreen"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Grid.ColumnSpan" Value="2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
 
@@ -31,44 +40,40 @@
             <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="330"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- Headers -->
-        <TextBlock Grid.Column="0" Grid.Row="0" Text="Trees" FontSize="26" Foreground="White" FontWeight="Bold"
-                   Margin="35, 0, 0, 0"/>
-        <TextBlock Grid.Column="3" Grid.Row="0" Text="Leaves" FontSize="26" Foreground="White" FontWeight="Bold"
-                   Margin="35, 0, 0, 0"/>
-        <TextBlock Grid.Column="4" Grid.Row="0" Text="{Binding SelectedTree, NotifyOnSourceUpdated=True}" 
-                   FontSize="18" Foreground="White" FontWeight="Bold"
-                   Margin="35, 0, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center" FontStyle="Italic"/>
+        <Label Grid.Column="0" Grid.Row="0" Content="Trees" Style="{StaticResource ListHeaderStyle}"/>
+        <Label Grid.Column="3" Grid.Row="0" Content="{Binding SelectedTree, NotifyOnSourceUpdated=True}" 
+               Style="{StaticResource ListHeaderStyle}"/>
 
         <!-- Trees Buttons -->
-        <StackPanel Grid.Column="0" Grid.Row="2">
-            <Button x:Name="CreateNewTreeButton" Content="Create" Style="{StaticResource ButtonStyle}"/>
-            <Button x:Name="ViewTreeButton" Content="View" Style="{StaticResource ButtonStyle}"/>
-            <Button x:Name="DeleteTreeButton" Content="Delete" Style="{StaticResource ButtonStyle}"/>
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <Button x:Name="OpenCreateTreeWindow" Content="Create" Style="{StaticResource ButtonStyle}"/>
+            <Button Command="{Binding ViewTreeCommand}" Content="View" Style="{StaticResource ButtonStyle}"/>
+            <Button Command="{Binding DeleteTreeCommand}" Content="Delete" Style="{StaticResource ButtonStyle}"/>
         </StackPanel>
 
         <!-- Trees List -->
-        <StackPanel Grid.Column="1" Grid.Row="2">
+        <StackPanel Grid.Column="1" Grid.Row="1">
             <ListBox Style="{StaticResource ListStyle}"
                      ItemsSource="{Binding Path=Trees}" SelectedItem="{Binding SelectedTree, Mode=OneWayToSource}"/>
         </StackPanel>
 
         <!-- Leaves Buttons -->
-        <StackPanel Grid.Column="3" Grid.Row="2">
-            <Button x:Name="CreateNewLeafButton" Content="Create" Style="{StaticResource ButtonStyle}"
+        <StackPanel Grid.Column="3" Grid.Row="1">
+            <Button x:Name="OpenCreateLeafWindow" Content="Create" Style="{StaticResource ButtonStyle}"
                     IsEnabled="{Binding CreateLeafButtonEnabled, NotifyOnSourceUpdated=True}"/>
-            <Button x:Name="ViewLeafButton" Content="View" Style="{StaticResource ButtonStyle}"
+            <Button Command="{Binding ViewLeafCommand}" Content="View" Style="{StaticResource ButtonStyle}"
                     IsEnabled="{Binding AddAndRemoveLeafButtonsEnabled, NotifyOnSourceUpdated=True}"/>
-            <Button x:Name="DeleteLeafButton" Content="Delete" Style="{StaticResource ButtonStyle}"
+            <Button Command="{Binding DeleteLeafCommand}" Content="Delete" Style="{StaticResource ButtonStyle}"
                     IsEnabled="{Binding AddAndRemoveLeafButtonsEnabled, NotifyOnSourceUpdated=True}"/>
         </StackPanel>
 
         <!-- Leaves List -->
-        <StackPanel Grid.Column="4" Grid.Row="2">
+        <StackPanel Grid.Column="4" Grid.Row="1">
             <ListBox x:Name="listBoxLeaves" Style="{StaticResource ListStyle}"
                      ItemsSource="{Binding Path=Leaves, NotifyOnSourceUpdated=True}" 
                      SelectedItem="{Binding SelectedLeaf, Mode=OneWayToSource}"/>

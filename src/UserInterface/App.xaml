@@ -16,7 +16,7 @@
                         <Setter Property="FontWeight" Value="Bold"/>
                         <Setter Property="Foreground" Value="White"/>
                         <Setter Property="MaxWidth" Value="100"/>
-                        <Setter Property="Background" Value="#5A5C5F"/>
+                        <Setter Property="Background" Value="ForestGreen"/>
                         <Setter Property="FontFamily" Value="Segoe UI"/>
                         <Setter Property="Margin" Value="0, 0, 0, 15"/>
                         <Setter Property="Template">

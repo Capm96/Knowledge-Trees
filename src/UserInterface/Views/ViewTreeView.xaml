@@ -12,21 +12,26 @@
         WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <StackPanel>
+            <!-- Tree Name -->
             <TextBlock FontSize="35" Margin="0, 20, 0, 35" Foreground="White" 
                        VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Run Text="{Binding TreeName, UpdateSourceTrigger=PropertyChanged}"/>
                 <Run Text="Tree"/>
             </TextBlock>
-            <Button x:Name="UpdateStatistics" Content="Get Statistics" Style="{StaticResource ButtonStyle}"
-                    MinWidth="200" IsEnabled="{Binding StatsButtonEnabled, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Text="{Binding ReportMessage, UpdateSourceTrigger=PropertyChanged}"
+            
+            <!-- Stats Button -->
+            <Button Command="{Binding UpdateStatisticsCommand}"  Style="{StaticResource ButtonStyle}"
+                    MinWidth="200" Content="Get Statistics"/>
+
+            <!-- Report Message -->
+            <TextBlock Text="{Binding StatisticsReportMessage, UpdateSourceTrigger=PropertyChanged}"
                        Margin="0, 25, 0, 0" FontSize="18" Foreground="White" 
                        HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-            <TextBlock Text="{Binding LoadingButtonEnabled, UpdateSourceTrigger=PropertyChanged}"
+
+            <!-- Loading Message -->
+            <TextBlock Text="{Binding LoadingMessage, UpdateSourceTrigger=PropertyChanged}"
                        Margin="0, 25, 0, 0" FontSize="18" Foreground="White" 
                        HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-            <!--<ProgressBar Maximum="100" Value="{Binding CompletedProgressInGettingStatistics}" Height="20"
-                         vis/>-->
         </StackPanel>
     </Grid>
 </Window>

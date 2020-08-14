@@ -5,11 +5,26 @@ namespace Services
 {
     public class FeedbackProvider : IFeedbackProvider
     {
+        #region Fields & Properties
+
         public event EventHandler StateChanged;
 
         public bool WorkCompleted { get; set; }
         public double CompletedProportion { get; set; }
         public string ErrorMessage { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        public FeedbackProvider()
+        {
+
+        }
+
+        #endregion
+
+        #region Methods
 
         public void SetErrorMessage(string message)
         {
@@ -30,5 +45,7 @@ namespace Services
             var handler = StateChanged;
             handler?.Invoke(this, EventArgs.Empty);
         }
+
+        #endregion
     }
 }

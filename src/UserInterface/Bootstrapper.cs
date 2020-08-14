@@ -3,6 +3,7 @@ using Services;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO.Abstractions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,11 +29,8 @@ namespace UserInterface
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
                 .Singleton<IFolderLogicHandler, FolderLogicHandler>()
-                .Singleton<IWordLogicHandler, WordLogicHandler>();
-
-            //_container
-            //    .PerRequest<IFolderLogicHandler, FolderLogicHandler>()
-            //    .PerRequest<IWordLogicHandler, WordLogicHandler>();
+                .Singleton<IWordLogicHandler, WordLogicHandler>()
+                .Singleton<IFileSystem, FileSystem>();
 
             GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass)
