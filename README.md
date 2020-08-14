@@ -1,4 +1,4 @@
-# Knowledge-Trees
+# Knowledge Trees
 
 I try to write about the important things I learn. I used to do this by creating an empty folder in my desktop and populating it with word documents. Each word document would be related to a broad topic, such as History, and within that word document I would write everything I learned about the subject.
 
