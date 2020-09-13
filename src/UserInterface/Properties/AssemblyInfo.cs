@@ -10,9 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("UserInterface")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Willis Towers Watson")]
 [assembly: AssemblyProduct("UserInterface")]
-[assembly: AssemblyCopyright("Copyright © Willis Towers Watson 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
