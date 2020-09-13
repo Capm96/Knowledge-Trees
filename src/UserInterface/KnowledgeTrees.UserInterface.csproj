@@ -181,9 +181,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Services\KnowledgeTrees.Services.csproj">
       <Project>{192D83C7-AE1E-4798-9079-3216910F32F0}</Project>
