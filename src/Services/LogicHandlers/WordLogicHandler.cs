@@ -57,18 +57,15 @@ namespace Services
             {
                 throw new COMException(e.ToString());
             }
-            finally
-            {
-                Dispatcher.DisposeOfWordInstance(wordInstance);
-            }
         }
 
         public Application CreateNewWordInstance()
         {
-            var wordInstance = new Application();
-            wordInstance.Visible = false;
-            wordInstance.DisplayAlerts = WdAlertLevel.wdAlertsNone;
-            return wordInstance;
+            //var wordInstance = new Application();
+            //wordInstance.Visible = false;
+            //wordInstance.DisplayAlerts = WdAlertLevel.wdAlertsNone;
+            //return wordInstance;
+            return WordSingleton.Instance.CreateNewWordInstance();
         }
 
         private void InsertGenericTextOnLeaf(string leafName, string treeName, Document leaf)
@@ -185,7 +182,7 @@ namespace Services
             var leavesInTree = folderLogic.GetAllLeafNamesWithNoExtension(treePath);
 
             // Open an instance of word to open the documents in.
-            var wordInstance = new Application();
+            var wordInstance = WordSingleton.Instance.CreateNewWordInstance();
 
             var statistics = TreeStatsContainerGetter.GetStatisticsContainer();
             foreach (string leaf in leavesInTree)
@@ -206,9 +203,6 @@ namespace Services
 
                 document.Close();
             }
-
-            Dispatcher.DisposeOfWordInstance(wordInstance);
-
             return statistics;
         }
 
