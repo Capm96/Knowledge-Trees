@@ -35,6 +35,10 @@ namespace Services
 
         #region
 
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
+
         public void CreateNewLeaf(string path, string leafName, string treeName)
         {
             // Create word instance.
@@ -132,6 +136,44 @@ namespace Services
             return documentNames;
         }
 
+
+        private Window GetSpecificWordWindow(string targetName)
+        {
+            Window window = null;
+
+            try
+            {
+                if (_wordInstance == null)
+                {
+                    _wordInstance = (Application)Marshal.GetActiveObject("Word.Application") ?? null;
+                }
+
+                // If there are any open windows (documents), get their names.
+                if (_wordInstance.Windows.Count > 0)
+                {
+                    Window wordWindow;
+
+                    for (int i = 0; i < _wordInstance.Windows.Count; i++)
+                    {
+                        object a = i + 1;
+                        wordWindow = _wordInstance.Windows.get_Item(ref a);
+
+                        if(wordWindow.Document.FullName == targetName)
+                        {
+                            window = wordWindow;
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (COMException ex)
+            {
+                //throw new COMException(ex.Message);
+                _wordInstance = CreateNewWordInstance();
+            }
+            return window;
+        }
+
         public void OpenExistingLeaf(string path)
         {
             var openedWordDocuments = GetAllOpenLeavesPaths();
@@ -155,6 +197,11 @@ namespace Services
 
                 _wordInstance.Visible = true;
                 Document wordDocument = _wordInstance.Documents.Open(path);
+
+                Window wordWindow = GetSpecificWordWindow(wordDocument.FullName);
+                IntPtr hwnd = new IntPtr(wordWindow.Hwnd);
+                SetForegroundWindow(hwnd);
+                
             }
             catch (Exception ex)
             {
