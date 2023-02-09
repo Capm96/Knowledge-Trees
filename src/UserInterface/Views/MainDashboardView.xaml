@@ -14,9 +14,7 @@
 
         <!-- List styling -->
         <Style x:Key="ListStyle" TargetType="ListBox">
-            <Setter Property="Margin" Value="10, 0, 0, 0"/>
             <Setter Property="FontSize" Value="18"/>
-            <Setter Property="MinHeight" Value="300"/>
             <Setter Property="Background" Value="WhiteSmoke"/>
             <Setter Property="Foreground" Value="Black"/>
         </Style>
@@ -26,57 +24,110 @@
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="ForestGreen"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Grid.ColumnSpan" Value="2"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
 
-    <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1.5*"/>
-        </Grid.ColumnDefinitions>
+    <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10" />
             <RowDefinition Height="*"/>
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+        
         <!-- Headers -->
-        <Label Grid.Column="0" Grid.Row="0" Content="Trees" Style="{StaticResource ListHeaderStyle}"/>
-        <Label Grid.Column="3" Grid.Row="0" Content="{Binding SelectedTree, NotifyOnSourceUpdated=True}" 
-               Style="{StaticResource ListHeaderStyle}"/>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Label Grid.Column="0" 
+                   Content="Trees" Style="{StaticResource ListHeaderStyle}"/>
+            <Label Grid.Column="2" 
+                   Content="{Binding SelectedTree, NotifyOnSourceUpdated=True}" 
+                   Style="{StaticResource ListHeaderStyle}"/>
+        </Grid>
+        
+       <!-- Trees and Leafs -->
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <!-- Trees Buttons -->
-        <StackPanel Grid.Column="0" Grid.Row="1">
-            <Button x:Name="OpenCreateTreeWindow" Content="Create" Style="{StaticResource ButtonStyle}"/>
-            <Button Command="{Binding ViewTreeCommand}" Content="View" Style="{StaticResource ButtonStyle}"/>
-            <Button Command="{Binding DeleteTreeCommand}" Content="Delete" Style="{StaticResource ButtonStyle}"/>
-        </StackPanel>
+            <!-- Trees -->
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+                
+                <!-- Trees Buttons -->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <Button Grid.Row="0" x:Name="OpenCreateTreeWindow" Content="Create" Style="{StaticResource ButtonStyle}"/>
+                    <Button Grid.Row="2" Command="{Binding ViewTreeCommand}" Content="View" Style="{StaticResource ButtonStyle}"/>
+                    <Button Grid.Row="4" Command="{Binding DeleteTreeCommand}" Content="Delete" Style="{StaticResource ButtonStyle}"/>
+                </Grid>
 
-        <!-- Trees List -->
-        <StackPanel Grid.Column="1" Grid.Row="1">
-            <ListBox Style="{StaticResource ListStyle}"
-                     ItemsSource="{Binding Path=Trees}" SelectedItem="{Binding SelectedTree, Mode=OneWayToSource}"/>
-        </StackPanel>
-
-        <!-- Leaves Buttons -->
-        <StackPanel Grid.Column="3" Grid.Row="1">
-            <Button x:Name="OpenCreateLeafWindow" Content="Create" Style="{StaticResource ButtonStyle}"
+                <!-- Trees List -->
+                <ListBox Grid.Column="2"
+                         Style="{StaticResource ListStyle}" 
+                         ItemsSource="{Binding Path=Trees}" 
+                         SelectedItem="{Binding SelectedTree, Mode=OneWayToSource}"/>
+            </Grid>
+            
+            <!-- Leafs -->
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+                
+                <!-- Leaves Buttons -->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <Button Grid.Row="0" x:Name="OpenCreateLeafWindow" Content="Create" Style="{StaticResource ButtonStyle}"
                     IsEnabled="{Binding CreateLeafButtonEnabled, NotifyOnSourceUpdated=True}"/>
-            <Button Command="{Binding ViewLeafCommand}" Content="View" Style="{StaticResource ButtonStyle}"
+                    <Button Grid.Row="2" Command="{Binding ViewLeafCommand}" Content="View" Style="{StaticResource ButtonStyle}"
                     IsEnabled="{Binding AddAndRemoveLeafButtonsEnabled, NotifyOnSourceUpdated=True}"/>
-            <Button Command="{Binding DeleteLeafCommand}" Content="Delete" Style="{StaticResource ButtonStyle}"
+                    <Button Grid.Row="4" Command="{Binding DeleteLeafCommand}" Content="Delete" Style="{StaticResource ButtonStyle}"
                     IsEnabled="{Binding AddAndRemoveLeafButtonsEnabled, NotifyOnSourceUpdated=True}"/>
-        </StackPanel>
+                </Grid>
 
-        <!-- Leaves List -->
-        <StackPanel Grid.Column="4" Grid.Row="1">
-            <ListBox x:Name="listBoxLeaves" Style="{StaticResource ListStyle}"
-                     ItemsSource="{Binding Path=Leaves, NotifyOnSourceUpdated=True}" 
-                     SelectedItem="{Binding SelectedLeaf, Mode=OneWayToSource}"/>
-        </StackPanel>
+                <!-- Leaves List -->
+                <ListBox Grid.Column="2" 
+                         x:Name="listBoxLeaves" 
+                         Style="{StaticResource ListStyle}"
+                         ItemsSource="{Binding Path=Leaves, NotifyOnSourceUpdated=True}" 
+                         SelectedItem="{Binding SelectedLeaf, Mode=OneWayToSource}"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
