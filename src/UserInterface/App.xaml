@@ -7,22 +7,15 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <Style x:Key="ButtonStyle" TargetType="Button">
-                        <Style.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="5"/>
-                            </Style>
-                        </Style.Resources>
                         <Setter Property="FontSize" Value="18"/>
                         <Setter Property="FontWeight" Value="Bold"/>
                         <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="MaxWidth" Value="100"/>
                         <Setter Property="Background" Value="ForestGreen"/>
                         <Setter Property="FontFamily" Value="Segoe UI"/>
-                        <Setter Property="Margin" Value="0, 0, 0, 15"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1" CornerRadius="0">
                                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                 </ControlTemplate>
